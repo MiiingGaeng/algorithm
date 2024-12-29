@@ -14,21 +14,26 @@
 //33 약수의 개수와 덧셈
 // 두 정수 left와 right가 매개변수로 주어집니다. left부터 right까지의 모든 수들 중에서, 약수의 개수가 짝수인 수는 더하고, 약수의 개수가 홀수인 수는 뺀 수를 return 하도록 solution 함수를 완성해주세요.
 
-function solution(left, right) {
-  let answer = 0;
-  //left ~ right 반복
-  for(let i=left; i<= right; i++){
-      let count = 0;
-      //j = i의 약수
-      for(let j=1; j<=i; j++){
-          if(i%j===0){
-              count ++;
-          }
-      }
+// function solution(left, right) {
+//   let answer = 0;
+//   //left ~ right 반복
+//   for(let i=left; i<= right; i++){
+//       let count = 0;
+//       //j = i의 약수
+//       for(let j=1; j<=i; j++){
+//           if(i%j===0){
+//               count ++;
+//           }
+//       }
       
-      //약수의 수 = 짝수 조건문
-      (count % 2 === 0) ? answer+=i : answer-=i;
-  }
+//       //약수의 수 = 짝수 조건문
+//       (count % 2 === 0) ? answer+=i : answer-=i;
+//   }
   
-  return answer
-}
+//   return answer
+// }
+
+// 다른사람 풀이 = 제곱근이 정수면 약수의 개수가 홀수
+
+//34 문자열 내림차순으로 배치하기
+// 문자열 s에 나타나는 문자를 큰것부터 작은 순으로 정렬해 새로운 문자열을 리턴하는 함수, solution을 완성해주세요. s는 영문 대소문자로만 구성되어 있으며, 대문자는 소문자보다 작은 것으로 간주합니다.
