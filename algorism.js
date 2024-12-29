@@ -41,3 +41,8 @@
 function solution(s) {
   return s.split('').sort().reverse().join('');
 }
+
+//split = 나눠서 배열만들기
+//sort = 오름차순 정렬
+//reverse = 반대로 정렬(즉, 내림차순)
+//join = 문자열로 합치기
