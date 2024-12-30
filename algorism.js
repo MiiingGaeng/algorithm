@@ -63,5 +63,10 @@ function solution(price, money, count) {
       totalPrice += price * i;
   }
   
-  return parseInt(totalPrice - money);
+  //조건문 추가!
+  if(totalPrice > money){
+   return parseInt(totalPrice - money);   
+  } else{
+  return 0;
+  }
 }
