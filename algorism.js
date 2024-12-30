@@ -77,32 +77,34 @@
 // 문자열 s의 길이가 4 혹은 6이고, 숫자로만 구성돼있는지 확인해주는 함수, solution을 완성하세요. 예를 들어 s가 "a234"이면 False를 리턴하고 "1234"라면 True를 리턴하면 됩니다.
 
 //왜 안되지...
-function solution(s) {
-  if(s.length == 4 || s.length == 6){
-    return !Number.isNaN(Number(s))
-  }else{
-    return false;
-  }
-};
+// function solution(s) {
+//   if(s.length == 4 || s.length == 6){
+//     return !Number.isNaN(Number(s))
+//   }else{
+//     return false;
+//   }
+// };
 
-function solution(s) {
-  if(s.length == 4 || s.length == 6){
-    var answer = true;
-    var arr = s.split('');
+// function solution(s) {
+//   if(s.length == 4 || s.length == 6){
+//     var answer = true;
+//     var arr = s.split('');
   
-    for(let i=0; i<arr.length; i++){
-      if(Number.isNaN(Number(arr[i])) === true){
-        answer = false;
-        break;
-      }
-    }
+//     for(let i=0; i<arr.length; i++){
+//       if(Number.isNaN(Number(arr[i])) === true){
+//         answer = false;
+//         break;
+//       }
+//     }
   
-    return answer;
-  } else {
-    return false;
-  }
-}
+//     return answer;
+//   } else {
+//     return false;
+//   }
+// }
 
 
 
-//37 
+//37 행렬의 덧셈
+// 행렬의 덧셈은 행과 열의 크기가 같은 두 행렬의 같은 행, 같은 열의 값을 서로 더한 결과가 됩니다. 2개의 행렬 arr1과 arr2를 입력받아, 행렬 덧셈의 결과를 반환하는 함수, solution을 완성해주세요.
+
