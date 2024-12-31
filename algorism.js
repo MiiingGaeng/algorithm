@@ -137,9 +137,12 @@
 //39 최대공약수와 최대공배수
 // 두 수를 입력받아 두 수의 최대공약수와 최소공배수를 반환하는 함수, solution을 완성해 보세요. 배열의 맨 앞에 최대공약수, 그다음 최소공배수를 넣어 반환하면 됩니다. 예를 들어 두 수 3, 12의 최대공약수는 3, 최소공배수는 12이므로 solution(3, 12)는 [3, 12]를 반환해야 합니다.
 
-function solution(n, m) {
-  //유클리드 호제법
-  const gcd = (a, b) => (a % b === 0 ? b : gcd(b, a % b));
-  const lcm = (a, b) => (a * b) / gcd(a, b);
-  return [gcd(n, m), lcm(n, m)];
-}
+// function solution(n, m) {
+//   //유클리드 호제법
+//   const gcd = (a, b) => (a % b === 0 ? b : gcd(b, a % b));
+//   const lcm = (a, b) => (a * b) / gcd(a, b);
+//   return [gcd(n, m), lcm(n, m)];
+// }
+
+//40 3진법 뒤집기
+// 자연수 n이 매개변수로 주어집니다. n을 3진법 상에서 앞뒤로 뒤집은 후, 이를 다시 10진법으로 표현한 수를 return 하도록 solution 함수를 완성해주세요.
