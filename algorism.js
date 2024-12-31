@@ -119,17 +119,20 @@
 //38 직사각형 별찍기
 // 이 문제에는 표준 입력으로 두 개의 정수 n과 m이 주어집니다. 별(*) 문자를 이용해 가로의 길이가 n, 세로의 길이가 m인 직사각형 형태를 출력해보세요.
 
-process.stdin.setEncoding('utf8');
-process.stdin.on('data', (data) => {
-  //data = n,m
-  const num = data.split(' ');
-  //n과 m 값을 숫자로
-  const a = Number(num[0]),
-    b = Number(num[1]);
+// process.stdin.setEncoding('utf8');
+// process.stdin.on('data', (data) => {
+//   //data = n,m
+//   const num = data.split(' ');
+//   //n과 m 값을 숫자로
+//   const a = Number(num[0]),
+//     b = Number(num[1]);
 
-  //세로값(m) 반복
-  for (let i = 0; i < b; i++) {
-    //가로값(n)만큼 별 출력
-    console.log('*'.repeat(a));
-  }
-});
+//   //세로값(m) 반복
+//   for (let i = 0; i < b; i++) {
+//     //가로값(n)만큼 별 출력
+//     console.log('*'.repeat(a));
+//   }
+// });
+
+//39 최대공약수와 최대공배수
+// 두 수를 입력받아 두 수의 최대공약수와 최소공배수를 반환하는 함수, solution을 완성해 보세요. 배열의 맨 앞에 최대공약수, 그다음 최소공배수를 넣어 반환하면 됩니다. 예를 들어 두 수 3, 12의 최대공약수는 3, 최소공배수는 12이므로 solution(3, 12)는 [3, 12]를 반환해야 합니다.
