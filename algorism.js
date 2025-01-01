@@ -176,16 +176,19 @@
 //과제2 반복문,조건문 연습
 // 어떤 정수들이 있습니다. 이 정수들의 절댓값을 차례대로 담은 정수 배열 absolutes와 이 정수들의 부호를 차례대로 담은 불리언 배열 signs가 매개변수로 주어집니다. 실제 정수들의 합을 구하여 return 하도록 solution 함수를 완성해주세요.
 
-function solution(abs, signs) {
-  var answer = 0;
+// function solution(abs, signs) {
+//   var answer = 0;
 
-  for (let i = 0; i < abs.length; i++) {
-    if (signs[i] === true) {
-      answer += abs[i];
-    } else {
-      answer -= abs[i];
-    }
-  }
+//   for (let i = 0; i < abs.length; i++) {
+//     if (signs[i] === true) {
+//       answer += abs[i];
+//     } else {
+//       answer -= abs[i];
+//     }
+//   }
 
-  return answer;
-}
+//   return answer;
+// }
+
+//41 이상한 문자 만들기
+// 문자열 s는 한 개 이상의 단어로 구성되어 있습니다. 각 단어는 하나 이상의 공백문자로 구분되어 있습니다. 각 단어의 짝수번째 알파벳은 대문자로, 홀수번째 알파벳은 소문자로 바꾼 문자열을 리턴하는 함수, solution을 완성하세요.
