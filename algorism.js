@@ -248,21 +248,24 @@
 //43 크기가 작은 문자열
 //숫자로 이루어진 문자열 t와 p가 주어질 때, t에서 p와 길이가 같은 부분문자열 중에서, 이 부분문자열이 나타내는 수가 p가 나타내는 수보다 작거나 같은 것이 나오는 횟수를 return하는 함수 solution을 완성하세요.예를 들어, t="3141592"이고 p="271" 인 경우, t의 길이가 3인 부분 문자열은 314, 141, 415, 159, 592입니다. 이 문자열이 나타내는 수 중 271보다 작거나 같은 수는 141, 159 2개 입니다.
 
-function solution(t, p) {
-  let answer = [];
-  let numP = Number(p);
-  let pLth = p.length;
-  let tLth = t.length;
+// function solution(t, p) {
+//   let answer = [];
+//   let numP = Number(p);
+//   let pLth = p.length;
+//   let tLth = t.length;
 
-  //tLth - pLth + 1 하는 이유 = tLth 마지막 글자까지 i가 도는걸 방지
-  for (let i = 0; i < tLth - pLth + 1; i++) {
-    let sliceT = t.slice(i, i + pLth);
-    let numT = Number(sliceT);
+//   //tLth - pLth + 1 하는 이유 = tLth 마지막 글자까지 i가 도는걸 방지
+//   for (let i = 0; i < tLth - pLth + 1; i++) {
+//     let sliceT = t.slice(i, i + pLth);
+//     let numT = Number(sliceT);
 
-    if (numT <= numP) {
-      answer.push(numT);
-    }
-  }
+//     if (numT <= numP) {
+//       answer.push(numT);
+//     }
+//   }
 
-  return answer.length;
-}
+//   return answer.length;
+// }
+
+//44 최소직사각형
+// 명함 지갑을 만드는 회사에서 지갑의 크기를 정하려고 합니다. 다양한 모양과 크기의 명함들을 모두 수납할 수 있으면서, 작아서 들고 다니기 편한 지갑을 만들어야 합니다. 이러한 요건을 만족하는 지갑을 만들기 위해 디자인팀은 모든 명함의 가로 길이와 세로 길이를 조사했습니다. 모든 명함의 가로 길이와 세로 길이를 나타내는 2차원 배열 sizes가 매개변수로 주어집니다. 모든 명함을 수납할 수 있는 가장 작은 지갑을 만들 때, 지갑의 크기를 return 하도록 solution 함수를 완성해주세요.
