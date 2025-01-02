@@ -287,25 +287,28 @@
 //45 시저암호
 // 어떤 문장의 각 알파벳을 일정한 거리만큼 밀어서 다른 알파벳으로 바꾸는 암호화 방식을 시저 암호라고 합니다. 예를 들어 "AB"는 1만큼 밀면 "BC"가 되고, 3만큼 밀면 "DE"가 됩니다. "z"는 1만큼 밀면 "a"가 됩니다. 문자열 s와 거리 n을 입력받아 s를 n만큼 민 암호문을 만드는 함수, solution을 완성해 보세요.
 
-function solution(s, n) {
-  const low = 'abcdefghijklmnopqrstuvwxyz';
-  const up = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+// function solution(s, n) {
+//   const low = 'abcdefghijklmnopqrstuvwxyz';
+//   const up = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-  let arrS = s.split('');
-  let answer = [];
+//   let arrS = s.split('');
+//   let answer = [];
 
-  for (let i = 0; i < arrS.length; i++) {
-    let char = arrS[i];
-    if (low.includes(char)) {
-      const lowIndex = (low.indexOf(char) + n) % 26;
-      answer.push(low[lowIndex]);
-    } else if (up.includes(char)) {
-      const upIndex = (up.indexOf(char) + n) % 26;
-      answer.push(up[upIndex]);
-    } else {
-      answer.push(' ');
-    }
-  }
+//   for (let i = 0; i < arrS.length; i++) {
+//     let char = arrS[i];
+//     if (low.includes(char)) {
+//       const lowIndex = (low.indexOf(char) + n) % 26;
+//       answer.push(low[lowIndex]);
+//     } else if (up.includes(char)) {
+//       const upIndex = (up.indexOf(char) + n) % 26;
+//       answer.push(up[upIndex]);
+//     } else {
+//       answer.push(' ');
+//     }
+//   }
 
-  return answer.join('');
-}
+//   return answer.join('');
+// }
+
+//45 숫자 문자열과 영단어
+//네오와 프로도가 숫자놀이를 하고 있습니다. 네오가 프로도에게 숫자를 건넬 때 일부 자릿수를 영단어로 바꾼 카드를 건네주면 프로도는 원래 숫자를 찾는 게임입니다.이렇게 숫자의 일부 자릿수가 영단어로 바뀌어졌거나, 혹은 바뀌지 않고 그대로인 문자열 s가 매개변수로 주어집니다. s가 의미하는 원래 숫자를 return 하도록 solution 함수를 완성해주세요.
