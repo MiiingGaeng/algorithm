@@ -399,11 +399,15 @@
 //배열 두배 만들기
 // 정수 배열 numbers가 매개변수로 주어집니다. numbers의 각 원소에 두배한 원소를 가진 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(numbers) {
-  let answer = [];
-  numbers.forEach((number) => {
-    answer.push(number * 2);
-  });
+// function solution(numbers) {
+//   let answer = [];
+//   numbers.forEach((number) => {
+//     answer.push(number * 2);
+//   });
 
-  return answer;
-}
+//   return answer;
+// }
+
+//프로그래머스 3일차
+//나머지 구하기
+//정수 num1, num2가 매개변수로 주어질 때, num1를 num2로 나눈 나머지를 return 하도록 solution 함수를 완성해주세요.
