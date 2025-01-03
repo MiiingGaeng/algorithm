@@ -412,6 +412,34 @@
 //나머지 구하기
 //정수 num1, num2가 매개변수로 주어질 때, num1를 num2로 나눈 나머지를 return 하도록 solution 함수를 완성해주세요.
 
-function solution(num1, num2) {
-  return num1 % num2;
-}
+// function solution(num1, num2) {
+//   return num1 % num2;
+// }
+
+//과제4 나이든 유저
+// 가장 아래의 코드가 실행 되었을 때, “Passed ~” 가 출력되도록 getAge 함수를 채워주세요
+
+var user = {
+  name: 'john',
+  age: 20,
+};
+
+var getAged = function (user, passedTime) {
+  // 여기를 작성해 주세요!
+};
+
+var agedUser = getAged(user, 6);
+
+var agedUserMustBeDifferentFromUser = function (user1, user2) {
+  if (!user2) {
+    console.log("Failed! user2 doesn't exist!");
+  } else if (user1 !== user2) {
+    console.log(
+      'Passed! If you become older, you will be different from you in the past!'
+    );
+  } else {
+    console.log('Failed! User same with past one');
+  }
+};
+
+agedUserMustBeDifferentFromUser(user, agedUser);
