@@ -469,14 +469,17 @@
 //중앙값 구하기
 //중앙값은 어떤 주어진 값들을 크기의 순서대로 정렬했을 때 가장 중앙에 위치하는 값을 의미합니다. 예를 들어 1, 2, 7, 10, 11의 중앙값은 7입니다. 정수 배열 array가 매개변수로 주어질 때, 중앙값을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(array) {
-  array = array.sort((a, b) => a - b);
-  let centerNum = Math.round(array.length / 2);
+// function solution(array) {
+//   array = array.sort((a, b) => a - b);
+//   let centerNum = Math.round(array.length / 2);
 
-  return array[centerNum - 1];
-}
+//   return array[centerNum - 1];
+// }
 
-//한줄로 줄여보기!
-function solution(array) {
-  return array.sort((a, b) => a - b)[Math.floor(array.length / 2)];
-}
+// //한줄로 줄여보기!
+// function solution(array) {
+//   return array.sort((a, b) => a - b)[Math.floor(array.length / 2)];
+// }
+
+//최빈값 구하기
+// 최빈값은 주어진 값 중에서 가장 자주 나오는 값을 의미합니다. 정수 배열 array가 매개변수로 주어질 때, 최빈값을 return 하도록 solution 함수를 완성해보세요. 최빈값이 여러 개면 -1을 return 합니다.
