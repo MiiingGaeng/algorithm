@@ -419,30 +419,39 @@
 //과제4 나이든 유저
 // 가장 아래의 코드가 실행 되었을 때, “Passed ~” 가 출력되도록 getAge 함수를 채워주세요
 
-// var user = {
-//   name: 'john',
-//   age: 20,
-// };
+var user = {
+  name: 'john',
+  age: 20,
+};
 
-// var getAged = function (user, passedTime) {
-//   // 여기를 작성해 주세요!
-// };
+var getAged = function (user, passedTime) {
+  //빈 객체 생성 후 user 객체 복사
+  let other = {};
+  for (let index in user) {
+    other[index] = user[index];
+  }
 
-// var agedUser = getAged(user, 6);
+  //other유저의 나이에 passedTime 더하기
+  other.age += passedTime;
+  //더한 나이의 유저 반환
+  return other;
+};
 
-// var agedUserMustBeDifferentFromUser = function (user1, user2) {
-//   if (!user2) {
-//     console.log("Failed! user2 doesn't exist!");
-//   } else if (user1 !== user2) {
-//     console.log(
-//       'Passed! If you become older, you will be different from you in the past!'
-//     );
-//   } else {
-//     console.log('Failed! User same with past one');
-//   }
-// };
+var agedUser = getAged(user, 6);
 
-// agedUserMustBeDifferentFromUser(user, agedUser);
+var agedUserMustBeDifferentFromUser = function (user1, user2) {
+  if (!user2) {
+    console.log("Failed! user2 doesn't exist!");
+  } else if (user1 !== user2) {
+    console.log(
+      'Passed! If you become older, you will be different from you in the past!'
+    );
+  } else {
+    console.log('Failed! User same with past one');
+  }
+};
+
+agedUserMustBeDifferentFromUser(user, agedUser);
 
 //48 K번째수
 // 배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다. 예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면 array의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다. 1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다. 2에서 나온 배열의 3번째 숫자는 5입니다. 배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때, commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.
@@ -484,27 +493,27 @@
 //최빈값 구하기
 // 최빈값은 주어진 값 중에서 가장 자주 나오는 값을 의미합니다. 정수 배열 array가 매개변수로 주어질 때, 최빈값을 return 하도록 solution 함수를 완성해보세요. 최빈값이 여러 개면 -1을 return 합니다.
 
-function solution(array) {
-  if (array.length <= 1) return array[0];
+// function solution(array) {
+//   if (array.length <= 1) return array[0];
 
-  const obj = {};
-  const answer = [];
+//   const obj = {};
+//   const answer = [];
 
-  //obj에 key=해당숫자 / value=개수 쌍 넣기
-  array.forEach((num) => {
-    obj[num] = ++obj[num] || +1;
-  });
-  //obj key-value 객체로 넣기
-  for (let key in obj) {
-    answer.push([key, obj[key]]);
-  }
-  //answer 개수 많은 순으로 정렬
-  answer.sort((a, b) => b[1] - a[1]);
-  //최빈값 여러개일 때 -1 반환
-  if (answer.length > 1 && answer[0][1] === answer[1][1]) return -1;
-  //최빈값 1개일 때 해당숫자 반환
-  return Number(answer[0][0]);
-}
+//   //obj에 key=해당숫자 / value=개수 쌍 넣기
+//   array.forEach((num) => {
+//     obj[num] = ++obj[num] || +1;
+//   });
+//   //obj key-value 객체로 넣기
+//   for (let key in obj) {
+//     answer.push([key, obj[key]]);
+//   }
+//   //answer 개수 많은 순으로 정렬
+//   answer.sort((a, b) => b[1] - a[1]);
+//   //최빈값 여러개일 때 -1 반환
+//   if (answer.length > 1 && answer[0][1] === answer[1][1]) return -1;
+//   //최빈값 1개일 때 해당숫자 반환
+//   return Number(answer[0][0]);
+// }
 
 //짝수는 싫어요
 // 정수 n이 매개변수로 주어질 때, n 이하의 홀수가 오름차순으로 담긴 배열을 return하도록 solution 함수를 완성해주세요.
