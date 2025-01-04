@@ -484,17 +484,39 @@
 //최빈값 구하기
 // 최빈값은 주어진 값 중에서 가장 자주 나오는 값을 의미합니다. 정수 배열 array가 매개변수로 주어질 때, 최빈값을 return 하도록 solution 함수를 완성해보세요. 최빈값이 여러 개면 -1을 return 합니다.
 
+function solution(array) {
+  if (array.length <= 1) return array[0];
+
+  const obj = {};
+  const answer = [];
+
+  //obj에 key=해당숫자 / value=개수 쌍 넣기
+  array.forEach((num) => {
+    obj[num] = ++obj[num] || +1;
+  });
+  //obj key-value 객체로 넣기
+  for (let key in obj) {
+    answer.push([key, obj[key]]);
+  }
+  //answer 개수 많은 순으로 정렬
+  answer.sort((a, b) => b[1] - a[1]);
+  //최빈값 여러개일 때 -1 반환
+  if (answer.length > 1 && answer[0][1] === answer[1][1]) return -1;
+  //최빈값 1개일 때 해당숫자 반환
+  return Number(answer[0][0]);
+}
+
 //짝수는 싫어요
 // 정수 n이 매개변수로 주어질 때, n 이하의 홀수가 오름차순으로 담긴 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(n) {
-  var answer = [];
+// function solution(n) {
+//   var answer = [];
 
-  for (let i = 1; i <= n; i++) {
-    if (i % 2 === 1) {
-      answer.push(i);
-    }
-  }
+//   for (let i = 1; i <= n; i++) {
+//     if (i % 2 === 1) {
+//       answer.push(i);
+//     }
+//   }
 
-  return answer;
-}
+//   return answer;
+// }
