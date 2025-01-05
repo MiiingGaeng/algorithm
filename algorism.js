@@ -588,17 +588,34 @@
 //49 두 개 뽑아서 더하기
 // 정수 배열 numbers가 주어집니다. numbers에서 서로 다른 인덱스에 있는 두 개의 수를 뽑아 더해서 만들 수 있는 모든 수를 배열에 오름차순으로 담아 return 하도록 solution 함수를 완성해주세요.
 
-function solution(numbers) {
-  //중복값 없애기 = Set 활용
-  let answer = new Set();
+// function solution(numbers) {
+//   //중복값 없애기 = Set 활용
+//   let answer = new Set();
 
-  //[i] + [j] 더한 값 set에 add하기
-  for (let i = 0; i < numbers.length; i++) {
-    for (let j = i + 1; j < numbers.length; j++) {
-      answer.add(numbers[i] + numbers[j]);
-    }
+//   //[i] + [j] 더한 값 set에 add하기
+//   for (let i = 0; i < numbers.length; i++) {
+//     for (let j = i + 1; j < numbers.length; j++) {
+//       answer.add(numbers[i] + numbers[j]);
+//     }
+//   }
+
+//   //set을 배열로 만들기 + 정렬
+//   return Array.from(answer).sort((a, b) => a - b);
+// }
+
+//프로그래머스 4일차
+//세균증식
+// 어떤 세균은 1시간에 두배만큼 증식한다고 합니다. 처음 세균의 마리수 n과 경과한 시간 t가 매개변수로 주어질 때 t시간 후 세균의 수를 return하도록 solution 함수를 완성해주세요.
+
+function solution(n, t) {
+  for (let i = 1; i <= t; i++) {
+    n *= 2;
   }
 
-  //set을 배열로 만들기 + 정렬
-  return Array.from(answer).sort((a, b) => a - b);
+  return n;
+}
+
+//다른사람 풀이
+function solution(n, t) {
+  return n * Math.pow(2, t); // Math.pow(2, t)는 2의 t승을 계산하는 함수
 }
