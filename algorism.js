@@ -419,39 +419,39 @@
 //과제4 나이든 유저
 // 가장 아래의 코드가 실행 되었을 때, “Passed ~” 가 출력되도록 getAge 함수를 채워주세요
 
-var user = {
-  name: 'john',
-  age: 20,
-};
+// var user = {
+//   name: 'john',
+//   age: 20,
+// };
 
-var getAged = function (user, passedTime) {
-  //빈 객체 생성 후 user 객체 복사
-  let other = {};
-  for (let index in user) {
-    other[index] = user[index];
-  }
+// var getAged = function (user, passedTime) {
+//   //빈 객체 생성 후 user 객체 복사
+//   let other = {};
+//   for (let index in user) {
+//     other[index] = user[index];
+//   }
 
-  //other유저의 나이에 passedTime 더하기
-  other.age += passedTime;
-  //더한 나이의 유저 반환
-  return other;
-};
+//   //other유저의 나이에 passedTime 더하기
+//   other.age += passedTime;
+//   //더한 나이의 유저 반환
+//   return other;
+// };
 
-var agedUser = getAged(user, 6);
+// var agedUser = getAged(user, 6);
 
-var agedUserMustBeDifferentFromUser = function (user1, user2) {
-  if (!user2) {
-    console.log("Failed! user2 doesn't exist!");
-  } else if (user1 !== user2) {
-    console.log(
-      'Passed! If you become older, you will be different from you in the past!'
-    );
-  } else {
-    console.log('Failed! User same with past one');
-  }
-};
+// var agedUserMustBeDifferentFromUser = function (user1, user2) {
+//   if (!user2) {
+//     console.log("Failed! user2 doesn't exist!");
+//   } else if (user1 !== user2) {
+//     console.log(
+//       'Passed! If you become older, you will be different from you in the past!'
+//     );
+//   } else {
+//     console.log('Failed! User same with past one');
+//   }
+// };
 
-agedUserMustBeDifferentFromUser(user, agedUser);
+// agedUserMustBeDifferentFromUser(user, agedUser);
 
 //48 K번째수
 // 배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다. 예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면 array의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다. 1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다. 2에서 나온 배열의 3번째 숫자는 5입니다. 배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때, commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.
@@ -529,3 +529,61 @@ agedUserMustBeDifferentFromUser(user, agedUser);
 
 //   return answer;
 // }
+
+//과제5 어떤 매치가 성사될까
+// 출력의 결과를 제출해주세요, 그리고 그 이유를 최대한 상세히 설명해주세요
+// var fullname = 'Ciryl Gane';
+
+// var fighter = {
+//   fullname: 'John Jones',
+//   opponent: {
+//     fullname: 'Francis Ngannou',
+//     getFullname: function () {
+//       console.log(this); //{ opponent }
+//       return this.fullname;
+//     },
+//   },
+
+//   getName: function () {
+//     console.log(this); //{ fighter }
+//     return this.fullname;
+//   },
+
+//   getFirstName: () => {
+//     console.log(this); //{ window }
+//     return this.fullname.split(' ')[0];
+//   },
+
+//   getLastName: (function () {
+//     return this.fullname.split(' ')[1];
+//   })(),
+// };
+
+// console.log('Not', fighter.opponent.getFullname(), 'VS', fighter.getName());
+// console.log(
+//   'It is',
+//   fighter.getName(),
+//   'VS',
+//   fighter.getFirstName(),
+//   fighter.getLastName
+// );
+
+//출력결과
+// Not Francis Ngannou VS John Jones
+// It is John Jones VS Ciryl Gane
+
+//이유
+// fighter.opponent.getFullname() = Francis Ngannou
+// getFullname()은 opponent의 메서드로 호출됐기 때문에, opponent의 fullname의 value인 'Francis Ngannou'를 반환한다.
+
+// fighter.getName() = John Jones
+// getName() 또한 fighter의 메서드로 호출됐기 때문에, fighter의 fullname의 value인 'John Jones'를 반환한다.
+
+// fighter.getFirstName() = Ciryl
+// 화살표 함수는 this 바인딩을 하지 않는다. 즉, 화살표 함수의 this는 상위의 this를 바라보기 때문에, getFirstName의 this는 전역객체를 바인딩한다. 따라서 getFirstName()은 'Ciryl'을 반환한다.
+
+// fighter.getLastName = Gane
+// fighter는 getLastName의 호출주체가 아니기 때문에, getLastName의 함수는 함수로서 호출되었다. 즉, getLastName의 this는 전역객체를 바인딩하기 때문에 'Gane'을 반환한다.
+
+//49 두 개 뽑아서 더하기
+// 정수 배열 numbers가 주어집니다. numbers에서 서로 다른 인덱스에 있는 두 개의 수를 뽑아 더해서 만들 수 있는 모든 수를 배열에 오름차순으로 담아 return 하도록 solution 함수를 완성해주세요.
