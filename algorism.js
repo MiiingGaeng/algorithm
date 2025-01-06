@@ -708,23 +708,43 @@
 // }
 
 //점의 위치 구하기
-function solution(dot) {
-  let sign1 = Math.sign(dot[0]);
-  let sign2 = Math.sign(dot[1]);
+// function solution(dot) {
+//   let sign1 = Math.sign(dot[0]);
+//   let sign2 = Math.sign(dot[1]);
 
-  if (sign1 === 1 && sign2 === 1) {
-    return 1;
-  } else if (sign1 === 1 && sign2 === -1) {
-    return 4;
-  } else if (sign1 === -1 && sign2 === 1) {
-    return 2;
-  } else {
-    return 3;
-  }
+//   if (sign1 === 1 && sign2 === 1) {
+//     return 1;
+//   } else if (sign1 === 1 && sign2 === -1) {
+//     return 4;
+//   } else if (sign1 === -1 && sign2 === 1) {
+//     return 2;
+//   } else {
+//     return 3;
+//   }
+// }
+
+// //다른 사람 풀이
+// function solution(dot) {
+//   return dot[0] > 0 ? (dot[1] > 0 ? 1 : 4) : dot[1] > 0 ? 2 : 3;
+// }
+// //삼항연산자 중첩으로 사용 가능!!
+
+//모음 제거
+function solution(string) {
+  let answer = [];
+  const vowel = ['a', 'e', 'i', 'o', 'u'];
+  string = [...string];
+  string.filter((char) => {
+    if (!vowel.includes(char)) answer.push(char);
+  });
+
+  return answer.join('');
 }
+//필터 제대로 써먹지 못함..ㅠ
 
 //다른 사람 풀이
-function solution(dot) {
-  return dot[0] > 0 ? (dot[1] > 0 ? 1 : 4) : dot[1] > 0 ? 2 : 3;
+function solution(my_string) {
+  return Array.from(my_string)
+    .filter((t) => !['a', 'e', 'i', 'o', 'u'].includes(t))
+    .join('');
 }
-//삼항연산자 중첩으로 사용 가능!!
