@@ -755,30 +755,103 @@
 // 예를 들어, 3가지의 음식이 준비되어 있으며, 칼로리가 적은 순서대로 1번 음식을 3개, 2번 음식을 4개, 3번 음식을 6개 준비했으며, 물을 편의상 0번 음식이라고 칭한다면, 두 선수는 1번 음식 1개, 2번 음식 2개, 3번 음식 3개씩을 먹게 되므로 음식의 배치는 "1223330333221"이 됩니다. 따라서 1번 음식 1개는 대회에 사용하지 못합니다.
 // 수웅이가 준비한 음식의 양을 칼로리가 적은 순서대로 나타내는 정수 배열 food가 주어졌을 때, 대회를 위한 음식의 배치를 나타내는 문자열을 return 하는 solution 함수를 완성해주세요.
 
-function solution(food) {
-  let answer = '';
+// function solution(food) {
+//   let answer = '';
 
-  for (let i = 0; i < food.length; i++) {
-    //2로 나눈 몫 = count 숫자 구하기
-    let count = Math.floor(food[i] / 2);
-    for (let j = 0; j < count; j++) {
-      //j(count)개 만큼 i(123)추가
-      answer += i;
-    }
-  }
-  //문자열 뒤집어서 붙이기
-  let reverse = answer.split('').reverse().join('');
-  return answer + '0' + reverse;
+//   for (let i = 0; i < food.length; i++) {
+//     //2로 나눈 몫 = count 숫자 구하기
+//     let count = Math.floor(food[i] / 2);
+//     for (let j = 0; j < count; j++) {
+//       //j(count)개 만큼 i(123)추가
+//       answer += i;
+//     }
+//   }
+//   //문자열 뒤집어서 붙이기
+//   let reverse = answer.split('').reverse().join('');
+//   return answer + '0' + reverse;
+// }
+
+// //다른 사람 풀이
+
+// function solution(food) {
+//   let answer = '';
+//   for (let i = 0; i < food.length; i++) {
+//     let count = Math.floor(food[i] / 2);
+//     answer += i.toString().repeat(count);
+//   }
+
+//   return answer + 0 + [...answer].reverse().join('');
+// }
+
+//6일차
+//배열 뒤집기
+//정수가 들어 있는 배열 num_list가 매개변수로 주어집니다. num_list의 원소의 순서를 거꾸로 뒤집은 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(num_list) {
+  return num_list.reverse();
 }
 
-//다른 사람 풀이
+//배열 자르기
+//정수 배열 numbers와 정수 num1, num2가 매개변수로 주어질 때, numbers의 num1번 째 인덱스부터 num2번째 인덱스까지 자른 정수 배열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(food) {
-  let answer = '';
-  for (let i = 0; i < food.length; i++) {
-    let count = Math.floor(food[i] / 2);
-    answer += i.toString().repeat(count);
-  }
+function solution(numbers, num1, num2) {
+  return numbers.slice(num1, num2 + 1);
+}
 
-  return answer + 0 + [...answer].reverse().join('');
+//특정 문자 제거하기
+//문자열 my_string과 문자 letter이 매개변수로 주어집니다. my_string에서 letter를 제거한 문자열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(my_string, letter) {
+  return my_string.replaceAll(letter, '');
+}
+
+//피자 나눠 먹기 3
+//머쓱이네 피자가게는 피자를 두 조각에서 열 조각까지 원하는 조각 수로 잘라줍니다. 피자 조각 수 slice와 피자를 먹는 사람의 수 n이 매개변수로 주어질 때, n명의 사람이 최소 한 조각 이상 피자를 먹으려면 최소 몇 판의 피자를 시켜야 하는지를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(slice, n) {
+  return Math.ceil(n / slice);
+}
+
+//머쓱이보다 키큰 사람
+// 머쓱이는 학교에서 키 순으로 줄을 설 때 몇 번째로 서야 하는지 궁금해졌습니다. 머쓱이네 반 친구들의 키가 담긴 정수 배열 array와 머쓱이의 키 height가 매개변수로 주어질 때, 머쓱이보다 키 큰 사람 수를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(array, height) {
+  const taller = [];
+  array.forEach((arr) => {
+    if (arr > height) taller.push(arr);
+  });
+
+  return taller.length;
+}
+
+//중복된 숫자개수
+//정수가 담긴 배열 array와 정수 n이 매개변수로 주어질 때, array에 n이 몇 개 있는 지를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(array, n) {
+  const answer = [];
+  array.filter((num) => {
+    if (num === n) answer.push(num);
+  });
+
+  return answer.length;
+}
+
+//피자 나눠 먹기 1
+//머쓱이네 피자가게는 피자를 일곱 조각으로 잘라 줍니다. 피자를 나눠먹을 사람의 수 n이 주어질 때, 모든 사람이 피자를 한 조각 이상 먹기 위해 필요한 피자의 수를 return 하는 solution 함수를 완성해보세요.
+
+function solution(n) {
+  return Math.ceil(n / 7);
+}
+
+//옷가게 할인 받기
+//머쓱이네 옷가게는 10만 원 이상 사면 5%, 30만 원 이상 사면 10%, 50만 원 이상 사면 20%를 할인해줍니다. 구매한 옷의 가격 price가 주어질 때, 지불해야 할 금액을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(price) {
+  return price >= 500000
+    ? parseInt(price * 0.8)
+    : price >= 300000
+    ? parseInt(price * 0.9)
+    : price >= 100000
+    ? parseInt(price * 0.95)
+    : price;
 }
