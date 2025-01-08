@@ -937,3 +937,39 @@ function solution(num_list) {
 
   return [even, odd];
 }
+
+//문자열 안에 문자열
+//문자열 str1, str2가 매개변수로 주어집니다. str1 안에 str2가 있다면 1을 없다면 2를 return하도록 solution 함수를 완성해주세요.
+
+function solution(str1, str2) {
+  return str1.includes(str2) ? 1 : 2;
+}
+
+//최댓값 만들기
+//정수 배열 numbers가 매개변수로 주어집니다. numbers의 원소 중 두 개를 곱해 만들 수 있는 최댓값을 return하도록 solution 함수를 완성해주세요.
+
+function solution(numbers) {
+  numbers = numbers.sort((a, b) => a - b);
+  let maxIndex = numbers.length - 1;
+
+  return numbers[maxIndex] * numbers[maxIndex - 1];
+}
+
+//다른 사람 풀이
+//내림차순으로 하면 더 쉽게 접근할 수 있다!
+function solution(numbers) {
+  numbers.sort((a, b) => b - a);
+  return numbers[0] * numbers[1];
+}
+
+//배열의 유사도
+//두 배열이 얼마나 유사한지 확인해보려고 합니다. 문자열 배열 s1과 s2가 주어질 때 같은 원소의 개수를 return하도록 solution 함수를 완성해주세요.
+
+function solution(s1, s2) {
+  let count = 0;
+  s1.map((item) => {
+    if (s2.includes(item)) count++;
+  });
+
+  return count;
+}
