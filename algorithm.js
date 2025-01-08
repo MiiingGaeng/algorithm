@@ -787,71 +787,142 @@
 //배열 뒤집기
 //정수가 들어 있는 배열 num_list가 매개변수로 주어집니다. num_list의 원소의 순서를 거꾸로 뒤집은 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(num_list) {
-  return num_list.reverse();
-}
+// function solution(num_list) {
+//   return num_list.reverse();
+// }
 
 //배열 자르기
 //정수 배열 numbers와 정수 num1, num2가 매개변수로 주어질 때, numbers의 num1번 째 인덱스부터 num2번째 인덱스까지 자른 정수 배열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(numbers, num1, num2) {
-  return numbers.slice(num1, num2 + 1);
-}
+// function solution(numbers, num1, num2) {
+//   return numbers.slice(num1, num2 + 1);
+// }
 
 //특정 문자 제거하기
 //문자열 my_string과 문자 letter이 매개변수로 주어집니다. my_string에서 letter를 제거한 문자열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(my_string, letter) {
-  return my_string.replaceAll(letter, '');
-}
+// function solution(my_string, letter) {
+//   return my_string.replaceAll(letter, '');
+// }
 
 //피자 나눠 먹기 3
 //머쓱이네 피자가게는 피자를 두 조각에서 열 조각까지 원하는 조각 수로 잘라줍니다. 피자 조각 수 slice와 피자를 먹는 사람의 수 n이 매개변수로 주어질 때, n명의 사람이 최소 한 조각 이상 피자를 먹으려면 최소 몇 판의 피자를 시켜야 하는지를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(slice, n) {
-  return Math.ceil(n / slice);
-}
+// function solution(slice, n) {
+//   return Math.ceil(n / slice);
+// }
 
 //머쓱이보다 키큰 사람
 // 머쓱이는 학교에서 키 순으로 줄을 설 때 몇 번째로 서야 하는지 궁금해졌습니다. 머쓱이네 반 친구들의 키가 담긴 정수 배열 array와 머쓱이의 키 height가 매개변수로 주어질 때, 머쓱이보다 키 큰 사람 수를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(array, height) {
-  const taller = [];
-  array.forEach((arr) => {
-    if (arr > height) taller.push(arr);
-  });
+// function solution(array, height) {
+//   const taller = [];
+//   array.forEach((arr) => {
+//     if (arr > height) taller.push(arr);
+//   });
 
-  return taller.length;
-}
+//   return taller.length;
+// }
 
 //중복된 숫자개수
 //정수가 담긴 배열 array와 정수 n이 매개변수로 주어질 때, array에 n이 몇 개 있는 지를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(array, n) {
-  const answer = [];
-  array.filter((num) => {
-    if (num === n) answer.push(num);
-  });
+// function solution(array, n) {
+//   const answer = [];
+//   array.filter((num) => {
+//     if (num === n) answer.push(num);
+//   });
 
-  return answer.length;
-}
+//   return answer.length;
+// }
 
 //피자 나눠 먹기 1
 //머쓱이네 피자가게는 피자를 일곱 조각으로 잘라 줍니다. 피자를 나눠먹을 사람의 수 n이 주어질 때, 모든 사람이 피자를 한 조각 이상 먹기 위해 필요한 피자의 수를 return 하는 solution 함수를 완성해보세요.
 
-function solution(n) {
-  return Math.ceil(n / 7);
-}
+// function solution(n) {
+//   return Math.ceil(n / 7);
+// }
 
 //옷가게 할인 받기
 //머쓱이네 옷가게는 10만 원 이상 사면 5%, 30만 원 이상 사면 10%, 50만 원 이상 사면 20%를 할인해줍니다. 구매한 옷의 가격 price가 주어질 때, 지불해야 할 금액을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(price) {
-  return price >= 500000
-    ? parseInt(price * 0.8)
-    : price >= 300000
-    ? parseInt(price * 0.9)
-    : price >= 100000
-    ? parseInt(price * 0.95)
-    : price;
+// function solution(price) {
+//   return price >= 500000
+//     ? parseInt(price * 0.8)
+//     : price >= 300000
+//     ? parseInt(price * 0.9)
+//     : price >= 100000
+//     ? parseInt(price * 0.95)
+//     : price;
+// }
+
+//과제6
+//아래의 코드를 async/await 로 리팩토링 하기
+
+// class HttpError extends Error {
+//   constructor(response) {
+//     super(`${response.status} for ${response.url}`);
+//     this.name = 'HttpError';
+//     this.response = response;
+//   }
+// }
+
+// //리팩토링 부분
+// async function loadJson(url) {
+//   const response = await fetch(url);
+
+//   if (response.status == 200) {
+//     return response.json();
+//   } else {
+//     throw new HttpError(response);
+//   }
+// }
+
+// async function koreanMovie() {
+//   let res;
+//   while (true) {
+//     try {
+//       res = await loadJson(
+//         `https://klassic-quote-api.mooo.com/v1/random-quote`
+//       );
+//       break;
+//     } catch (err) {
+//       if (err instanceof HttpError && err.response.status == 404) {
+//         alert('무언가 에러가 발생했군요!');
+//         return koreanMovie();
+//       } else {
+//         throw err;
+//       }
+//     }
+//   }
+
+//   alert(`${res.author}: ${res.quote}`);
+//   return res;
+// }
+
+// koreanMovie();
+
+//52 콜라 문제
+// 오래전 유행했던 콜라 문제가 있습니다. 콜라 문제의 지문은 다음과 같습니다.
+// 정답은 아무에게도 말하지 마세요.
+// 콜라 빈 병 2개를 가져다주면 콜라 1병을 주는 마트가 있다. 빈 병 20개를 가져다주면 몇 병을 받을 수 있는가?
+// 단, 보유 중인 빈 병이 2개 미만이면, 콜라를 받을 수 없다.
+
+// 문제를 풀던 상빈이는 콜라 문제의 완벽한 해답을 찾았습니다. 상빈이가 푼 방법은 아래 그림과 같습니다. 우선 콜라 빈 병 20병을 가져가서 10병을 받습니다. 받은 10병을 모두 마신 뒤, 가져가서 5병을 받습니다. 5병 중 4병을 모두 마신 뒤 가져가서 2병을 받고, 또 2병을 모두 마신 뒤 가져가서 1병을 받습니다. 받은 1병과 5병을 받았을 때 남은 1병을 모두 마신 뒤 가져가면 1병을 또 받을 수 있습니다. 이 경우 상빈이는 총 10 + 5 + 2 + 1 + 1 = 19병의 콜라를 받을 수 있습니다.
+// 문제를 열심히 풀던 상빈이는 일반화된 콜라 문제를 생각했습니다. 이 문제는 빈 병 a개를 가져다주면 콜라 b병을 주는 마트가 있을 때, 빈 병 n개를 가져다주면 몇 병을 받을 수 있는지 계산하는 문제입니다. 기존 콜라 문제와 마찬가지로, 보유 중인 빈 병이 a개 미만이면, 추가적으로 빈 병을 받을 순 없습니다. 상빈이는 열심히 고심했지만, 일반화된 콜라 문제의 답을 찾을 수 없었습니다. 상빈이를 도와, 일반화된 콜라 문제를 해결하는 프로그램을 만들어 주세요. 콜라를 받기 위해 마트에 주어야 하는 병 수 a, 빈 병 a개를 가져다 주면 마트가 주는 콜라 병 수 b, 상빈이가 가지고 있는 빈 병의 개수 n이 매개변수로 주어집니다. 상빈이가 받을 수 있는 콜라의 병 수를 return 하도록 solution 함수를 작성해주세요.
+
+function solution(a, b, n) {
+  var count = 0;
+
+  //빈병으로 못 바꿀 때까지 반복
+  while (n >= a) {
+    let quotient = Math.floor(n / a); //몫
+    let get = b * quotient; //바꾼 콜라병의 수
+
+    //전체 개수 = 총 - 바꾼 빈병 개수 + 바꾼 콜라병
+    n = (n % a) + get;
+    count += get;
+  }
+
+  return count;
 }
