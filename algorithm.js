@@ -974,7 +974,7 @@
 //   return count;
 // }
 
-//52 명예의 전당
+//53 명예의 전당
 // "명예의 전당"이라는 TV 프로그램에서는 매일 1명의 가수가 노래를 부르고, 시청자들의 문자 투표수로 가수에게 점수를 부여합니다. 매일 출연한 가수의 점수가 지금까지 출연 가수들의 점수 중 상위 k번째 이내이면 해당 가수의 점수를 명예의 전당이라는 목록에 올려 기념합니다. 즉 프로그램 시작 이후 초기에 k일까지는 모든 출연 가수의 점수가 명예의 전당에 오르게 됩니다. k일 다음부터는 출연 가수의 점수가 기존의 명예의 전당 목록의 k번째 순위의 가수 점수보다 더 높으면, 출연 가수의 점수가 명예의 전당에 오르게 되고 기존의 k번째 순위의 점수는 명예의 전당에서 내려오게 됩니다.
 // 이 프로그램에서는 매일 "명예의 전당"의 최하위 점수를 발표합니다. 예를 들어, k = 3이고, 7일 동안 진행된 가수의 점수가 [10, 100, 20, 150, 1, 100, 200]이라면, 명예의 전당에서 발표된 점수는 아래의 그림과 같이 [10, 10, 10, 20, 20, 100, 100]입니다.
 // 명예의 전당 목록의 점수의 개수 k, 1일부터 마지막 날까지 출연한 가수들의 점수인 score가 주어졌을 때, 매일 발표된 명예의 전당의 최하위 점수를 return하는 solution 함수를 완성해주세요.
@@ -1008,22 +1008,75 @@
 // }
 
 //다시 도전
-function solution(k, score) {
+// function solution(k, score) {
+//   const answer = [];
+//   const honor = [];
+
+//   for (let i = 0; i < score.length; i++) {
+//     if (honor.length < k) {
+//       honor.push(score[i]);
+//       honor.sort((a, b) => a - b);
+//     } else {
+//       honor.push(score[i]);
+//       honor.sort((a, b) => a - b);
+//       honor.shift();
+//     }
+
+//     answer.push(honor[0]);
+//   }
+
+//   return answer;
+// }
+
+//8일차
+//문자 반복 출력하기
+//문자열 my_string과 정수 n이 매개변수로 주어질 때, my_string에 들어있는 각 문자를 n만큼 반복한 문자열을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(my_string, n) {
+  const arr = my_string.split('');
+  return arr.map((char) => char.repeat(n)).join('');
+}
+
+//한줄로 줄여보기
+function solution(my_string, n) {
+  return my_string
+    .split('')
+    .map((char) => char.repeat(n))
+    .join('');
+}
+
+//아이스아메리카노
+//머쓱이는 추운 날에도 아이스 아메리카노만 마십니다. 아이스 아메리카노는 한잔에 5,500원입니다. 머쓱이가 가지고 있는 돈 money가 매개변수로 주어질 때, 머쓱이가 최대로 마실 수 있는 아메리카노의 잔 수와 남는 돈을 순서대로 담은 배열을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(money) {
+  return [Math.floor(money / 5500), money % 5500];
+}
+
+//가위 바위 보
+//가위는 2 바위는 0 보는 5로 표현합니다. 가위 바위 보를 내는 순서대로 나타낸 문자열 rsp가 매개변수로 주어질 때, rsp에 저장된 가위 바위 보를 모두 이기는 경우를 순서대로 나타낸 문자열을 return하도록 solution 함수를 완성해보세요.
+
+function solution(rsp) {
   const answer = [];
-  const honor = [];
+  rsp.split('').map((num) => {
+    num === '0'
+      ? answer.push(5)
+      : num === '5'
+      ? answer.push(2)
+      : num === '2'
+      ? answer.push(0)
+      : answer.push('');
+  });
 
-  for (let i = 0; i < score.length; i++) {
-    if (honor.length < k) {
-      honor.push(score[i]);
-      honor.sort((a, b) => a - b);
-    } else {
-      honor.push(score[i]);
-      honor.sort((a, b) => a - b);
-      honor.shift();
-    }
+  return answer.join('');
+}
 
-    answer.push(honor[0]);
-  }
-
+//다른 사람 풀이
+function solution(rsp) {
+  let arr = {
+    2: 0,
+    0: 5,
+    5: 2,
+  };
+  var answer = [...rsp].map((v) => arr[v]).join('');
   return answer;
 }
