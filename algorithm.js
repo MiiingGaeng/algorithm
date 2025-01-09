@@ -931,45 +931,99 @@
 //짝수 홀수 개수
 //정수가 담긴 리스트 num_list가 주어질 때, num_list의 원소 중 짝수와 홀수의 개수를 담은 배열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(num_list) {
-  let even = num_list.filter((num) => num % 2 === 0).length;
-  let odd = num_list.filter((num) => num % 2 === 1).length;
+// function solution(num_list) {
+//   let even = num_list.filter((num) => num % 2 === 0).length;
+//   let odd = num_list.filter((num) => num % 2 === 1).length;
 
-  return [even, odd];
-}
+//   return [even, odd];
+// }
 
 //문자열 안에 문자열
 //문자열 str1, str2가 매개변수로 주어집니다. str1 안에 str2가 있다면 1을 없다면 2를 return하도록 solution 함수를 완성해주세요.
 
-function solution(str1, str2) {
-  return str1.includes(str2) ? 1 : 2;
-}
+// function solution(str1, str2) {
+//   return str1.includes(str2) ? 1 : 2;
+// }
 
 //최댓값 만들기
 //정수 배열 numbers가 매개변수로 주어집니다. numbers의 원소 중 두 개를 곱해 만들 수 있는 최댓값을 return하도록 solution 함수를 완성해주세요.
 
-function solution(numbers) {
-  numbers = numbers.sort((a, b) => a - b);
-  let maxIndex = numbers.length - 1;
+// function solution(numbers) {
+//   numbers = numbers.sort((a, b) => a - b);
+//   let maxIndex = numbers.length - 1;
 
-  return numbers[maxIndex] * numbers[maxIndex - 1];
-}
+//   return numbers[maxIndex] * numbers[maxIndex - 1];
+// }
 
 //다른 사람 풀이
 //내림차순으로 하면 더 쉽게 접근할 수 있다!
-function solution(numbers) {
-  numbers.sort((a, b) => b - a);
-  return numbers[0] * numbers[1];
-}
+// function solution(numbers) {
+//   numbers.sort((a, b) => b - a);
+//   return numbers[0] * numbers[1];
+// }
 
 //배열의 유사도
 //두 배열이 얼마나 유사한지 확인해보려고 합니다. 문자열 배열 s1과 s2가 주어질 때 같은 원소의 개수를 return하도록 solution 함수를 완성해주세요.
 
-function solution(s1, s2) {
-  let count = 0;
-  s1.map((item) => {
-    if (s2.includes(item)) count++;
-  });
+// function solution(s1, s2) {
+//   let count = 0;
+//   s1.map((item) => {
+//     if (s2.includes(item)) count++;
+//   });
 
-  return count;
+//   return count;
+// }
+
+//52 명예의 전당
+// "명예의 전당"이라는 TV 프로그램에서는 매일 1명의 가수가 노래를 부르고, 시청자들의 문자 투표수로 가수에게 점수를 부여합니다. 매일 출연한 가수의 점수가 지금까지 출연 가수들의 점수 중 상위 k번째 이내이면 해당 가수의 점수를 명예의 전당이라는 목록에 올려 기념합니다. 즉 프로그램 시작 이후 초기에 k일까지는 모든 출연 가수의 점수가 명예의 전당에 오르게 됩니다. k일 다음부터는 출연 가수의 점수가 기존의 명예의 전당 목록의 k번째 순위의 가수 점수보다 더 높으면, 출연 가수의 점수가 명예의 전당에 오르게 되고 기존의 k번째 순위의 점수는 명예의 전당에서 내려오게 됩니다.
+// 이 프로그램에서는 매일 "명예의 전당"의 최하위 점수를 발표합니다. 예를 들어, k = 3이고, 7일 동안 진행된 가수의 점수가 [10, 100, 20, 150, 1, 100, 200]이라면, 명예의 전당에서 발표된 점수는 아래의 그림과 같이 [10, 10, 10, 20, 20, 100, 100]입니다.
+// 명예의 전당 목록의 점수의 개수 k, 1일부터 마지막 날까지 출연한 가수들의 점수인 score가 주어졌을 때, 매일 발표된 명예의 전당의 최하위 점수를 return하는 solution 함수를 완성해주세요.
+
+//실패
+// function solution(k, score) {
+//   const answer = [];
+//   //k번째 날까지 모든 참가자 넣기
+//   for (let i = 0; i < k; i++) {
+//     answer.push(score[i]);
+//     answer.sort((a, b) => a - b);
+//   }
+//   console.log('1:' + answer);
+//   //k번째 이후
+//   for (let j = k; j < score.length; j++) {
+//     let lastIdx = j - 1;
+//     if (score[j] >= answer[lastIdx]) {
+//       answer.push(score[j]);
+//     } else if (score[j] < answer[lastIdx] && score[j] >= answer[0]) {
+//       if (score[j] === answer[0]) {
+//         answer.unshift(score[j]);
+//       } else {
+//         let findIdx = answer.findIndex((num) => num > score[j]);
+//         answer.splice(findIdx, 0, score[j]);
+//       }
+//     }
+//   }
+
+//   console.log('2:' + answer);
+//   console.log(score);
+// }
+
+//다시 도전
+function solution(k, score) {
+  const answer = [];
+  const honor = [];
+
+  for (let i = 0; i < score.length; i++) {
+    if (honor.length < k) {
+      honor.push(score[i]);
+      honor.sort((a, b) => a - b);
+    } else {
+      honor.push(score[i]);
+      honor.sort((a, b) => a - b);
+      honor.shift();
+    }
+
+    answer.push(honor[0]);
+  }
+
+  return answer;
 }
