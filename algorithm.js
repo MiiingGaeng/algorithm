@@ -1032,51 +1032,84 @@
 //문자 반복 출력하기
 //문자열 my_string과 정수 n이 매개변수로 주어질 때, my_string에 들어있는 각 문자를 n만큼 반복한 문자열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(my_string, n) {
-  const arr = my_string.split('');
-  return arr.map((char) => char.repeat(n)).join('');
-}
+// function solution(my_string, n) {
+//   const arr = my_string.split('');
+//   return arr.map((char) => char.repeat(n)).join('');
+// }
 
-//한줄로 줄여보기
-function solution(my_string, n) {
-  return my_string
-    .split('')
-    .map((char) => char.repeat(n))
-    .join('');
-}
+// //한줄로 줄여보기
+// function solution(my_string, n) {
+//   return my_string
+//     .split('')
+//     .map((char) => char.repeat(n))
+//     .join('');
+// }
 
 //아이스아메리카노
 //머쓱이는 추운 날에도 아이스 아메리카노만 마십니다. 아이스 아메리카노는 한잔에 5,500원입니다. 머쓱이가 가지고 있는 돈 money가 매개변수로 주어질 때, 머쓱이가 최대로 마실 수 있는 아메리카노의 잔 수와 남는 돈을 순서대로 담은 배열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(money) {
-  return [Math.floor(money / 5500), money % 5500];
-}
+// function solution(money) {
+//   return [Math.floor(money / 5500), money % 5500];
+// }
 
 //가위 바위 보
 //가위는 2 바위는 0 보는 5로 표현합니다. 가위 바위 보를 내는 순서대로 나타낸 문자열 rsp가 매개변수로 주어질 때, rsp에 저장된 가위 바위 보를 모두 이기는 경우를 순서대로 나타낸 문자열을 return하도록 solution 함수를 완성해보세요.
 
-function solution(rsp) {
-  const answer = [];
-  rsp.split('').map((num) => {
-    num === '0'
-      ? answer.push(5)
-      : num === '5'
-      ? answer.push(2)
-      : num === '2'
-      ? answer.push(0)
-      : answer.push('');
-  });
+// function solution(rsp) {
+//   const answer = [];
+//   rsp.split('').map((num) => {
+//     num === '0'
+//       ? answer.push(5)
+//       : num === '5'
+//       ? answer.push(2)
+//       : num === '2'
+//       ? answer.push(0)
+//       : answer.push('');
+//   });
 
-  return answer.join('');
+//   return answer.join('');
+// }
+
+// //다른 사람 풀이
+// function solution(rsp) {
+//   let arr = {
+//     2: 0,
+//     0: 5,
+//     5: 2,
+//   };
+//   var answer = [...rsp].map((v) => arr[v]).join('');
+//   return answer;
+// }
+
+//54 2016년
+//2016년 1월 1일은 금요일입니다. 2016년 a월 b일은 무슨 요일일까요? 두 수 a ,b를 입력받아 2016년 a월 b일이 무슨 요일인지 리턴하는 함수, solution을 완성하세요. 요일의 이름은 일요일부터 토요일까지 각각 SUN,MON,TUE,WED,THU,FRI,SAT입니다. 예를 들어 a=5, b=24라면 5월 24일은 화요일이므로 문자열 "TUE"를 반환하세요.
+
+//첫시도
+function solution(a, b) {
+  const dateIn2016 = a === 1 ? b : Math.floor(30.5 * (a - 1) + b);
+  const date = ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
+  let idx = dateIn2016 % 7;
+  return date[idx];
+}
+
+//제출 정답
+function solution(a, b) {
+  const month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const date = ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
+  let day = b;
+
+  for (let i = 0; i < a - 1; i++) {
+    day += month[i];
+  }
+
+  return date[day % 7];
 }
 
 //다른 사람 풀이
-function solution(rsp) {
-  let arr = {
-    2: 0,
-    0: 5,
-    5: 2,
-  };
-  var answer = [...rsp].map((v) => arr[v]).join('');
-  return answer;
+function solution(a, b) {
+  const date = new Date(2016, a - 1, b);
+  const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+  return day[date.getDay()];
 }
+//Date생성자, Date.getDay() 메서드!
