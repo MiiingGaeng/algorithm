@@ -1085,31 +1085,74 @@
 //2016년 1월 1일은 금요일입니다. 2016년 a월 b일은 무슨 요일일까요? 두 수 a ,b를 입력받아 2016년 a월 b일이 무슨 요일인지 리턴하는 함수, solution을 완성하세요. 요일의 이름은 일요일부터 토요일까지 각각 SUN,MON,TUE,WED,THU,FRI,SAT입니다. 예를 들어 a=5, b=24라면 5월 24일은 화요일이므로 문자열 "TUE"를 반환하세요.
 
 //첫시도
-function solution(a, b) {
-  const dateIn2016 = a === 1 ? b : Math.floor(30.5 * (a - 1) + b);
-  const date = ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
-  let idx = dateIn2016 % 7;
-  return date[idx];
-}
+// function solution(a, b) {
+//   const dateIn2016 = a === 1 ? b : Math.floor(30.5 * (a - 1) + b);
+//   const date = ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
+//   let idx = dateIn2016 % 7;
+//   return date[idx];
+// }
 
-//제출 정답
-function solution(a, b) {
-  const month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const date = ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
-  let day = b;
+// //제출 정답
+// function solution(a, b) {
+//   const month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+//   const date = ['THU', 'FRI', 'SAT', 'SUN', 'MON', 'TUE', 'WED'];
+//   let day = b;
 
-  for (let i = 0; i < a - 1; i++) {
-    day += month[i];
-  }
+//   for (let i = 0; i < a - 1; i++) {
+//     day += month[i];
+//   }
 
-  return date[day % 7];
-}
+//   return date[day % 7];
+// }
 
-//다른 사람 풀이
-function solution(a, b) {
-  const date = new Date(2016, a - 1, b);
-  const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+// //다른 사람 풀이
+// function solution(a, b) {
+//   const date = new Date(2016, a - 1, b);
+//   const day = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-  return day[date.getDay()];
-}
+//   return day[date.getDay()];
+// }
 //Date생성자, Date.getDay() 메서드!
+
+//9일차
+//주사위 개수
+//머쓱이는 직육면체 모양의 상자를 하나 가지고 있는데 이 상자에 정육면체 모양의 주사위를 최대한 많이 채우고 싶습니다. 상자의 가로, 세로, 높이가 저장되어있는 배열 box와 주사위 모서리의 길이 정수 n이 매개변수로 주어졌을 때, 상자에 들어갈 수 있는 주사위의 최대 개수를 return 하도록 solution 함수를 완성해주세요.
+
+function solution(box, n) {
+  let answer = 1;
+  box.forEach((num) => (answer *= Math.floor(num / n)));
+
+  return answer;
+}
+
+//숨어있는 숫자의 덧셈(1)
+//문자열 my_string이 매개변수로 주어집니다. my_string안의 모든 자연수들의 합을 return하도록 solution 함수를 완성해주세요.
+
+function solution(my_string) {
+  let answer = 0;
+  const findNum = my_string.split('').filter((char) => parseInt(char, 10));
+
+  findNum.forEach((num) => (answer += Number(num)));
+  return answer;
+}
+
+//최댓값 만들기(2)
+//정수 배열 numbers가 매개변수로 주어집니다. numbers의 원소 중 두 개를 곱해 만들 수 있는 최댓값을 return하도록 solution 함수를 완성해주세요.
+
+function solution(numbers) {
+  const sorted = numbers.sort((a, b) => b - a);
+  const lastIdx = numbers.length - 1;
+
+  return sorted[0] * sorted[1] > sorted[lastIdx] * sorted[lastIdx - 1]
+    ? sorted[0] * sorted[1]
+    : sorted[lastIdx] * sorted[lastIdx - 1];
+}
+
+//대문자와 소문자
+//문자열 my_string이 매개변수로 주어질 때, 대문자는 소문자로 소문자는 대문자로 변환한 문자열을 return하도록 solution 함수를 완성해주세요.
+function solution(my_string) {
+  const arr = my_string.split('');
+  return arr
+    .map((char) => (char >= 'a' ? char.toUpperCase() : char.toLowerCase()))
+    .join('');
+}
