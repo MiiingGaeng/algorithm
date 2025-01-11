@@ -1118,41 +1118,67 @@
 //주사위 개수
 //머쓱이는 직육면체 모양의 상자를 하나 가지고 있는데 이 상자에 정육면체 모양의 주사위를 최대한 많이 채우고 싶습니다. 상자의 가로, 세로, 높이가 저장되어있는 배열 box와 주사위 모서리의 길이 정수 n이 매개변수로 주어졌을 때, 상자에 들어갈 수 있는 주사위의 최대 개수를 return 하도록 solution 함수를 완성해주세요.
 
-function solution(box, n) {
-  let answer = 1;
-  box.forEach((num) => (answer *= Math.floor(num / n)));
+// function solution(box, n) {
+//   let answer = 1;
+//   box.forEach((num) => (answer *= Math.floor(num / n)));
 
-  return answer;
-}
+//   return answer;
+// }
 
 //숨어있는 숫자의 덧셈(1)
 //문자열 my_string이 매개변수로 주어집니다. my_string안의 모든 자연수들의 합을 return하도록 solution 함수를 완성해주세요.
 
-function solution(my_string) {
-  let answer = 0;
-  const findNum = my_string.split('').filter((char) => parseInt(char, 10));
+// function solution(my_string) {
+//   let answer = 0;
+//   const findNum = my_string.split('').filter((char) => parseInt(char, 10));
 
-  findNum.forEach((num) => (answer += Number(num)));
-  return answer;
-}
+//   findNum.forEach((num) => (answer += Number(num)));
+//   return answer;
+// }
 
 //최댓값 만들기(2)
 //정수 배열 numbers가 매개변수로 주어집니다. numbers의 원소 중 두 개를 곱해 만들 수 있는 최댓값을 return하도록 solution 함수를 완성해주세요.
 
-function solution(numbers) {
-  const sorted = numbers.sort((a, b) => b - a);
-  const lastIdx = numbers.length - 1;
+// function solution(numbers) {
+//   const sorted = numbers.sort((a, b) => b - a);
+//   const lastIdx = numbers.length - 1;
 
-  return sorted[0] * sorted[1] > sorted[lastIdx] * sorted[lastIdx - 1]
-    ? sorted[0] * sorted[1]
-    : sorted[lastIdx] * sorted[lastIdx - 1];
-}
+//   return sorted[0] * sorted[1] > sorted[lastIdx] * sorted[lastIdx - 1]
+// ? sorted[0] * sorted[1]
+//     : sorted[lastIdx] * sorted[lastIdx - 1];
+// }
 
 //대문자와 소문자
 //문자열 my_string이 매개변수로 주어질 때, 대문자는 소문자로 소문자는 대문자로 변환한 문자열을 return하도록 solution 함수를 완성해주세요.
-function solution(my_string) {
-  const arr = my_string.split('');
-  return arr
-    .map((char) => (char >= 'a' ? char.toUpperCase() : char.toLowerCase()))
-    .join('');
+// function solution(my_string) {
+//   const arr = my_string.split('');
+//   return arr
+//     .map((char) => (char >= 'a' ? char.toUpperCase() : char.toLowerCase()))
+//     .join('');
+// }
+
+//55 카드 뭉치
+//코니는 영어 단어가 적힌 카드 뭉치 두 개를 선물로 받았습니다. 코니는 다음과 같은 규칙으로 카드에 적힌 단어들을 사용해 원하는 순서의 단어 배열을 만들 수 있는지 알고 싶습니다.
+// 원하는 카드 뭉치에서 카드를 순서대로 한 장씩 사용합니다.
+// 한 번 사용한 카드는 다시 사용할 수 없습니다.
+// 카드를 사용하지 않고 다음 카드로 넘어갈 수 없습니다.
+// 기존에 주어진 카드 뭉치의 단어 순서는 바꿀 수 없습니다.
+// 예를 들어 첫 번째 카드 뭉치에 순서대로 ["i", "drink", "water"], 두 번째 카드 뭉치에 순서대로 ["want", "to"]가 적혀있을 때 ["i", "want", "to", "drink", "water"] 순서의 단어 배열을 만들려고 한다면 첫 번째 카드 뭉치에서 "i"를 사용한 후 두 번째 카드 뭉치에서 "want"와 "to"를 사용하고 첫 번째 카드뭉치에 "drink"와 "water"를 차례대로 사용하면 원하는 순서의 단어 배열을 만들 수 있습니다.
+// 문자열로 이루어진 배열 cards1, cards2와 원하는 단어 배열 goal이 매개변수로 주어질 때, cards1과 cards2에 적힌 단어들로 goal를 만들 있다면 "Yes"를, 만들 수 없다면 "No"를 return하는 solution 함수를 완성해주세요.
+
+function solution(cards1, cards2, goal) {
+  for (let i = 0; i < goal.length; i++) {
+    //goal 순회하면서 cards 첫번째 요소 제거하기
+    if (goal[i] === cards1[0]) {
+      cards1.shift();
+    } else if (goal[i] === cards2[0]) {
+      cards2.shift();
+    } else {
+      //없으면 바로 no 반환
+      return 'No';
+    }
+  }
+
+  //다 끝나면 yes 반환
+  return 'Yes';
 }
