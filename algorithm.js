@@ -1166,19 +1166,69 @@
 // 예를 들어 첫 번째 카드 뭉치에 순서대로 ["i", "drink", "water"], 두 번째 카드 뭉치에 순서대로 ["want", "to"]가 적혀있을 때 ["i", "want", "to", "drink", "water"] 순서의 단어 배열을 만들려고 한다면 첫 번째 카드 뭉치에서 "i"를 사용한 후 두 번째 카드 뭉치에서 "want"와 "to"를 사용하고 첫 번째 카드뭉치에 "drink"와 "water"를 차례대로 사용하면 원하는 순서의 단어 배열을 만들 수 있습니다.
 // 문자열로 이루어진 배열 cards1, cards2와 원하는 단어 배열 goal이 매개변수로 주어질 때, cards1과 cards2에 적힌 단어들로 goal를 만들 있다면 "Yes"를, 만들 수 없다면 "No"를 return하는 solution 함수를 완성해주세요.
 
-function solution(cards1, cards2, goal) {
-  for (let i = 0; i < goal.length; i++) {
-    //goal 순회하면서 cards 첫번째 요소 제거하기
-    if (goal[i] === cards1[0]) {
-      cards1.shift();
-    } else if (goal[i] === cards2[0]) {
-      cards2.shift();
-    } else {
-      //없으면 바로 no 반환
-      return 'No';
-    }
-  }
+// function solution(cards1, cards2, goal) {
+//   for (let i = 0; i < goal.length; i++) {
+//     //goal 순회하면서 cards 첫번째 요소 제거하기
+//     if (goal[i] === cards1[0]) {
+//       cards1.shift();
+//     } else if (goal[i] === cards2[0]) {
+//       cards2.shift();
+//     } else {
+//       //없으면 바로 no 반환
+//       return 'No';
+//     }
+//   }
 
-  //다 끝나면 yes 반환
-  return 'Yes';
+//   //다 끝나면 yes 반환
+//   return 'Yes';
+// }
+
+//10일차
+//삼각형의 완성조건(1)
+//선분 세 개로 삼각형을 만들기 위해서는 다음과 같은 조건을 만족해야 합니다. 가장 긴 변의 길이는 다른 두 변의 길이의 합보다 작아야 합니다. 삼각형의 세 변의 길이가 담긴 배열 sides이 매개변수로 주어집니다. 세 변으로 삼각형을 만들 수 있다면 1, 만들 수 없다면 2를 return하도록 solution 함수를 완성해주세요.
+
+function solution(sides) {
+  sides.sort((a, b) => b - a);
+  return sides[0] < sides[1] + sides[2] ? 1 : 2;
+}
+
+//자릿수 더하기
+//정수 n이 매개변수로 주어질 때 n의 각 자리 숫자의 합을 return하도록 solution 함수를 완성해주세요
+
+function solution(n) {
+  let answer = 0;
+  String(n)
+    .split('')
+    .forEach((num) => (answer += Number(num)));
+
+  return answer;
+}
+
+//다른 사람 풀이 : reduce!!!
+function solution(n) {
+  return n
+    .toString()
+    .split('')
+    .reduce((acc, cur) => acc + Number(cur), 0);
+}
+
+//인덱스 바꾸기
+//문자열 my_string과 정수 num1, num2가 매개변수로 주어질 때, my_string에서 인덱스 num1과 인덱스 num2에 해당하는 문자를 바꾼 문자열을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(string, num1, num2) {
+  const str1 = string.slice(num1, num1 + 1);
+  const str2 = string.slice(num2, num2 + 1);
+  const strArr = string.split('');
+
+  strArr[num1] = str2;
+  strArr[num2] = str1;
+
+  return strArr.join('');
+}
+
+//다른 사람 풀이 : 구조분해 응용
+function solution(my_string, num1, num2) {
+  let arr = my_string.split('');
+  [arr[num1], arr[num2]] = [arr[num2], arr[num1]];
+  return arr.join('');
 }
