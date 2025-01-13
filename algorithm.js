@@ -1187,48 +1187,74 @@
 //삼각형의 완성조건(1)
 //선분 세 개로 삼각형을 만들기 위해서는 다음과 같은 조건을 만족해야 합니다. 가장 긴 변의 길이는 다른 두 변의 길이의 합보다 작아야 합니다. 삼각형의 세 변의 길이가 담긴 배열 sides이 매개변수로 주어집니다. 세 변으로 삼각형을 만들 수 있다면 1, 만들 수 없다면 2를 return하도록 solution 함수를 완성해주세요.
 
-function solution(sides) {
-  sides.sort((a, b) => b - a);
-  return sides[0] < sides[1] + sides[2] ? 1 : 2;
-}
+// function solution(sides) {
+//   sides.sort((a, b) => b - a);
+//   return sides[0] < sides[1] + sides[2] ? 1 : 2;
+// }
 
 //자릿수 더하기
 //정수 n이 매개변수로 주어질 때 n의 각 자리 숫자의 합을 return하도록 solution 함수를 완성해주세요
 
-function solution(n) {
-  let answer = 0;
-  String(n)
-    .split('')
-    .forEach((num) => (answer += Number(num)));
+// function solution(n) {
+//   let answer = 0;
+//   String(n)
+//     .split('')
+//     .forEach((num) => (answer += Number(num)));
 
-  return answer;
-}
+//   return answer;
+// }
 
 //다른 사람 풀이 : reduce!!!
-function solution(n) {
-  return n
-    .toString()
-    .split('')
-    .reduce((acc, cur) => acc + Number(cur), 0);
-}
+// function solution(n) {
+//   return n
+//     .toString()
+//     .split('')
+//     .reduce((acc, cur) => acc + Number(cur), 0);
+// }
 
 //인덱스 바꾸기
 //문자열 my_string과 정수 num1, num2가 매개변수로 주어질 때, my_string에서 인덱스 num1과 인덱스 num2에 해당하는 문자를 바꾼 문자열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(string, num1, num2) {
-  const str1 = string.slice(num1, num1 + 1);
-  const str2 = string.slice(num2, num2 + 1);
-  const strArr = string.split('');
+// function solution(string, num1, num2) {
+//   const str1 = string.slice(num1, num1 + 1);
+//   const str2 = string.slice(num2, num2 + 1);
+//   const strArr = string.split('');
 
-  strArr[num1] = str2;
-  strArr[num2] = str1;
+//   strArr[num1] = str2;
+//   strArr[num2] = str1;
 
-  return strArr.join('');
-}
+//   return strArr.join('');
+// }
 
 //다른 사람 풀이 : 구조분해 응용
-function solution(my_string, num1, num2) {
-  let arr = my_string.split('');
-  [arr[num1], arr[num2]] = [arr[num2], arr[num1]];
-  return arr.join('');
+// function solution(my_string, num1, num2) {
+//   let arr = my_string.split('');
+//   [arr[num1], arr[num2]] = [arr[num2], arr[num1]];
+//   return arr.join('');
+// }
+
+//56 과일장수
+//과일 장수가 사과 상자를 포장하고 있습니다. 사과는 상태에 따라 1점부터 k점까지의 점수로 분류하며, k점이 최상품의 사과이고 1점이 최하품의 사과입니다. 사과 한 상자의 가격은 다음과 같이 결정됩니다.
+// 한 상자에 사과를 m개씩 담아 포장합니다.
+// 상자에 담긴 사과 중 가장 낮은 점수가 p (1 ≤ p ≤ k)점인 경우, 사과 한 상자의 가격은 p * m 입니다.
+// 과일 장수가 가능한 많은 사과를 팔았을 때, 얻을 수 있는 최대 이익을 계산하고자 합니다.(사과는 상자 단위로만 판매하며, 남는 사과는 버립니다)
+
+// 예를 들어, k = 3, m = 4, 사과 7개의 점수가 [1, 2, 3, 1, 2, 3, 1]이라면, 다음과 같이 [2, 3, 2, 3]으로 구성된 사과 상자 1개를 만들어 판매하여 최대 이익을 얻을 수 있습니다.
+// (최저 사과 점수) x (한 상자에 담긴 사과 개수) x (상자의 개수) = 2 x 4 x 1 = 8 사과의 최대 점수 k, 한 상자에 들어가는 사과의 수 m, 사과들의 점수 score가 주어졌을 때, 과일 장수가 얻을 수 있는 최대 이익을 return하는 solution 함수를 완성해주세요.
+
+function solution(k, m, score) {
+  //k=최상품, m=한 상자에 들어가는 사과 개수, score=사과 점수(배열)
+  let maxPrice = 0;
+
+  //역순 정렬 + 박스 총 개수
+  score = score.sort((a, b) => b - a);
+  let totalBox = Math.floor(score.length / m);
+
+  //박스 나누기 + 최솟값*m개 가격 넣기
+  for (let i = 0; i < totalBox; i++) {
+    let box = score.slice(i * m, (i + 1) * m);
+    maxPrice += box[m - 1] * m;
+  }
+
+  return maxPrice;
 }
