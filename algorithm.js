@@ -1242,19 +1242,71 @@
 // 예를 들어, k = 3, m = 4, 사과 7개의 점수가 [1, 2, 3, 1, 2, 3, 1]이라면, 다음과 같이 [2, 3, 2, 3]으로 구성된 사과 상자 1개를 만들어 판매하여 최대 이익을 얻을 수 있습니다.
 // (최저 사과 점수) x (한 상자에 담긴 사과 개수) x (상자의 개수) = 2 x 4 x 1 = 8 사과의 최대 점수 k, 한 상자에 들어가는 사과의 수 m, 사과들의 점수 score가 주어졌을 때, 과일 장수가 얻을 수 있는 최대 이익을 return하는 solution 함수를 완성해주세요.
 
-function solution(k, m, score) {
-  //k=최상품, m=한 상자에 들어가는 사과 개수, score=사과 점수(배열)
-  let maxPrice = 0;
+// function solution(k, m, score) {
+//   //k=최상품, m=한 상자에 들어가는 사과 개수, score=사과 점수(배열)
+//   let maxPrice = 0;
 
-  //역순 정렬 + 박스 총 개수
-  score = score.sort((a, b) => b - a);
-  let totalBox = Math.floor(score.length / m);
+//   //역순 정렬 + 박스 총 개수
+//   score = score.sort((a, b) => b - a);
+//   let totalBox = Math.floor(score.length / m);
 
-  //박스 나누기 + 최솟값*m개 가격 넣기
-  for (let i = 0; i < totalBox; i++) {
-    let box = score.slice(i * m, (i + 1) * m);
-    maxPrice += box[m - 1] * m;
+//   //박스 나누기 + 최솟값*m개 가격 넣기
+//   for (let i = 0; i < totalBox; i++) {
+//     let box = score.slice(i * m, (i + 1) * m);
+//     maxPrice += box[m - 1] * m;
+//   }
+
+//   return maxPrice;
+// }
+
+//11일차
+//약수 구하기
+//정수 n이 매개변수로 주어질 때, n의 약수를 오름차순으로 담은 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(n) {
+  const answer = [];
+  for (let i = 1; i <= n; i++) {
+    if (n % i === 0) answer.push(i);
   }
 
-  return maxPrice;
+  return answer;
+}
+
+//n의 배수 고르기
+//정수 n과 정수 배열 numlist가 매개변수로 주어질 때, numlist에서 n의 배수가 아닌 수들을 제거한 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(n, numlist) {
+  return numlist.filter((num) => num % n === 0);
+}
+
+//369게임
+//머쓱이는 친구들과 369게임을 하고 있습니다. 369게임은 1부터 숫자를 하나씩 대며 3, 6, 9가 들어가는 숫자는 숫자 대신 3, 6, 9의 개수만큼 박수를 치는 게임입니다. 머쓱이가 말해야하는 숫자 order가 매개변수로 주어질 때, 머쓱이가 쳐야할 박수 횟수를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(order) {
+  return order
+    .toString(10)
+    .split('')
+    .filter((num) => num < 10 && num > 0 && num % 3 === 0).length;
+}
+
+//배열 회전시키기
+//정수가 담긴 배열 numbers와 문자열 direction가 매개변수로 주어집니다. 배열 numbers의 원소를 direction방향으로 한 칸씩 회전시킨 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(numbers, direction) {
+  if (direction === 'right') {
+    const spliceArrR = numbers.splice(numbers.length - 1, 1);
+    return spliceArrR.concat(numbers);
+  } else if (direction === 'left') {
+    const spliceArrL = numbers.splice(0, 1);
+    return numbers.concat(spliceArrL);
+  }
+}
+
+//다른 사람 풀이
+//pop이랑 shift가 있는데...! 난 왜 굳이 splice를 했을까...
+function solution(numbers, direction) {
+  direction === 'right'
+    ? numbers.unshift(numbers.pop())
+    : numbers.push(numbers.shift());
+  return numbers;
 }
