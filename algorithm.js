@@ -1263,50 +1263,86 @@
 //약수 구하기
 //정수 n이 매개변수로 주어질 때, n의 약수를 오름차순으로 담은 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(n) {
-  const answer = [];
-  for (let i = 1; i <= n; i++) {
-    if (n % i === 0) answer.push(i);
-  }
+// function solution(n) {
+//   const answer = [];
+//   for (let i = 1; i <= n; i++) {
+//     if (n % i === 0) answer.push(i);
+//   }
 
-  return answer;
-}
+//   return answer;
+// }
 
 //n의 배수 고르기
 //정수 n과 정수 배열 numlist가 매개변수로 주어질 때, numlist에서 n의 배수가 아닌 수들을 제거한 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(n, numlist) {
-  return numlist.filter((num) => num % n === 0);
-}
+// function solution(n, numlist) {
+//   return numlist.filter((num) => num % n === 0);
+// }
 
 //369게임
 //머쓱이는 친구들과 369게임을 하고 있습니다. 369게임은 1부터 숫자를 하나씩 대며 3, 6, 9가 들어가는 숫자는 숫자 대신 3, 6, 9의 개수만큼 박수를 치는 게임입니다. 머쓱이가 말해야하는 숫자 order가 매개변수로 주어질 때, 머쓱이가 쳐야할 박수 횟수를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(order) {
-  return order
-    .toString(10)
-    .split('')
-    .filter((num) => num < 10 && num > 0 && num % 3 === 0).length;
-}
+// function solution(order) {
+//   return order
+//     .toString(10)
+//     .split('')
+//     .filter((num) => num < 10 && num > 0 && num % 3 === 0).length;
+// }
 
 //배열 회전시키기
 //정수가 담긴 배열 numbers와 문자열 direction가 매개변수로 주어집니다. 배열 numbers의 원소를 direction방향으로 한 칸씩 회전시킨 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(numbers, direction) {
-  if (direction === 'right') {
-    const spliceArrR = numbers.splice(numbers.length - 1, 1);
-    return spliceArrR.concat(numbers);
-  } else if (direction === 'left') {
-    const spliceArrL = numbers.splice(0, 1);
-    return numbers.concat(spliceArrL);
-  }
-}
+// function solution(numbers, direction) {
+//   if (direction === 'right') {
+//     const spliceArrR = numbers.splice(numbers.length - 1, 1);
+//     return spliceArrR.concat(numbers);
+//   } else if (direction === 'left') {
+//     const spliceArrL = numbers.splice(0, 1);
+//     return numbers.concat(spliceArrL);
+//   }
+// }
 
 //다른 사람 풀이
 //pop이랑 shift가 있는데...! 난 왜 굳이 splice를 했을까...
-function solution(numbers, direction) {
-  direction === 'right'
-    ? numbers.unshift(numbers.pop())
-    : numbers.push(numbers.shift());
-  return numbers;
+// function solution(numbers, direction) {
+//   direction === 'right'
+//     ? numbers.unshift(numbers.pop())
+//     : numbers.push(numbers.shift());
+//   return numbers;
+// }
+
+//57 모의고사
+//수포자는 수학을 포기한 사람의 준말입니다. 수포자 삼인방은 모의고사에 수학 문제를 전부 찍으려 합니다. 수포자는 1번 문제부터 마지막 문제까지 다음과 같이 찍습니다.
+// 1번 수포자가 찍는 방식: 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, ...
+// 2번 수포자가 찍는 방식: 2, 1, 2, 3, 2, 4, 2, 5, 2, 1, 2, 3, 2, 4, 2, 5, ...
+// 3번 수포자가 찍는 방식: 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, ...
+// 1번 문제부터 마지막 문제까지의 정답이 순서대로 들은 배열 answers가 주어졌을 때, 가장 많은 문제를 맞힌 사람이 누구인지 배열에 담아 return 하도록 solution 함수를 작성해주세요.
+
+function solution(answers) {
+  const supo1 = [1, 2, 3, 4, 5];
+  const supo2 = [2, 1, 2, 3, 2, 4, 2, 5];
+  const supo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+
+  let scores = [0, 0, 0];
+
+  //answers에서 정답개수 찾기
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i] === supo1[i % supo1.length]) {
+      scores[0]++;
+    }
+    if (answers[i] === supo2[i % supo2.length]) {
+      scores[1]++;
+    }
+    if (answers[i] === supo3[i % supo3.length]) {
+      scores[2]++;
+    }
+  }
+  //최대점수 찾기
+  const maxScore = Math.max(...scores);
+  //최대점수를 가진 사람의 인덱스 맵핑 + 정답자만 필터링
+  return scores
+    .map((score, idx) => {
+      return score === maxScore ? (score = idx + 1) : (score = 0);
+    })
+    .filter((supo) => supo > 0);
 }
