@@ -1318,31 +1318,77 @@
 // 3번 수포자가 찍는 방식: 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, 3, 3, 1, 1, 2, 2, 4, 4, 5, 5, ...
 // 1번 문제부터 마지막 문제까지의 정답이 순서대로 들은 배열 answers가 주어졌을 때, 가장 많은 문제를 맞힌 사람이 누구인지 배열에 담아 return 하도록 solution 함수를 작성해주세요.
 
-function solution(answers) {
-  const supo1 = [1, 2, 3, 4, 5];
-  const supo2 = [2, 1, 2, 3, 2, 4, 2, 5];
-  const supo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+// function solution(answers) {
+//   const supo1 = [1, 2, 3, 4, 5];
+//   const supo2 = [2, 1, 2, 3, 2, 4, 2, 5];
+//   const supo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
 
-  let scores = [0, 0, 0];
+//   let scores = [0, 0, 0];
 
-  //answers에서 정답개수 찾기
-  for (let i = 0; i < answers.length; i++) {
-    if (answers[i] === supo1[i % supo1.length]) {
-      scores[0]++;
-    }
-    if (answers[i] === supo2[i % supo2.length]) {
-      scores[1]++;
-    }
-    if (answers[i] === supo3[i % supo3.length]) {
-      scores[2]++;
-    }
+//   //answers에서 정답개수 찾기
+//   for (let i = 0; i < answers.length; i++) {
+//     if (answers[i] === supo1[i % supo1.length]) {
+//       scores[0]++;
+//     }
+//     if (answers[i] === supo2[i % supo2.length]) {
+//       scores[1]++;
+//     }
+//     if (answers[i] === supo3[i % supo3.length]) {
+//       scores[2]++;
+//     }
+//   }
+//   //최대점수 찾기
+//   const maxScore = Math.max(...scores);
+//   //최대점수를 가진 사람의 인덱스 맵핑 + 정답자만 필터링
+//   return scores
+//     .map((score, idx) => {
+//       return score === maxScore ? (score = idx + 1) : (score = 0);
+//     })
+//     .filter((supo) => supo > 0);
+// }
+
+//12일차
+//가장 큰 수 찾기
+//정수 배열 array가 매개변수로 주어질 때, 가장 큰 수와 그 수의 인덱스를 담은 배열을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(array) {
+  const maxNum = Math.max(...array);
+  const maxIdx = array.indexOf(maxNum);
+
+  return [maxNum, maxIdx];
+}
+
+//문자열 정렬하기
+//문자열 my_string이 매개변수로 주어질 때, my_string 안에 있는 숫자만 골라 오름차순 정렬한 리스트를 return 하도록 solution 함수를 작성해보세요.
+
+function solution(string) {
+  const arr = string.split('');
+  const numArr = arr.filter((item) => Number.parseInt(item) || item === '0');
+
+  return numArr.sort((a, b) => a - b).map((item) => Number.parseInt(item));
+}
+
+//다른 사람 풀이
+function solution(my_string) {
+  return my_string
+    .split('')
+    .filter((char) => !isNaN(char))
+    .map((number) => parseInt(number))
+    .sort((a, b) => a - b);
+}
+
+//암호 해독
+//군 전략가 머쓱이는 전쟁 중 적군이 다음과 같은 암호 체계를 사용한다는 것을 알아냈습니다.
+// 암호화된 문자열 cipher를 주고받습니다. 그 문자열에서 code의 배수 번째 글자만 진짜 암호입니다.
+// 문자열 cipher와 정수 code가 매개변수로 주어질 때 해독된 암호 문자열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(cipher, code) {
+  const arr = cipher.split('');
+  let answer = [];
+  for (let i = 1; i * code <= arr.length; i++) {
+    let idx = i * code - 1;
+    answer.push(arr[idx]);
   }
-  //최대점수 찾기
-  const maxScore = Math.max(...scores);
-  //최대점수를 가진 사람의 인덱스 맵핑 + 정답자만 필터링
-  return scores
-    .map((score, idx) => {
-      return score === maxScore ? (score = idx + 1) : (score = 0);
-    })
-    .filter((supo) => supo > 0);
+
+  return answer.join('');
 }
