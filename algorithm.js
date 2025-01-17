@@ -1351,44 +1351,104 @@
 //가장 큰 수 찾기
 //정수 배열 array가 매개변수로 주어질 때, 가장 큰 수와 그 수의 인덱스를 담은 배열을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(array) {
-  const maxNum = Math.max(...array);
-  const maxIdx = array.indexOf(maxNum);
+// function solution(array) {
+//   const maxNum = Math.max(...array);
+//   const maxIdx = array.indexOf(maxNum);
 
-  return [maxNum, maxIdx];
-}
+//   return [maxNum, maxIdx];
+// }
 
 //문자열 정렬하기
 //문자열 my_string이 매개변수로 주어질 때, my_string 안에 있는 숫자만 골라 오름차순 정렬한 리스트를 return 하도록 solution 함수를 작성해보세요.
 
-function solution(string) {
-  const arr = string.split('');
-  const numArr = arr.filter((item) => Number.parseInt(item) || item === '0');
+// function solution(string) {
+//   const arr = string.split('');
+//   const numArr = arr.filter((item) => Number.parseInt(item) || item === '0');
 
-  return numArr.sort((a, b) => a - b).map((item) => Number.parseInt(item));
-}
+//   return numArr.sort((a, b) => a - b).map((item) => Number.parseInt(item));
+// }
 
 //다른 사람 풀이
-function solution(my_string) {
-  return my_string
-    .split('')
-    .filter((char) => !isNaN(char))
-    .map((number) => parseInt(number))
-    .sort((a, b) => a - b);
-}
+// function solution(my_string) {
+//   return my_string
+//     .split('')
+//     .filter((char) => !isNaN(char))
+//     .map((number) => parseInt(number))
+//     .sort((a, b) => a - b);
+// }
 
 //암호 해독
 //군 전략가 머쓱이는 전쟁 중 적군이 다음과 같은 암호 체계를 사용한다는 것을 알아냈습니다.
 // 암호화된 문자열 cipher를 주고받습니다. 그 문자열에서 code의 배수 번째 글자만 진짜 암호입니다.
 // 문자열 cipher와 정수 code가 매개변수로 주어질 때 해독된 암호 문자열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(cipher, code) {
-  const arr = cipher.split('');
-  let answer = [];
-  for (let i = 1; i * code <= arr.length; i++) {
-    let idx = i * code - 1;
-    answer.push(arr[idx]);
-  }
+// function solution(cipher, code) {
+//   const arr = cipher.split('');
+//   let answer = [];
+//   for (let i = 1; i * code <= arr.length; i++) {
+//     let idx = i * code - 1;
+//     answer.push(arr[idx]);
+//   }
 
-  return answer.join('');
+//   return answer.join('');
+// }
+
+//13일차
+//직각삼각형 출력하기
+//"*"의 높이와 너비를 1이라고 했을 때, "*"을 이용해 직각 이등변 삼각형을 그리려고합니다. 정수 n 이 주어지면 높이와 너비가 n 인 직각 이등변 삼각형을 출력하도록 코드를 작성해보세요.
+
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+let input = [];
+
+rl.on('line', function (line) {
+  input = line.split(' ');
+}).on('close', function () {
+  //내 풀이
+  for (let i = 0; i < Number(input[0]); i++) {
+    let star = '';
+    for (let j = 0; j <= i; j++) {
+      star += '*';
+    }
+    console.log(star);
+  }
+});
+
+//다른 사람 풀이
+for (let i = 1; i <= +input[0]; i++) {
+  console.log('*'.repeat(i));
+}
+
+//피자 나눠 먹기(2)
+//머쓱이네 피자가게는 피자를 여섯 조각으로 잘라 줍니다. 피자를 나눠먹을 사람의 수 n이 매개변수로 주어질 때, n명이 주문한 피자를 남기지 않고 모두 같은 수의 피자 조각을 먹어야 한다면 최소 몇 판을 시켜야 하는지를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(n) {
+  const gcd = (num1, num2) =>
+    num1 % num2 === 0 ? num2 : gcd(num2, num1 % num2);
+  const lcd = (num1, num2) => (num1 * num2) / gcd(num1, num2);
+
+  return lcd(n, 6) / 6;
+}
+
+//다른 사람 풀이
+function solution(n) {
+  let pizza = 1;
+  while ((pizza * 6) % n) {
+    pizza++;
+  }
+  return pizza;
+}
+
+//숫자찾기
+//정수 num과 k가 매개변수로 주어질 때, num을 이루는 숫자 중에 k가 있으면 num의 그 숫자가 있는 자리 수를 return하고 없으면 -1을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(num, k) {
+  const numArr = num.toString().split('');
+  const idx = numArr.indexOf(k.toString());
+
+  return idx >= 0 ? idx + 1 : idx;
 }
