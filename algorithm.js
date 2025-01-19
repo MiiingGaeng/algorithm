@@ -1397,58 +1397,87 @@
 //직각삼각형 출력하기
 //"*"의 높이와 너비를 1이라고 했을 때, "*"을 이용해 직각 이등변 삼각형을 그리려고합니다. 정수 n 이 주어지면 높이와 너비가 n 인 직각 이등변 삼각형을 출력하도록 코드를 작성해보세요.
 
-const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+// const readline = require('readline');
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
 
-let input = [];
+// let input = [];
 
-rl.on('line', function (line) {
-  input = line.split(' ');
-}).on('close', function () {
-  //내 풀이
-  for (let i = 0; i < Number(input[0]); i++) {
-    let star = '';
-    for (let j = 0; j <= i; j++) {
-      star += '*';
-    }
-    console.log(star);
-  }
-});
+// rl.on('line', function (line) {
+//   input = line.split(' ');
+// }).on('close', function () {
+//   //내 풀이
+//   for (let i = 0; i < Number(input[0]); i++) {
+//     let star = '';
+//     for (let j = 0; j <= i; j++) {
+//       star += '*';
+//     }
+//     console.log(star);
+//   }
+// });
 
-//다른 사람 풀이
-for (let i = 1; i <= +input[0]; i++) {
-  console.log('*'.repeat(i));
-}
+// //다른 사람 풀이
+// for (let i = 1; i <= +input[0]; i++) {
+//   console.log('*'.repeat(i));
+// }
 
 //피자 나눠 먹기(2)
 //머쓱이네 피자가게는 피자를 여섯 조각으로 잘라 줍니다. 피자를 나눠먹을 사람의 수 n이 매개변수로 주어질 때, n명이 주문한 피자를 남기지 않고 모두 같은 수의 피자 조각을 먹어야 한다면 최소 몇 판을 시켜야 하는지를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(n) {
-  const gcd = (num1, num2) =>
-    num1 % num2 === 0 ? num2 : gcd(num2, num1 % num2);
-  const lcd = (num1, num2) => (num1 * num2) / gcd(num1, num2);
+// function solution(n) {
+//   const gcd = (num1, num2) =>
+//     num1 % num2 === 0 ? num2 : gcd(num2, num1 % num2);
+//   const lcd = (num1, num2) => (num1 * num2) / gcd(num1, num2);
 
-  return lcd(n, 6) / 6;
-}
+//   return lcd(n, 6) / 6;
+// }
 
-//다른 사람 풀이
-function solution(n) {
-  let pizza = 1;
-  while ((pizza * 6) % n) {
-    pizza++;
-  }
-  return pizza;
-}
+// //다른 사람 풀이
+// function solution(n) {
+//   let pizza = 1;
+//   while ((pizza * 6) % n) {
+//     pizza++;
+//   }
+//   return pizza;
+// }
 
 //숫자찾기
 //정수 num과 k가 매개변수로 주어질 때, num을 이루는 숫자 중에 k가 있으면 num의 그 숫자가 있는 자리 수를 return하고 없으면 -1을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(num, k) {
-  const numArr = num.toString().split('');
-  const idx = numArr.indexOf(k.toString());
+// function solution(num, k) {
+//   const numArr = num.toString().split('');
+//   const idx = numArr.indexOf(k.toString());
 
-  return idx >= 0 ? idx + 1 : idx;
+//   return idx >= 0 ? idx + 1 : idx;
+// }
+
+//58 소수 만들기
+//주어진 숫자 중 3개의 수를 더했을 때 소수가 되는 경우의 개수를 구하려고 합니다. 숫자들이 들어있는 배열 nums가 매개변수로 주어질 때, nums에 있는 숫자들 중 서로 다른 3개를 골라 더했을 때 소수가 되는 경우의 개수를 return 하도록 solution 함수를 완성해주세요.
+
+function solution(nums) {
+  let count = 0;
+
+  //소수 판별 함수
+  function isDeciaml(num) {
+    if (num < 2) return false;
+    for (let i = 2; i <= num / 2; i++) {
+      if (num % i === 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  //요소 3개 더하기
+  for (let i = 0; i < nums.length - 2; i++) {
+    for (let j = i + 1; j < nums.length - 1; j++) {
+      for (let k = j + 1; k < nums.length; k++) {
+        let sum = nums[i] + nums[j] + nums[k];
+        if (isDeciaml(sum)) count++;
+      }
+    }
+  }
+  return count;
 }
