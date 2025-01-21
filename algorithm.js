@@ -1497,21 +1497,120 @@
 
 // 정수 n, m과 다시 페인트를 칠하기로 정한 구역들의 번호가 담긴 정수 배열 section이 매개변수로 주어질 때 롤러로 페인트칠해야 하는 최소 횟수를 return 하는 solution 함수를 작성해 주세요.
 
-function solution(n, m, section) {
-  //페인트칠 n미터, 롤러길이 m미터, 칠해야 하는 구역 section
+// function solution(n, m, section) {
+//   //페인트칠 n미터, 롤러길이 m미터, 칠해야 하는 구역 section
 
-  //칠하는 횟수
-  let answer = 0;
-  //칠한 구역
-  let painted = 0;
+//   //칠하는 횟수
+//   let answer = 0;
+//   //칠한 구역
+//   let painted = 0;
 
-  for (let i = 0; i < section.length; i++) {
-    //칠하지 않은 구역 칠하기
-    if (painted < section[i]) {
-      painted = section[i] + m - 1;
-      answer++;
+//   for (let i = 0; i < section.length; i++) {
+//     //칠하지 않은 구역 칠하기
+//     if (painted < section[i]) {
+//       painted = section[i] + m - 1;
+//       answer++;
+//     }
+//   }
+
+//   return answer;
+// }
+
+//14일차
+//외계 행성의 나이
+//우주여행을 하던 머쓱이는 엔진 고장으로 PROGRAMMERS-962 행성에 불시착하게 됐습니다. 입국심사에서 나이를 말해야 하는데, PROGRAMMERS-962 행성에서는 나이를 알파벳으로 말하고 있습니다. a는 0, b는 1, c는 2, ..., j는 9입니다. 예를 들어 23살은 cd, 51살은 fb로 표현합니다. 나이 age가 매개변수로 주어질 때 PROGRAMMER-962식 나이를 return하도록 solution 함수를 완성해주세요.
+
+function solution(age) {
+  const arrChar = 'abcdefghij';
+  const arrAge = age.toString.split('');
+
+  return arrAge.map((num) => arrChar.charAt(num)).join('');
+}
+
+//다른 사람 풀이
+function solution(age) {
+  return age
+    .toString()
+    .split('')
+    .map((v) => 'abcdefghij'[v])
+    .join('');
+}
+
+//문자열 정렬하기 (2)
+//영어 대소문자로 이루어진 문자열 my_string이 매개변수로 주어질 때, my_string을 모두 소문자로 바꾸고 알파벳 순서대로 정렬한 문자열을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(my_string) {
+  return my_string.toLowerCase().split('').sort().join('');
+}
+
+//합성수 찾기
+//약수의 개수가 세 개 이상인 수를 합성수라고 합니다. 자연수 n이 매개변수로 주어질 때 n이하의 합성수의 개수를 return하도록 solution 함수를 완성해주세요.
+
+function solution(n) {
+  const arr = [];
+  for (let num = 1; num <= n; num++) {
+    let count = 0;
+    for (let i = 1; i <= num; i++) {
+      if (num % i === 0) count++;
     }
+
+    if (count >= 3) arr.push(num);
   }
 
-  return answer;
+  return arr.length;
+}
+
+//모스부호 (1)
+//머쓱이는 친구에게 모스부호를 이용한 편지를 받았습니다. 그냥은 읽을 수 없어 이를 해독하는 프로그램을 만들려고 합니다. 문자열 letter가 매개변수로 주어질 때, letter를 영어 소문자로 바꾼 문자열을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(letter) {
+  const morse = {
+    '.-': 'a',
+    '-...': 'b',
+    '-.-.': 'c',
+    '-..': 'd',
+    '.': 'e',
+    '..-.': 'f',
+    '--.': 'g',
+    '....': 'h',
+    '..': 'i',
+    '.---': 'j',
+    '-.-': 'k',
+    '.-..': 'l',
+    '--': 'm',
+    '-.': 'n',
+    '---': 'o',
+    '.--.': 'p',
+    '--.-': 'q',
+    '.-.': 'r',
+    '...': 's',
+    '-': 't',
+    '..-': 'u',
+    '...-': 'v',
+    '.--': 'w',
+    '-..-': 'x',
+    '-.--': 'y',
+    '--..': 'z',
+  };
+  const moseInLetter = letter.split(' ');
+
+  const readLetter = moseInLetter.map((item) => morse[item]);
+  return readLetter.join('');
+}
+
+//개미군단
+//개미 군단이 사냥을 나가려고 합니다. 개미군단은 사냥감의 체력에 딱 맞는 병력을 데리고 나가려고 합니다. 장군개미는 5의 공격력을, 병정개미는 3의 공격력을 일개미는 1의 공격력을 가지고 있습니다. 예를 들어 체력 23의 여치를 사냥하려고 할 때, 일개미 23마리를 데리고 가도 되지만, 장군개미 네 마리와 병정개미 한 마리를 데리고 간다면 더 적은 병력으로 사냥할 수 있습니다. 사냥감의 체력 hp가 매개변수로 주어질 때, 사냥감의 체력에 딱 맞게 최소한의 병력을 구성하려면 몇 마리의 개미가 필요한지를 return하도록 solution 함수를 완성해주세요.
+
+function solution(hp) {
+  //genAnt와 solAnt는 각각 몇마리씩 필요한지 계산하는 변수
+  const gen = Math.floor(hp / 5);
+  const sol = Math.floor((hp - gen * 5) / 3);
+  const work = hp - gen * 5 - sol * 3;
+
+  return gen + sol + work;
+}
+
+//다른 사람 풀이
+function solution(hp) {
+  return Math.floor(hp / 5) + Math.floor((hp % 5) / 3) + ((hp % 5) % 3);
 }
