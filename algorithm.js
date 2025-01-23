@@ -1619,48 +1619,86 @@
 //중복된 문자 제거
 //문자열 my_string이 매개변수로 주어집니다. my_string에서 중복된 문자를 제거하고 하나의 문자만 남긴 문자열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(string) {
-  return (arrS = string
-    .split('')
-    .filter((char, idx, arr) => arr.indexOf(char) === idx)
-    .join(''));
-}
+// function solution(string) {
+//   return (arrS = string
+//     .split('')
+//     .filter((char, idx, arr) => arr.indexOf(char) === idx)
+//     .join(''));
+// }
 
 //k의 개수
 //1부터 13까지의 수에서, 1은 1, 10, 11, 12, 13 이렇게 총 6번 등장합니다. 정수 i, j, k가 매개변수로 주어질 때, i부터 j까지 k가 몇 번 등장하는지 return 하도록 solution 함수를 완성해주세요.
 
 //실패
-function solution(i, j, k) {
-  let count = 0;
+// function solution(i, j, k) {
+//   let count = 0;
 
-  for (i; i <= j; i++) {
-    if (String(i).includes(String(k))) count++;
-  }
+//   for (i; i <= j; i++) {
+//     if (String(i).includes(String(k))) count++;
+//   }
 
-  return count;
-}
+//   return count;
+// }
 
 //해결
 //11의 경우 1의 개수가 1개로 잡혀서 테스트케이스에 실패했었다. 문자를 쪼개서 확인했어야했다.
-function solution(i, j, k) {
-  let count = 0;
+// function solution(i, j, k) {
+//   let count = 0;
 
-  for (i; i <= j; i++) {
-    const splitedNum = i.toString().split('');
-    splitedNum.map((num) => {
-      if (num.includes(k.toString())) count++;
-    });
-  }
+//   for (i; i <= j; i++) {
+//     const splitedNum = i.toString().split('');
+//     splitedNum.map((num) => {
+//       if (num.includes(k.toString())) count++;
+//     });
+//   }
 
-  return count;
-}
+//   return count;
+// }
 
 //A로 B 만들기
 //문자열 before와 after가 매개변수로 주어질 때, before의 순서를 바꾸어 after를 만들 수 있으면 1을, 만들 수 없으면 0을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(before, after) {
-  const b = before.split('').sort().join('');
-  const a = after.split('').sort().join('');
+// function solution(before, after) {
+//   const b = before.split('').sort().join('');
+//   const a = after.split('').sort().join('');
 
-  return a === b ? 1 : 0;
+//   return a === b ? 1 : 0;
+// }
+
+//16일차
+//진료 순서 정하기
+//외과의사 머쓱이는 응급실에 온 환자의 응급도를 기준으로 진료 순서를 정하려고 합니다. 정수 배열 emergency가 매개변수로 주어질 때 응급도가 높은 순서대로 진료 순서를 정한 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(emergency) {
+  const idxArr = [...emergency].sort((a, b) => b - a);
+  return emergency.map((ppl) => idxArr.indexOf(ppl) + 1);
+}
+
+//2차원으로 만들기
+//정수 배열 num_list와 정수 n이 매개변수로 주어집니다. num_list를 다음 설명과 같이 2차원 배열로 바꿔 return하도록 solution 함수를 완성해주세요.
+//num_list가 [1, 2, 3, 4, 5, 6, 7, 8] 로 길이가 8이고 n이 2이므로 num_list를 2 * 4 배열로 다음과 같이 변경합니다. 2차원으로 바꿀 때에는 num_list의 원소들을 앞에서부터 n개씩 나눠 2차원 배열로 변경합니다.
+
+function solution(num_list, n) {
+  const answer = [];
+
+  for (let i = 0; i < num_list.length / n; i++) {
+    answer.push(num_list.slice(i * n, i * n + n));
+  }
+
+  return answer;
+}
+
+//팩토리얼
+//i팩토리얼 (i!)은 1부터 i까지 정수의 곱을 의미합니다. 예를들어 5! = 5 * 4 * 3 * 2 * 1 = 120 입니다. 정수 n이 주어질 때 다음 조건을 만족하는 가장 큰 정수 i를 return 하도록 solution 함수를 완성해주세요.
+
+function solution(n) {
+  let facI = 1;
+  let i = 0;
+
+  while (facI <= n) {
+    i++;
+    facI *= i;
+  }
+
+  return i - 1;
 }
