@@ -1669,36 +1669,88 @@
 //진료 순서 정하기
 //외과의사 머쓱이는 응급실에 온 환자의 응급도를 기준으로 진료 순서를 정하려고 합니다. 정수 배열 emergency가 매개변수로 주어질 때 응급도가 높은 순서대로 진료 순서를 정한 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(emergency) {
-  const idxArr = [...emergency].sort((a, b) => b - a);
-  return emergency.map((ppl) => idxArr.indexOf(ppl) + 1);
-}
+// function solution(emergency) {
+//   const idxArr = [...emergency].sort((a, b) => b - a);
+//   return emergency.map((ppl) => idxArr.indexOf(ppl) + 1);
+// }
 
 //2차원으로 만들기
 //정수 배열 num_list와 정수 n이 매개변수로 주어집니다. num_list를 다음 설명과 같이 2차원 배열로 바꿔 return하도록 solution 함수를 완성해주세요.
 //num_list가 [1, 2, 3, 4, 5, 6, 7, 8] 로 길이가 8이고 n이 2이므로 num_list를 2 * 4 배열로 다음과 같이 변경합니다. 2차원으로 바꿀 때에는 num_list의 원소들을 앞에서부터 n개씩 나눠 2차원 배열로 변경합니다.
 
-function solution(num_list, n) {
-  const answer = [];
+// function solution(num_list, n) {
+//   const answer = [];
 
-  for (let i = 0; i < num_list.length / n; i++) {
-    answer.push(num_list.slice(i * n, i * n + n));
-  }
+//   for (let i = 0; i < num_list.length / n; i++) {
+//     answer.push(num_list.slice(i * n, i * n + n));
+//   }
 
-  return answer;
-}
+//   return answer;
+// }
 
 //팩토리얼
 //i팩토리얼 (i!)은 1부터 i까지 정수의 곱을 의미합니다. 예를들어 5! = 5 * 4 * 3 * 2 * 1 = 120 입니다. 정수 n이 주어질 때 다음 조건을 만족하는 가장 큰 정수 i를 return 하도록 solution 함수를 완성해주세요.
 
-function solution(n) {
-  let facI = 1;
-  let i = 0;
+// function solution(n) {
+//   let facI = 1;
+//   let i = 0;
 
-  while (facI <= n) {
-    i++;
-    facI *= i;
-  }
+//   while (facI <= n) {
+//     i++;
+//     facI *= i;
+//   }
 
-  return i - 1;
+//   return i - 1;
+// }
+
+//17일차
+//숨어있는 숫자의 덧셈(2)
+//문자열 my_string이 매개변수로 주어집니다. my_string은 소문자, 대문자, 자연수로만 구성되어있습니다. my_string안의 자연수들의 합을 return하도록 solution 함수를 완성해주세요.
+
+//실패
+function solution(my_string) {
+  const splited = my_string.split('');
+  const turnedIntoNum = splited
+    .map((item) =>
+      !parseInt(item) || item.toLowerCase() === 'e'
+        ? (item = '*')
+        : (item = parseInt(item))
+    )
+    .join('')
+    .split('*')
+    .filter((item) => item);
+
+  return turnedIntoNum
+    .map((item) => parseInt(item))
+    .reduce((acc, cur) => (acc += cur));
+}
+
+//두번째 실패
+//자연수 없을 때 예외처리 안함
+function solution(my_string) {
+  const splited = my_string.split(/[A-z]/g);
+  return splited
+    .filter((item) => item)
+    .map((item) => parseInt(item))
+    .reduce((acc, cur) => (acc += cur));
+}
+
+//성공
+function solution(my_string) {
+  const splited = my_string.split(/[A-z]/g);
+  const filtered = splited.filter((item) => item);
+
+  return filtered.length
+    ? filtered.map((item) => parseInt(item)).reduce((acc, cur) => (acc += cur))
+    : 0;
+}
+
+//다른 사람 풀이
+//정규 표현식 알아보기
+function solution(my_string) {
+  return my_string
+    .replace(/[A-z]/g, ' ')
+    .split(' ')
+    .map((v) => v * 1)
+    .reduce((a, b) => a + b);
 }
