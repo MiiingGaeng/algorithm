@@ -1708,49 +1708,145 @@
 //문자열 my_string이 매개변수로 주어집니다. my_string은 소문자, 대문자, 자연수로만 구성되어있습니다. my_string안의 자연수들의 합을 return하도록 solution 함수를 완성해주세요.
 
 //실패
-function solution(my_string) {
-  const splited = my_string.split('');
-  const turnedIntoNum = splited
-    .map((item) =>
-      !parseInt(item) || item.toLowerCase() === 'e'
-        ? (item = '*')
-        : (item = parseInt(item))
-    )
-    .join('')
-    .split('*')
-    .filter((item) => item);
+// function solution(my_string) {
+//   const splited = my_string.split('');
+//   const turnedIntoNum = splited
+//     .map((item) =>
+//       !parseInt(item) || item.toLowerCase() === 'e'
+//         ? (item = '*')
+//         : (item = parseInt(item))
+//     )
+//     .join('')
+//     .split('*')
+//     .filter((item) => item);
 
-  return turnedIntoNum
-    .map((item) => parseInt(item))
-    .reduce((acc, cur) => (acc += cur));
-}
+//   return turnedIntoNum
+//     .map((item) => parseInt(item))
+//     .reduce((acc, cur) => (acc += cur));
+// }
 
 //두번째 실패
 //자연수 없을 때 예외처리 안함
-function solution(my_string) {
-  const splited = my_string.split(/[A-z]/g);
-  return splited
-    .filter((item) => item)
-    .map((item) => parseInt(item))
-    .reduce((acc, cur) => (acc += cur));
-}
+// function solution(my_string) {
+//   const splited = my_string.split(/[A-z]/g);
+//   return splited
+//     .filter((item) => item)
+//     .map((item) => parseInt(item))
+//     .reduce((acc, cur) => (acc += cur));
+// }
 
 //성공
-function solution(my_string) {
-  const splited = my_string.split(/[A-z]/g);
-  const filtered = splited.filter((item) => item);
+// function solution(my_string) {
+//   const splited = my_string.split(/[A-z]/g);
+//   const filtered = splited.filter((item) => item);
 
-  return filtered.length
-    ? filtered.map((item) => parseInt(item)).reduce((acc, cur) => (acc += cur))
-    : 0;
-}
+//   return filtered.length
+//     ? filtered.map((item) => parseInt(item)).reduce((acc, cur) => (acc += cur))
+//     : 0;
+// }
 
 //다른 사람 풀이
 //정규 표현식 알아보기
-function solution(my_string) {
-  return my_string
-    .replace(/[A-z]/g, ' ')
-    .split(' ')
-    .map((v) => v * 1)
-    .reduce((a, b) => a + b);
+// function solution(my_string) {
+//   return my_string
+//     .replace(/[A-z]/g, ' ')
+//     .split(' ')
+//     .map((v) => v * 1)
+//     .reduce((a, b) => a + b);
+// }
+
+//18일차
+//가까운 수
+//정수 배열 array와 정수 n이 매개변수로 주어질 때, array에 들어있는 정수 중 n과 가장 가까운 수를 return 하도록 solution 함수를 완성해주세요.
+
+//실패
+function solution(array, n) {
+  const newArr = [...array, n].sort((a, b) => a - b);
+  const idxN = newArr.indexOf(n);
+  if (idxN === newArr.length - 1) return newArr[idxN - 1];
+
+  const compareBefore = n - newArr[idxN - 1];
+  const compareAfter = newArr[idxN + 1] - n;
+
+  return compareBefore < compareAfter ? newArr[idxN - 1] : newArr[idxN + 1];
+}
+
+//성공
+//앞뒤 숫자와 N의 차이가 같을 경우 작은 수 반환 처리!!!
+//문제를 잘 읽자!
+function solution(array, n) {
+  const newArr = [...array, n].sort((a, b) => a - b);
+  const idxN = newArr.indexOf(n);
+
+  //예외처리
+  if (idxN === newArr.length - 1) return newArr[idxN - 1];
+  if (idxN === 0) return newArr[1];
+
+  const compareBefore = n - newArr[idxN - 1];
+  const compareAfter = newArr[idxN + 1] - n;
+
+  return compareBefore <= compareAfter ? newArr[idxN - 1] : newArr[idxN + 1];
+}
+
+//다른 사람 풀이
+function solution(array2, n) {
+  var array = [...array2].sort();
+  var cal = array.map((v) => Math.abs(v - n)); //요소에서 n뺀것을 절대값으로 표시
+  var cal2 = Math.min(...cal); //제일 가까운수의 값
+  var cal3 = cal.indexOf(cal2); //제일 가까운수의 인덱스
+
+  return array[cal3];
+}
+
+//Math.abs : 숫자의 절대 값을 반환
+function solution(array, n) {
+  array.sort((a, b) => Math.abs(n - a) - Math.abs(n - b) || a - b);
+
+  return array[0];
+}
+
+//한번만 등장한 문자
+//문자열 s가 매개변수로 주어집니다. s에서 한 번만 등장하는 문자를 사전 순으로 정렬한 문자열을 return 하도록 solution 함수를 완성해보세요. 한 번만 등장하는 문자가 없을 경우 빈 문자열을 return 합니다.
+
+function solution(s) {
+  const arrS = s.split('');
+  const result = [];
+  arrS.forEach((char) => {
+    return s.indexOf(char) === s.lastIndexOf(char) ? result.push(char) : result;
+  });
+
+  return result.sort().join('');
+}
+
+//다른 사람 풀이
+function solution(s) {
+  let res = [];
+  for (let c of s) if (s.indexOf(c) === s.lastIndexOf(c)) res.push(c);
+  return res.sort().join('');
+}
+
+//7의 개수
+//머쓱이는 행운의 숫자 7을 가장 좋아합니다. 정수 배열 array가 매개변수로 주어질 때, 7이 총 몇 개 있는지 return 하도록 solution 함수를 완성해보세요.
+
+function solution(array) {
+  let count = 0;
+  const mappedArr = array.map((item) => item.toString().split(''));
+
+  mappedArr.forEach((arr) => {
+    arr.forEach((num) => {
+      if (parseInt(num) === 7) count++;
+    });
+  });
+
+  return count;
+}
+
+//다른 사람 풀이
+function solution(array) {
+  return array
+    .join()
+    .split('')
+    .filter((el) => {
+      return el == '7';
+    }).length;
 }
