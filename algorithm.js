@@ -1760,93 +1760,143 @@
 //정수 배열 array와 정수 n이 매개변수로 주어질 때, array에 들어있는 정수 중 n과 가장 가까운 수를 return 하도록 solution 함수를 완성해주세요.
 
 //실패
-function solution(array, n) {
-  const newArr = [...array, n].sort((a, b) => a - b);
-  const idxN = newArr.indexOf(n);
-  if (idxN === newArr.length - 1) return newArr[idxN - 1];
+// function solution(array, n) {
+//   const newArr = [...array, n].sort((a, b) => a - b);
+//   const idxN = newArr.indexOf(n);
+//   if (idxN === newArr.length - 1) return newArr[idxN - 1];
 
-  const compareBefore = n - newArr[idxN - 1];
-  const compareAfter = newArr[idxN + 1] - n;
+//   const compareBefore = n - newArr[idxN - 1];
+//   const compareAfter = newArr[idxN + 1] - n;
 
-  return compareBefore < compareAfter ? newArr[idxN - 1] : newArr[idxN + 1];
-}
+//   return compareBefore < compareAfter ? newArr[idxN - 1] : newArr[idxN + 1];
+// }
 
 //성공
 //앞뒤 숫자와 N의 차이가 같을 경우 작은 수 반환 처리!!!
 //문제를 잘 읽자!
-function solution(array, n) {
-  const newArr = [...array, n].sort((a, b) => a - b);
-  const idxN = newArr.indexOf(n);
+// function solution(array, n) {
+//   const newArr = [...array, n].sort((a, b) => a - b);
+//   const idxN = newArr.indexOf(n);
 
-  //예외처리
-  if (idxN === newArr.length - 1) return newArr[idxN - 1];
-  if (idxN === 0) return newArr[1];
+//   //예외처리
+//   if (idxN === newArr.length - 1) return newArr[idxN - 1];
+//   if (idxN === 0) return newArr[1];
 
-  const compareBefore = n - newArr[idxN - 1];
-  const compareAfter = newArr[idxN + 1] - n;
+//   const compareBefore = n - newArr[idxN - 1];
+//   const compareAfter = newArr[idxN + 1] - n;
 
-  return compareBefore <= compareAfter ? newArr[idxN - 1] : newArr[idxN + 1];
-}
+//   return compareBefore <= compareAfter ? newArr[idxN - 1] : newArr[idxN + 1];
+// }
 
 //다른 사람 풀이
-function solution(array2, n) {
-  var array = [...array2].sort();
-  var cal = array.map((v) => Math.abs(v - n)); //요소에서 n뺀것을 절대값으로 표시
-  var cal2 = Math.min(...cal); //제일 가까운수의 값
-  var cal3 = cal.indexOf(cal2); //제일 가까운수의 인덱스
+// function solution(array2, n) {
+//   var array = [...array2].sort();
+//   var cal = array.map((v) => Math.abs(v - n)); //요소에서 n뺀것을 절대값으로 표시
+//   var cal2 = Math.min(...cal); //제일 가까운수의 값
+//   var cal3 = cal.indexOf(cal2); //제일 가까운수의 인덱스
 
-  return array[cal3];
-}
+//   return array[cal3];
+// }
 
 //Math.abs : 숫자의 절대 값을 반환
-function solution(array, n) {
-  array.sort((a, b) => Math.abs(n - a) - Math.abs(n - b) || a - b);
+// function solution(array, n) {
+//   array.sort((a, b) => Math.abs(n - a) - Math.abs(n - b) || a - b);
 
-  return array[0];
-}
+//   return array[0];
+// }
 
 //한번만 등장한 문자
 //문자열 s가 매개변수로 주어집니다. s에서 한 번만 등장하는 문자를 사전 순으로 정렬한 문자열을 return 하도록 solution 함수를 완성해보세요. 한 번만 등장하는 문자가 없을 경우 빈 문자열을 return 합니다.
 
-function solution(s) {
-  const arrS = s.split('');
-  const result = [];
-  arrS.forEach((char) => {
-    return s.indexOf(char) === s.lastIndexOf(char) ? result.push(char) : result;
-  });
+// function solution(s) {
+//   const arrS = s.split('');
+//   const result = [];
+//   arrS.forEach((char) => {
+//     return s.indexOf(char) === s.lastIndexOf(char) ? result.push(char) : result;
+//   });
 
-  return result.sort().join('');
-}
+//   return result.sort().join('');
+// }
 
-//다른 사람 풀이
-function solution(s) {
-  let res = [];
-  for (let c of s) if (s.indexOf(c) === s.lastIndexOf(c)) res.push(c);
-  return res.sort().join('');
-}
+// //다른 사람 풀이
+// function solution(s) {
+//   let res = [];
+//   for (let c of s) if (s.indexOf(c) === s.lastIndexOf(c)) res.push(c);
+//   return res.sort().join('');
+// }
 
 //7의 개수
 //머쓱이는 행운의 숫자 7을 가장 좋아합니다. 정수 배열 array가 매개변수로 주어질 때, 7이 총 몇 개 있는지 return 하도록 solution 함수를 완성해보세요.
 
-function solution(array) {
-  let count = 0;
-  const mappedArr = array.map((item) => item.toString().split(''));
+// function solution(array) {
+//   let count = 0;
+//   const mappedArr = array.map((item) => item.toString().split(''));
 
-  mappedArr.forEach((arr) => {
-    arr.forEach((num) => {
-      if (parseInt(num) === 7) count++;
-    });
-  });
+//   mappedArr.forEach((arr) => {
+//     arr.forEach((num) => {
+//       if (parseInt(num) === 7) count++;
+//     });
+//   });
 
-  return count;
+//   return count;
+// }
+
+// //다른 사람 풀이
+// function solution(array) {
+//   return array
+//     .join()
+//     .split('')
+//     .filter((el) => {
+//       return el == '7';
+//     }).length;
+// }
+
+//19일차
+//컨트롤 제트
+//숫자와 "Z"가 공백으로 구분되어 담긴 문자열이 주어집니다. 문자열에 있는 숫자를 차례대로 더하려고 합니다. 이 때 "Z"가 나오면 바로 전에 더했던 숫자를 뺀다는 뜻입니다. 숫자와 "Z"로 이루어진 문자열 s가 주어질 때, 머쓱이가 구한 값을 return 하도록 solution 함수를 완성해보세요.
+
+function solution(s) {
+  const arrS = s.split(' ');
+  let answer = 0;
+
+  for (let i = 0; i < arrS.length; i++) {
+    arrS[i] !== 'Z'
+      ? (answer += parseInt(arrS[i]))
+      : (answer -= parseInt(arrS[i - 1]));
+  }
+
+  return answer;
 }
 
 //다른 사람 풀이
-function solution(array) {
-  return array
-    .join()
-    .split('')
-    .filter((el) => {
-      return el == '7';
-    }).length;
+//for...of문 / reduce
+function solution(s) {
+  s = s.split(' ');
+  let arr = [];
+  for (let v of s) v === 'Z' ? (arr.length ? arr.pop() : '') : arr.push(v);
+  return arr.reduce((a, v) => a + +v, 0);
+}
+
+//이진수 더하기
+//이진수를 의미하는 두 개의 문자열 bin1과 bin2가 매개변수로 주어질 때, 두 이진수의 합을 return하도록 solution 함수를 완성해주세요.
+
+function solution(bin1, bin2) {
+  const num1 = parseInt(bin1, 2);
+  const num2 = parseInt(bin2, 2);
+
+  return (num1 + num2).toString(2);
+}
+
+//잘라서 배열로 저장하기
+//문자열 my_str과 n이 매개변수로 주어질 때, my_str을 길이 n씩 잘라서 저장한 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(my_str, n) {
+  const arrStr = my_str.split('');
+  const answer = [];
+
+  while (arrStr.length > 0) {
+    answer.push(arrStr.splice(0, n).join(''));
+  }
+
+  return answer;
 }
