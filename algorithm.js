@@ -1855,48 +1855,153 @@
 //컨트롤 제트
 //숫자와 "Z"가 공백으로 구분되어 담긴 문자열이 주어집니다. 문자열에 있는 숫자를 차례대로 더하려고 합니다. 이 때 "Z"가 나오면 바로 전에 더했던 숫자를 뺀다는 뜻입니다. 숫자와 "Z"로 이루어진 문자열 s가 주어질 때, 머쓱이가 구한 값을 return 하도록 solution 함수를 완성해보세요.
 
-function solution(s) {
-  const arrS = s.split(' ');
-  let answer = 0;
+// function solution(s) {
+//   const arrS = s.split(' ');
+//   let answer = 0;
 
-  for (let i = 0; i < arrS.length; i++) {
-    arrS[i] !== 'Z'
-      ? (answer += parseInt(arrS[i]))
-      : (answer -= parseInt(arrS[i - 1]));
+//   for (let i = 0; i < arrS.length; i++) {
+//     arrS[i] !== 'Z'
+//       ? (answer += parseInt(arrS[i]))
+//       : (answer -= parseInt(arrS[i - 1]));
+//   }
+
+//   return answer;
+// }
+
+//다른 사람 풀이
+//for...of문 / reduce
+// function solution(s) {
+//   s = s.split(' ');
+//   let arr = [];
+//   for (let v of s) v === 'Z' ? (arr.length ? arr.pop() : '') : arr.push(v);
+//   return arr.reduce((a, v) => a + +v, 0);
+// }
+
+//이진수 더하기
+//이진수를 의미하는 두 개의 문자열 bin1과 bin2가 매개변수로 주어질 때, 두 이진수의 합을 return하도록 solution 함수를 완성해주세요.
+
+// function solution(bin1, bin2) {
+//   const num1 = parseInt(bin1, 2);
+//   const num2 = parseInt(bin2, 2);
+
+//   return (num1 + num2).toString(2);
+// }
+
+//잘라서 배열로 저장하기
+//문자열 my_str과 n이 매개변수로 주어질 때, my_str을 길이 n씩 잘라서 저장한 배열을 return하도록 solution 함수를 완성해주세요.
+
+// function solution(my_str, n) {
+//   const arrStr = my_str.split('');
+//   const answer = [];
+
+//   while (arrStr.length > 0) {
+//     answer.push(arrStr.splice(0, n).join(''));
+//   }
+
+//   return answer;
+// }
+
+//20일차
+//공 던지기
+//머쓱이는 친구들과 동그랗게 서서 공 던지기 게임을 하고 있습니다. 공은 1번부터 던지며 오른쪽으로 한 명을 건너뛰고 그다음 사람에게만 던질 수 있습니다. 친구들의 번호가 들어있는 정수 배열 numbers와 정수 K가 주어질 때, k번째로 공을 던지는 사람의 번호는 무엇인지 return 하도록 solution 함수를 완성해보세요.
+
+function solution(numbers, k) {
+  let idx = 0;
+
+  for (let i = 0; i < k; i++) {
+    idx += 2;
+    if (idx > numbers.length) {
+      idx -= numbers.length;
+    }
+  }
+
+  return idx - 2 > 0 ? numbers[idx - 2] : numbers[numbers.length + (idx - 2)];
+}
+
+//다른 사람 풀이
+function solution(numbers, k) {
+  return numbers[(2 * (k - 1)) % numbers.length];
+}
+
+//문자열 계산하기
+//my_string은 "3 + 5"처럼 문자열로 된 수식입니다. 문자열 my_string이 매개변수로 주어질 때, 수식을 계산한 값을 return 하는 solution 함수를 완성해주세요.
+
+function solution(my_string) {
+  const arrS = my_string.split(' ');
+  let answer = parseInt(arrS[0]);
+
+  for (let i = 1; i < arrS.length; i++) {
+    if (arrS[i] === '+') {
+      answer += parseInt(arrS[i + 1]);
+    } else if (arrS[i] === '-') {
+      answer -= parseInt(arrS[i + 1]);
+    } else {
+      continue;
+    }
   }
 
   return answer;
 }
 
 //다른 사람 풀이
-//for...of문 / reduce
-function solution(s) {
-  s = s.split(' ');
-  let arr = [];
-  for (let v of s) v === 'Z' ? (arr.length ? arr.pop() : '') : arr.push(v);
-  return arr.reduce((a, v) => a + +v, 0);
-}
+function solution(my_string) {
+  const stack = [];
 
-//이진수 더하기
-//이진수를 의미하는 두 개의 문자열 bin1과 bin2가 매개변수로 주어질 때, 두 이진수의 합을 return하도록 solution 함수를 완성해주세요.
-
-function solution(bin1, bin2) {
-  const num1 = parseInt(bin1, 2);
-  const num2 = parseInt(bin2, 2);
-
-  return (num1 + num2).toString(2);
-}
-
-//잘라서 배열로 저장하기
-//문자열 my_str과 n이 매개변수로 주어질 때, my_str을 길이 n씩 잘라서 저장한 배열을 return하도록 solution 함수를 완성해주세요.
-
-function solution(my_str, n) {
-  const arrStr = my_str.split('');
-  const answer = [];
-
-  while (arrStr.length > 0) {
-    answer.push(arrStr.splice(0, n).join(''));
+  let sign = 1;
+  for (const ch of my_string.split(' ')) {
+    if (ch === '+') {
+      sign = 1;
+    } else if (ch === '-') {
+      sign = -1;
+    } else {
+      stack.push(ch * sign);
+    }
   }
 
-  return answer;
+  return stack.reduce((a, b) => a + b, 0);
+}
+
+//영어가 싫어요
+//영어가 싫은 머쓱이는 영어로 표기되어있는 숫자를 수로 바꾸려고 합니다. 문자열 numbers가 매개변수로 주어질 때, numbers를 정수로 바꿔 return 하도록 solution 함수를 완성해 주세요.
+
+function solution(numbers) {
+  const numObj = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
+
+  const num = numbers.replace(
+    /zero|one|two|three|four|five|six|seven|eight|nine/g,
+    (v) => numObj[v]
+  );
+
+  return parseInt(num);
+}
+
+//다른 사람 풀이
+function solution(numbers) {
+  const number = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+  for (let i = 0; i < number.length; i++) {
+    numbers = numbers.split(number[i]).join(i);
+  }
+  return +numbers;
 }
