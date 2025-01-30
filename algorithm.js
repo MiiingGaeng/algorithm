@@ -1905,103 +1905,144 @@
 //공 던지기
 //머쓱이는 친구들과 동그랗게 서서 공 던지기 게임을 하고 있습니다. 공은 1번부터 던지며 오른쪽으로 한 명을 건너뛰고 그다음 사람에게만 던질 수 있습니다. 친구들의 번호가 들어있는 정수 배열 numbers와 정수 K가 주어질 때, k번째로 공을 던지는 사람의 번호는 무엇인지 return 하도록 solution 함수를 완성해보세요.
 
-function solution(numbers, k) {
-  let idx = 0;
+// function solution(numbers, k) {
+//   let idx = 0;
 
-  for (let i = 0; i < k; i++) {
-    idx += 2;
-    if (idx > numbers.length) {
-      idx -= numbers.length;
-    }
-  }
+//   for (let i = 0; i < k; i++) {
+//     idx += 2;
+//     if (idx > numbers.length) {
+//       idx -= numbers.length;
+//     }
+//   }
 
-  return idx - 2 > 0 ? numbers[idx - 2] : numbers[numbers.length + (idx - 2)];
-}
+//   return idx - 2 > 0 ? numbers[idx - 2] : numbers[numbers.length + (idx - 2)];
+// }
 
-//다른 사람 풀이
-function solution(numbers, k) {
-  return numbers[(2 * (k - 1)) % numbers.length];
-}
+// //다른 사람 풀이
+// function solution(numbers, k) {
+//   return numbers[(2 * (k - 1)) % numbers.length];
+// }
 
 //문자열 계산하기
 //my_string은 "3 + 5"처럼 문자열로 된 수식입니다. 문자열 my_string이 매개변수로 주어질 때, 수식을 계산한 값을 return 하는 solution 함수를 완성해주세요.
 
-function solution(my_string) {
-  const arrS = my_string.split(' ');
-  let answer = parseInt(arrS[0]);
+// function solution(my_string) {
+//   const arrS = my_string.split(' ');
+//   let answer = parseInt(arrS[0]);
 
-  for (let i = 1; i < arrS.length; i++) {
-    if (arrS[i] === '+') {
-      answer += parseInt(arrS[i + 1]);
-    } else if (arrS[i] === '-') {
-      answer -= parseInt(arrS[i + 1]);
-    } else {
-      continue;
-    }
-  }
+//   for (let i = 1; i < arrS.length; i++) {
+//     if (arrS[i] === '+') {
+//       answer += parseInt(arrS[i + 1]);
+//     } else if (arrS[i] === '-') {
+//       answer -= parseInt(arrS[i + 1]);
+//     } else {
+//       continue;
+//     }
+//   }
 
-  return answer;
-}
+//   return answer;
+// }
 
-//다른 사람 풀이
-function solution(my_string) {
-  const stack = [];
+// //다른 사람 풀이
+// function solution(my_string) {
+//   const stack = [];
 
-  let sign = 1;
-  for (const ch of my_string.split(' ')) {
-    if (ch === '+') {
-      sign = 1;
-    } else if (ch === '-') {
-      sign = -1;
-    } else {
-      stack.push(ch * sign);
-    }
-  }
+//   let sign = 1;
+//   for (const ch of my_string.split(' ')) {
+//     if (ch === '+') {
+//       sign = 1;
+//     } else if (ch === '-') {
+//       sign = -1;
+//     } else {
+//       stack.push(ch * sign);
+//     }
+//   }
 
-  return stack.reduce((a, b) => a + b, 0);
-}
+//   return stack.reduce((a, b) => a + b, 0);
+// }
 
 //영어가 싫어요
 //영어가 싫은 머쓱이는 영어로 표기되어있는 숫자를 수로 바꾸려고 합니다. 문자열 numbers가 매개변수로 주어질 때, numbers를 정수로 바꿔 return 하도록 solution 함수를 완성해 주세요.
 
-function solution(numbers) {
-  const numObj = {
-    zero: 0,
-    one: 1,
-    two: 2,
-    three: 3,
-    four: 4,
-    five: 5,
-    six: 6,
-    seven: 7,
-    eight: 8,
-    nine: 9,
+// function solution(numbers) {
+//   const numObj = {
+//     zero: 0,
+//     one: 1,
+//     two: 2,
+//     three: 3,
+//     four: 4,
+//     five: 5,
+//     six: 6,
+//     seven: 7,
+//     eight: 8,
+//     nine: 9,
+//   };
+
+//   const num = numbers.replace(
+//     /zero|one|two|three|four|five|six|seven|eight|nine/g,
+//     (v) => numObj[v]
+//   );
+
+//   return parseInt(num);
+// }
+
+// //다른 사람 풀이
+// function solution(numbers) {
+//   const number = [
+//     'zero',
+//     'one',
+//     'two',
+//     'three',
+//     'four',
+//     'five',
+//     'six',
+//     'seven',
+//     'eight',
+//     'nine',
+//   ];
+//   for (let i = 0; i < number.length; i++) {
+//     numbers = numbers.split(number[i]).join(i);
+//   }
+//   return +numbers;
+// }
+
+//21일차
+//구슬을 나누는 경우의 수
+//머쓱이는 구슬을 친구들에게 나누어주려고 합니다. 구슬은 모두 다르게 생겼습니다. 머쓱이가 갖고 있는 구슬의 개수 balls와 친구들에게 나누어 줄 구슬 개수 share이 매개변수로 주어질 때, balls개의 구슬 중 share개의 구슬을 고르는 가능한 모든 경우의 수를 return 하는 solution 함수를 완성해주세요.
+
+function solution(balls, share) {
+  //경우의수 공식 = (n-m)! * m! / n!
+
+  const factorial = (n) => {
+    let result = 1;
+    for (let i = 1; i <= n; i++) {
+      result *= i;
+    }
+    return result;
   };
 
-  const num = numbers.replace(
-    /zero|one|two|three|four|five|six|seven|eight|nine/g,
-    (v) => numObj[v]
+  return Math.round(
+    factorial(balls) / (factorial(balls - share) * factorial(share))
   );
-
-  return parseInt(num);
 }
 
-//다른 사람 풀이
-function solution(numbers) {
-  const number = [
-    'zero',
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-  ];
-  for (let i = 0; i < number.length; i++) {
-    numbers = numbers.split(number[i]).join(i);
+//캐릭터의 좌표
+//머쓱이는 RPG게임을 하고 있습니다. 게임에는 up, down, left, right 방향키가 있으며 각 키를 누르면 위, 아래, 왼쪽, 오른쪽으로 한 칸씩 이동합니다. 예를 들어 [0,0]에서 up을 누른다면 캐릭터의 좌표는 [0, 1], down을 누른다면 [0, -1], left를 누른다면 [-1, 0], right를 누른다면 [1, 0]입니다. 머쓱이가 입력한 방향키의 배열 keyinput와 맵의 크기 board이 매개변수로 주어집니다. 캐릭터는 항상 [0,0]에서 시작할 때 키 입력이 모두 끝난 뒤에 캐릭터의 좌표 [x, y]를 return하도록 solution 함수를 완성해주세요.
+
+function solution(keyinput, board) {
+  let resultX = 0;
+  let resultY = 0;
+  const maxWidth = Math.floor(board[0] / 2);
+  const maxHeight = Math.floor(board[1] / 2);
+
+  for (let i = 0; i < keyinput.length; i++) {
+    let input = keyinput[i];
+
+    if (input === 'right' && resultX < maxWidth) resultX++;
+    if (input === 'left' && resultX > maxWidth * -1) resultX--;
+    if (input === 'up' && resultY < maxHeight) resultY++;
+    if (input === 'down' && resultY > maxHeight * -1) resultY--;
   }
-  return +numbers;
+
+  return [resultX, resultY];
 }
