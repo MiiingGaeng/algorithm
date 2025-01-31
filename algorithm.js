@@ -2010,39 +2010,88 @@
 //구슬을 나누는 경우의 수
 //머쓱이는 구슬을 친구들에게 나누어주려고 합니다. 구슬은 모두 다르게 생겼습니다. 머쓱이가 갖고 있는 구슬의 개수 balls와 친구들에게 나누어 줄 구슬 개수 share이 매개변수로 주어질 때, balls개의 구슬 중 share개의 구슬을 고르는 가능한 모든 경우의 수를 return 하는 solution 함수를 완성해주세요.
 
-function solution(balls, share) {
-  //경우의수 공식 = (n-m)! * m! / n!
+// function solution(balls, share) {
+//   //경우의수 공식 = (n-m)! * m! / n!
 
-  const factorial = (n) => {
-    let result = 1;
-    for (let i = 1; i <= n; i++) {
-      result *= i;
-    }
-    return result;
-  };
+//   const factorial = (n) => {
+//     let result = 1;
+//     for (let i = 1; i <= n; i++) {
+//       result *= i;
+//     }
+//     return result;
+//   };
 
-  return Math.round(
-    factorial(balls) / (factorial(balls - share) * factorial(share))
-  );
-}
+//   return Math.round(
+//     factorial(balls) / (factorial(balls - share) * factorial(share))
+//   );
+// }
 
 //캐릭터의 좌표
 //머쓱이는 RPG게임을 하고 있습니다. 게임에는 up, down, left, right 방향키가 있으며 각 키를 누르면 위, 아래, 왼쪽, 오른쪽으로 한 칸씩 이동합니다. 예를 들어 [0,0]에서 up을 누른다면 캐릭터의 좌표는 [0, 1], down을 누른다면 [0, -1], left를 누른다면 [-1, 0], right를 누른다면 [1, 0]입니다. 머쓱이가 입력한 방향키의 배열 keyinput와 맵의 크기 board이 매개변수로 주어집니다. 캐릭터는 항상 [0,0]에서 시작할 때 키 입력이 모두 끝난 뒤에 캐릭터의 좌표 [x, y]를 return하도록 solution 함수를 완성해주세요.
 
-function solution(keyinput, board) {
-  let resultX = 0;
-  let resultY = 0;
-  const maxWidth = Math.floor(board[0] / 2);
-  const maxHeight = Math.floor(board[1] / 2);
+// function solution(keyinput, board) {
+//   let resultX = 0;
+//   let resultY = 0;
+//   const maxWidth = Math.floor(board[0] / 2);
+//   const maxHeight = Math.floor(board[1] / 2);
 
-  for (let i = 0; i < keyinput.length; i++) {
-    let input = keyinput[i];
+//   for (let i = 0; i < keyinput.length; i++) {
+//     let input = keyinput[i];
 
-    if (input === 'right' && resultX < maxWidth) resultX++;
-    if (input === 'left' && resultX > maxWidth * -1) resultX--;
-    if (input === 'up' && resultY < maxHeight) resultY++;
-    if (input === 'down' && resultY > maxHeight * -1) resultY--;
-  }
+//     if (input === 'right' && resultX < maxWidth) resultX++;
+//     if (input === 'left' && resultX > maxWidth * -1) resultX--;
+//     if (input === 'up' && resultY < maxHeight) resultY++;
+//     if (input === 'down' && resultY > maxHeight * -1) resultY--;
+//   }
 
-  return [resultX, resultY];
+//   return [resultX, resultY];
+// }
+
+//22일차
+//외계어 사전
+//PROGRAMMERS-962 행성에 불시착한 우주비행사 머쓱이는 외계행성의 언어를 공부하려고 합니다. 알파벳이 담긴 배열 spell과 외계어 사전 dic이 매개변수로 주어집니다. spell에 담긴 알파벳을 한번씩만 모두 사용한 단어가 dic에 존재한다면 1, 존재하지 않는다면 2를 return하도록 solution 함수를 완성해주세요.
+
+//실패 : 문제를 꼼꼼히 읽자 제발
+function solution(spell, dic) {
+  const results = [];
+  dic.forEach((word) => {
+    let resultOfSpell = false;
+
+    spell.forEach((char) => {
+      if (word.includes(char)) resultOfSpell = true;
+    });
+
+    results.push(resultOfSpell);
+  });
+
+  return results.every((result) => result === true) ? 1 : 2;
+}
+
+//성공
+function solution(spell, dic) {
+  const result = [];
+
+  dic.forEach((word) => {
+    //단어별로 확인
+    const arrWord = [];
+
+    spell.forEach((char) => {
+      let resultOfWord = false;
+
+      if (word.includes(char)) resultOfWord = true;
+      else resultOfWord = false;
+
+      arrWord.push(resultOfWord);
+    });
+
+    //단어별로 결과 넣기
+    result.push(arrWord.every((item) => item));
+  });
+
+  return result.some((item) => item) ? 1 : 2;
+}
+
+//다른 사람 풀이
+function solution(p, d) {
+  return d.some((s) => p.sort().toString() == [...s].sort().toString()) ? 1 : 2;
 }
