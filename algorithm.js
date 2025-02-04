@@ -2052,46 +2052,60 @@
 //PROGRAMMERS-962 행성에 불시착한 우주비행사 머쓱이는 외계행성의 언어를 공부하려고 합니다. 알파벳이 담긴 배열 spell과 외계어 사전 dic이 매개변수로 주어집니다. spell에 담긴 알파벳을 한번씩만 모두 사용한 단어가 dic에 존재한다면 1, 존재하지 않는다면 2를 return하도록 solution 함수를 완성해주세요.
 
 //실패 : 문제를 꼼꼼히 읽자 제발
-function solution(spell, dic) {
-  const results = [];
-  dic.forEach((word) => {
-    let resultOfSpell = false;
+// function solution(spell, dic) {
+//   const results = [];
+//   dic.forEach((word) => {
+//     let resultOfSpell = false;
 
-    spell.forEach((char) => {
-      if (word.includes(char)) resultOfSpell = true;
-    });
+//     spell.forEach((char) => {
+//       if (word.includes(char)) resultOfSpell = true;
+//     });
 
-    results.push(resultOfSpell);
-  });
+//     results.push(resultOfSpell);
+//   });
 
-  return results.every((result) => result === true) ? 1 : 2;
-}
+//   return results.every((result) => result === true) ? 1 : 2;
+// }
 
-//성공
-function solution(spell, dic) {
-  const result = [];
+// //성공
+// function solution(spell, dic) {
+//   const result = [];
 
-  dic.forEach((word) => {
-    //단어별로 확인
-    const arrWord = [];
+//   dic.forEach((word) => {
+//     //단어별로 확인
+//     const arrWord = [];
 
-    spell.forEach((char) => {
-      let resultOfWord = false;
+//     spell.forEach((char) => {
+//       let resultOfWord = false;
 
-      if (word.includes(char)) resultOfWord = true;
-      else resultOfWord = false;
+//       if (word.includes(char)) resultOfWord = true;
+//       else resultOfWord = false;
 
-      arrWord.push(resultOfWord);
-    });
+//       arrWord.push(resultOfWord);
+//     });
 
-    //단어별로 결과 넣기
-    result.push(arrWord.every((item) => item));
-  });
+//     //단어별로 결과 넣기
+//     result.push(arrWord.every((item) => item));
+//   });
 
-  return result.some((item) => item) ? 1 : 2;
-}
+//   return result.some((item) => item) ? 1 : 2;
+// }
 
-//다른 사람 풀이
-function solution(p, d) {
-  return d.some((s) => p.sort().toString() == [...s].sort().toString()) ? 1 : 2;
+// //다른 사람 풀이
+// function solution(p, d) {
+//   return d.some((s) => p.sort().toString() == [...s].sort().toString()) ? 1 : 2;
+// }
+
+//23일차
+//로그인 성공?
+//머쓱이는 프로그래머스에 로그인하려고 합니다. 머쓱이가 입력한 아이디와 패스워드가 담긴 배열 id_pw와 회원들의 정보가 담긴 2차원 배열 db가 주어질 때, 다음과 같이 로그인 성공, 실패에 따른 메시지를 return하도록 solution 함수를 완성해주세요.
+//아이디와 비밀번호가 모두 일치하는 회원정보가 있으면 "login"을 return합니다. 로그인이 실패했을 때 아이디가 일치하는 회원이 없다면 “fail”를, 아이디는 일치하지만 비밀번호가 일치하는 회원이 없다면 “wrong pw”를 return 합니다.
+
+function solution(id_pw, db) {
+  for (let i = 0; i < db.length; i++) {
+    if (db[i][0] === id_pw[0]) {
+      return db[i][1] === id_pw[1] ? 'login' : 'wrong pw';
+    }
+  }
+  return 'fail';
 }
