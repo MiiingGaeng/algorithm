@@ -2101,11 +2101,62 @@
 //머쓱이는 프로그래머스에 로그인하려고 합니다. 머쓱이가 입력한 아이디와 패스워드가 담긴 배열 id_pw와 회원들의 정보가 담긴 2차원 배열 db가 주어질 때, 다음과 같이 로그인 성공, 실패에 따른 메시지를 return하도록 solution 함수를 완성해주세요.
 //아이디와 비밀번호가 모두 일치하는 회원정보가 있으면 "login"을 return합니다. 로그인이 실패했을 때 아이디가 일치하는 회원이 없다면 “fail”를, 아이디는 일치하지만 비밀번호가 일치하는 회원이 없다면 “wrong pw”를 return 합니다.
 
-function solution(id_pw, db) {
-  for (let i = 0; i < db.length; i++) {
-    if (db[i][0] === id_pw[0]) {
-      return db[i][1] === id_pw[1] ? 'login' : 'wrong pw';
-    }
+// function solution(id_pw, db) {
+//   for (let i = 0; i < db.length; i++) {
+//     if (db[i][0] === id_pw[0]) {
+//       return db[i][1] === id_pw[1] ? 'login' : 'wrong pw';
+//     }
+//   }
+//   return 'fail';
+// }
+
+//24일차
+//직사각형 넓이 구하기
+//2차원 좌표 평면에 변이 축과 평행한 직사각형이 있습니다. 직사각형 네 꼭짓점의 좌표 [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]가 담겨있는 배열 dots가 매개변수로 주어질 때, 직사각형의 넓이를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(dots) {
+  const arrWidth = dots.reduce(
+    (acc, cur) => [...acc, cur[0]].sort((a, b) => a - b),
+    []
+  );
+  const arrHeight = dots.reduce(
+    (acc, cur) => [...acc, cur[1]].sort((a, b) => a - b),
+    []
+  );
+
+  const width = arrWidth[3] - arrWidth[0];
+  const height = arrHeight[3] - arrHeight[0];
+
+  return width * height;
+}
+
+//다른 사람 풀이
+//for(of)문 사용!
+function solution(dots) {
+  let x = [],
+    y = [];
+
+  for (let pos of dots) {
+    x.push(pos[0]);
+    y.push(pos[1]);
   }
-  return 'fail';
+
+  return (Math.max(...x) - Math.min(...x)) * (Math.max(...y) - Math.min(...y));
+}
+
+//종이 자르기
+//머쓱이는 큰 종이를 1 x 1 크기로 자르려고 합니다. 예를 들어 2 x 2 크기의 종이를 1 x 1 크기로 자르려면 최소 가위질 세 번이 필요합니다. 정수 M, N이 매개변수로 주어질 때, M x N 크기의 종이를 최소로 가위질 해야하는 횟수를 return 하도록 solution 함수를 완성해보세요.
+
+function solution(M, N) {
+  if (M === 1 && N === 1) return 0;
+
+  const cutWidth = N - 1;
+  const cutHeight = (M - 1) * N;
+
+  return cutWidth + cutHeight;
+}
+
+//다른 사람 풀이
+function solution(M, N) {
+  return M * N - 1;
 }
