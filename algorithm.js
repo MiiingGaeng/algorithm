@@ -2114,49 +2114,127 @@
 //직사각형 넓이 구하기
 //2차원 좌표 평면에 변이 축과 평행한 직사각형이 있습니다. 직사각형 네 꼭짓점의 좌표 [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]가 담겨있는 배열 dots가 매개변수로 주어질 때, 직사각형의 넓이를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(dots) {
-  const arrWidth = dots.reduce(
-    (acc, cur) => [...acc, cur[0]].sort((a, b) => a - b),
-    []
-  );
-  const arrHeight = dots.reduce(
-    (acc, cur) => [...acc, cur[1]].sort((a, b) => a - b),
-    []
-  );
+// function solution(dots) {
+//   const arrWidth = dots.reduce(
+//     (acc, cur) => [...acc, cur[0]].sort((a, b) => a - b),
+//     []
+//   );
+//   const arrHeight = dots.reduce(
+//     (acc, cur) => [...acc, cur[1]].sort((a, b) => a - b),
+//     []
+//   );
 
-  const width = arrWidth[3] - arrWidth[0];
-  const height = arrHeight[3] - arrHeight[0];
+//   const width = arrWidth[3] - arrWidth[0];
+//   const height = arrHeight[3] - arrHeight[0];
 
-  return width * height;
-}
+//   return width * height;
+// }
 
-//다른 사람 풀이
-//for(of)문 사용!
-function solution(dots) {
-  let x = [],
-    y = [];
+// //다른 사람 풀이
+// //for(of)문 사용!
+// function solution(dots) {
+//   let x = [],
+//     y = [];
 
-  for (let pos of dots) {
-    x.push(pos[0]);
-    y.push(pos[1]);
-  }
+//   for (let pos of dots) {
+//     x.push(pos[0]);
+//     y.push(pos[1]);
+//   }
 
-  return (Math.max(...x) - Math.min(...x)) * (Math.max(...y) - Math.min(...y));
-}
+//   return (Math.max(...x) - Math.min(...x)) * (Math.max(...y) - Math.min(...y));
+// }
 
 //종이 자르기
 //머쓱이는 큰 종이를 1 x 1 크기로 자르려고 합니다. 예를 들어 2 x 2 크기의 종이를 1 x 1 크기로 자르려면 최소 가위질 세 번이 필요합니다. 정수 M, N이 매개변수로 주어질 때, M x N 크기의 종이를 최소로 가위질 해야하는 횟수를 return 하도록 solution 함수를 완성해보세요.
 
-function solution(M, N) {
-  if (M === 1 && N === 1) return 0;
+// function solution(M, N) {
+//   if (M === 1 && N === 1) return 0;
 
-  const cutWidth = N - 1;
-  const cutHeight = (M - 1) * N;
+//   const cutWidth = N - 1;
+//   const cutHeight = (M - 1) * N;
 
-  return cutWidth + cutHeight;
+//   return cutWidth + cutHeight;
+// }
+
+// //다른 사람 풀이
+// function solution(M, N) {
+//   return M * N - 1;
+// }
+
+//25일차
+//치킨 쿠폰
+//프로그래머스 치킨은 치킨을 시켜먹으면 한 마리당 쿠폰을 한 장 발급합니다. 쿠폰을 열 장 모으면 치킨을 한 마리 서비스로 받을 수 있고, 서비스 치킨에도 쿠폰이 발급됩니다. 시켜먹은 치킨의 수 chicken이 매개변수로 주어질 때 받을 수 있는 최대 서비스 치킨의 수를 return하도록 solution 함수를 완성해주세요.
+
+function solution(chicken) {
+  let freeChicken = 0;
+  let restCoupon = 0;
+
+  while (chicken > 1) {
+    freeChicken += Math.floor(chicken / 10);
+    restCoupon += chicken % 10;
+    chicken /= 10;
+  }
+
+  if (restCoupon >= 10) {
+    freeChicken += Math.floor(restCoupon / 10);
+  }
+
+  return freeChicken;
 }
 
 //다른 사람 풀이
-function solution(M, N) {
-  return M * N - 1;
+//해설 : 서비스를 받고 다음 서비스를 받기 까지는 9개의 구매가 매번 필요함. 근데 왜 9인가 하면 나머지 한번은 서비스가 채워줬기 때문입니다. 서비스 1번 + 내돈대산 9번으로 10번이 되어서 새로운 서비스 치킨이 생기는거죠. 그런데 첫 서비스 치킨은 서비스 치킨 없이 전부 내돈내산 해야 합니다. 내돈내산으로 10을 해야하죠. 그래서 1을 뺍니다.
+function solution(chicken) {
+  var answer = parseInt((chicken - 1) / 9);
+  return answer;
+}
+
+//등수 매기기
+//영어 점수와 수학 점수의 평균 점수를 기준으로 학생들의 등수를 매기려고 합니다. 영어 점수와 수학 점수를 담은 2차원 정수 배열 score가 주어질 때, 영어 점수와 수학 점수의 평균을 기준으로 매긴 등수를 담은 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(score) {
+  const arrAverage = score.map((student) => {
+    return (student[0] + student[1]) / 2;
+  });
+  const arrRank = [...arrAverage].sort((a, b) => b - a);
+
+  return arrAverage.map((score) => {
+    return arrRank.indexOf(score) + 1;
+  });
+}
+
+//저주의 숫자 3
+//3x 마을 사람들은 3을 저주의 숫자라고 생각하기 때문에 3의 배수와 숫자 3을 사용하지 않습니다. 정수 n이 매개변수로 주어질 때, n을 3x 마을에서 사용하는 숫자로 바꿔 return하도록 solution 함수를 완성해주세요.
+
+function solution(n) {
+  let answer = 0;
+
+  for (let i = 1; i <= n; i++) {
+    answer += 1;
+
+    while (true) {
+      if (answer % 3 === 0 || answer.toString().includes('3')) {
+        answer += 1;
+
+        continue;
+      }
+      break;
+    }
+  }
+
+  return answer;
+}
+
+//다른 사람 풀이
+function solution(n) {
+  var answer = 0;
+  for (let i = 1; i <= n; i++) {
+    if (i % 3 == 0) {
+      n++;
+    }
+    if (String(i).includes('3') & (i % 3 != 0)) {
+      n++;
+    }
+  }
+  return n;
 }
