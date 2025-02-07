@@ -2165,76 +2165,98 @@
 //치킨 쿠폰
 //프로그래머스 치킨은 치킨을 시켜먹으면 한 마리당 쿠폰을 한 장 발급합니다. 쿠폰을 열 장 모으면 치킨을 한 마리 서비스로 받을 수 있고, 서비스 치킨에도 쿠폰이 발급됩니다. 시켜먹은 치킨의 수 chicken이 매개변수로 주어질 때 받을 수 있는 최대 서비스 치킨의 수를 return하도록 solution 함수를 완성해주세요.
 
-function solution(chicken) {
-  let freeChicken = 0;
-  let restCoupon = 0;
+// function solution(chicken) {
+//   let freeChicken = 0;
+//   let restCoupon = 0;
 
-  while (chicken > 1) {
-    freeChicken += Math.floor(chicken / 10);
-    restCoupon += chicken % 10;
-    chicken /= 10;
-  }
+//   while (chicken > 1) {
+//     freeChicken += Math.floor(chicken / 10);
+//     restCoupon += chicken % 10;
+//     chicken /= 10;
+//   }
 
-  if (restCoupon >= 10) {
-    freeChicken += Math.floor(restCoupon / 10);
-  }
+//   if (restCoupon >= 10) {
+//     freeChicken += Math.floor(restCoupon / 10);
+//   }
 
-  return freeChicken;
-}
+//   return freeChicken;
+// }
 
-//다른 사람 풀이
-//해설 : 서비스를 받고 다음 서비스를 받기 까지는 9개의 구매가 매번 필요함. 근데 왜 9인가 하면 나머지 한번은 서비스가 채워줬기 때문입니다. 서비스 1번 + 내돈대산 9번으로 10번이 되어서 새로운 서비스 치킨이 생기는거죠. 그런데 첫 서비스 치킨은 서비스 치킨 없이 전부 내돈내산 해야 합니다. 내돈내산으로 10을 해야하죠. 그래서 1을 뺍니다.
-function solution(chicken) {
-  var answer = parseInt((chicken - 1) / 9);
-  return answer;
-}
+// //다른 사람 풀이
+// //해설 : 서비스를 받고 다음 서비스를 받기 까지는 9개의 구매가 매번 필요함. 근데 왜 9인가 하면 나머지 한번은 서비스가 채워줬기 때문입니다. 서비스 1번 + 내돈대산 9번으로 10번이 되어서 새로운 서비스 치킨이 생기는거죠. 그런데 첫 서비스 치킨은 서비스 치킨 없이 전부 내돈내산 해야 합니다. 내돈내산으로 10을 해야하죠. 그래서 1을 뺍니다.
+// function solution(chicken) {
+//   var answer = parseInt((chicken - 1) / 9);
+//   return answer;
+// }
 
 //등수 매기기
 //영어 점수와 수학 점수의 평균 점수를 기준으로 학생들의 등수를 매기려고 합니다. 영어 점수와 수학 점수를 담은 2차원 정수 배열 score가 주어질 때, 영어 점수와 수학 점수의 평균을 기준으로 매긴 등수를 담은 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(score) {
-  const arrAverage = score.map((student) => {
-    return (student[0] + student[1]) / 2;
-  });
-  const arrRank = [...arrAverage].sort((a, b) => b - a);
+// function solution(score) {
+//   const arrAverage = score.map((student) => {
+//     return (student[0] + student[1]) / 2;
+//   });
+//   const arrRank = [...arrAverage].sort((a, b) => b - a);
 
-  return arrAverage.map((score) => {
-    return arrRank.indexOf(score) + 1;
-  });
-}
+//   return arrAverage.map((score) => {
+//     return arrRank.indexOf(score) + 1;
+//   });
+// }
 
 //저주의 숫자 3
 //3x 마을 사람들은 3을 저주의 숫자라고 생각하기 때문에 3의 배수와 숫자 3을 사용하지 않습니다. 정수 n이 매개변수로 주어질 때, n을 3x 마을에서 사용하는 숫자로 바꿔 return하도록 solution 함수를 완성해주세요.
 
-function solution(n) {
-  let answer = 0;
+// function solution(n) {
+//   let answer = 0;
 
-  for (let i = 1; i <= n; i++) {
-    answer += 1;
+//   for (let i = 1; i <= n; i++) {
+//     answer += 1;
 
-    while (true) {
-      if (answer % 3 === 0 || answer.toString().includes('3')) {
-        answer += 1;
+//     while (true) {
+//       if (answer % 3 === 0 || answer.toString().includes('3')) {
+//         answer += 1;
 
-        continue;
-      }
-      break;
-    }
+//         continue;
+//       }
+//       break;
+//     }
+//   }
+
+//   return answer;
+// }
+
+// //다른 사람 풀이
+// function solution(n) {
+//   var answer = 0;
+//   for (let i = 1; i <= n; i++) {
+//     if (i % 3 == 0) {
+//       n++;
+//     }
+//     if (String(i).includes('3') & (i % 3 != 0)) {
+//       n++;
+//     }
+//   }
+//   return n;
+// }
+
+//26일차
+//유한소수 판별하기
+//소수점 아래 숫자가 계속되지 않고 유한개인 소수를 유한소수라고 합니다. 분수를 소수로 고칠 때 유한소수로 나타낼 수 있는 분수인지 판별하려고 합니다. 유한소수가 되기 위한 분수의 조건은 다음과 같습니다. 기약분수로 나타내었을 때, 분모의 소인수가 2와 5만 존재해야 합니다. 두 정수 a와 b가 매개변수로 주어질 때, a/b가 유한소수이면 1을, 무한소수라면 2를 return하도록 solution 함수를 완성해주세요.
+
+function solution(a, b) {
+  const funcGCD = (a, b) => {
+    return a % b === 0 ? b : funcGCD(b, a % b);
+  };
+  const gcd = funcGCD(a, b);
+  let reducedD = b / gcd;
+
+  while (reducedD % 2 === 0) {
+    reducedD /= 2;
   }
 
-  return answer;
-}
-
-//다른 사람 풀이
-function solution(n) {
-  var answer = 0;
-  for (let i = 1; i <= n; i++) {
-    if (i % 3 == 0) {
-      n++;
-    }
-    if (String(i).includes('3') & (i % 3 != 0)) {
-      n++;
-    }
+  while (reducedD % 5 === 0) {
+    reducedD /= 5;
   }
-  return n;
+
+  return reducedD === 1 ? 1 : 2;
 }
