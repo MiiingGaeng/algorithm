@@ -2243,20 +2243,57 @@
 //유한소수 판별하기
 //소수점 아래 숫자가 계속되지 않고 유한개인 소수를 유한소수라고 합니다. 분수를 소수로 고칠 때 유한소수로 나타낼 수 있는 분수인지 판별하려고 합니다. 유한소수가 되기 위한 분수의 조건은 다음과 같습니다. 기약분수로 나타내었을 때, 분모의 소인수가 2와 5만 존재해야 합니다. 두 정수 a와 b가 매개변수로 주어질 때, a/b가 유한소수이면 1을, 무한소수라면 2를 return하도록 solution 함수를 완성해주세요.
 
-function solution(a, b) {
-  const funcGCD = (a, b) => {
-    return a % b === 0 ? b : funcGCD(b, a % b);
-  };
-  const gcd = funcGCD(a, b);
-  let reducedD = b / gcd;
+// function solution(a, b) {
+//   const funcGCD = (a, b) => {
+//     return a % b === 0 ? b : funcGCD(b, a % b);
+//   };
+//   const gcd = funcGCD(a, b);
+//   let reducedD = b / gcd;
 
-  while (reducedD % 2 === 0) {
-    reducedD /= 2;
-  }
+//   while (reducedD % 2 === 0) {
+//     reducedD /= 2;
+//   }
 
-  while (reducedD % 5 === 0) {
-    reducedD /= 5;
-  }
+//   while (reducedD % 5 === 0) {
+//     reducedD /= 5;
+//   }
 
-  return reducedD === 1 ? 1 : 2;
+//   return reducedD === 1 ? 1 : 2;
+// }
+
+//27일차
+//OX퀴즈
+//덧셈, 뺄셈 수식들이 'X [연산자] Y = Z' 형태로 들어있는 문자열 배열 quiz가 매개변수로 주어집니다. 수식이 옳다면 "O"를 틀리다면 "X"를 순서대로 담은 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(quizs) {
+  const answer = quizs.map((quiz) => {
+    const splitedQ = quiz.split(' ');
+    switch (splitedQ[1]) {
+      case '+':
+        return +splitedQ[0] + +splitedQ[2] === +splitedQ[4] ? 'O' : 'X';
+        break;
+      case '-':
+        return +splitedQ[0] - +splitedQ[2] === +splitedQ[4] ? 'O' : 'X';
+        break;
+    }
+  });
+
+  return answer;
+}
+
+//다른 사람 풀이
+//구조분해할당 사용!
+function solution(quiz) {
+  let answer = [];
+  quiz.forEach((val) => {
+    const [x, sign, y, , z] = val.split(' ');
+    let sum = 0;
+    if (sign === '+') {
+      sum = Number(x) + Number(y);
+    } else {
+      sum = Number(x) - Number(y);
+    }
+    sum === Number(z) ? answer.push('O') : answer.push('X');
+  });
+  return answer;
 }
