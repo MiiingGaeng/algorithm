@@ -2265,35 +2265,75 @@
 //OX퀴즈
 //덧셈, 뺄셈 수식들이 'X [연산자] Y = Z' 형태로 들어있는 문자열 배열 quiz가 매개변수로 주어집니다. 수식이 옳다면 "O"를 틀리다면 "X"를 순서대로 담은 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(quizs) {
-  const answer = quizs.map((quiz) => {
-    const splitedQ = quiz.split(' ');
-    switch (splitedQ[1]) {
-      case '+':
-        return +splitedQ[0] + +splitedQ[2] === +splitedQ[4] ? 'O' : 'X';
-        break;
-      case '-':
-        return +splitedQ[0] - +splitedQ[2] === +splitedQ[4] ? 'O' : 'X';
-        break;
-    }
-  });
+// function solution(quizs) {
+//   const answer = quizs.map((quiz) => {
+//     const splitedQ = quiz.split(' ');
+//     switch (splitedQ[1]) {
+//       case '+':
+//         return +splitedQ[0] + +splitedQ[2] === +splitedQ[4] ? 'O' : 'X';
+//         break;
+//       case '-':
+//         return +splitedQ[0] - +splitedQ[2] === +splitedQ[4] ? 'O' : 'X';
+//         break;
+//     }
+//   });
 
-  return answer;
+//   return answer;
+// }
+
+// //다른 사람 풀이
+// //구조분해할당 사용!
+// function solution(quiz) {
+//   let answer = [];
+//   quiz.forEach((val) => {
+//     const [x, sign, y, , z] = val.split(' ');
+//     let sum = 0;
+//     if (sign === '+') {
+//       sum = Number(x) + Number(y);
+//     } else {
+//       sum = Number(x) - Number(y);
+//     }
+//     sum === Number(z) ? answer.push('O') : answer.push('X');
+//   });
+//   return answer;
+// }
+
+//28일차
+//소인수분해
+//소인수분해란 어떤 수를 소수들의 곱으로 표현하는 것입니다. 예를 들어 12를 소인수 분해하면 2 * 2 * 3 으로 나타낼 수 있습니다. 따라서 12의 소인수는 2와 3입니다. 자연수 n이 매개변수로 주어질 때 n의 소인수를 오름차순으로 담은 배열을 return하도록 solution 함수를 완성해주세요.
+
+function solution(n) {
+  const answer = new Set();
+
+  for (let i = 2; i <= n; i++) {
+    while (n % i === 0) {
+      answer.add(i);
+      n /= i;
+    }
+  }
+
+  return [...answer];
 }
 
-//다른 사람 풀이
-//구조분해할당 사용!
-function solution(quiz) {
-  let answer = [];
-  quiz.forEach((val) => {
-    const [x, sign, y, , z] = val.split(' ');
-    let sum = 0;
-    if (sign === '+') {
-      sum = Number(x) + Number(y);
-    } else {
-      sum = Number(x) - Number(y);
-    }
-    sum === Number(z) ? answer.push('O') : answer.push('X');
-  });
-  return answer;
+//삼각형의 완성조건
+//선분 세 개로 삼각형을 만들기 위해서는 다음과 같은 조건을 만족해야 합니다. 가장 긴 변의 길이는 다른 두 변의 길이의 합보다 작아야 합니다. 삼각형의 두 변의 길이가 담긴 배열 sides이 매개변수로 주어집니다. 나머지 한 변이 될 수 있는 정수의 개수를 return하도록 solution 함수를 완성해주세요.
+
+function solution(sides) {
+  const max = Math.max(...sides);
+  const min = Math.min(...sides);
+  const answer = [];
+  //가장 긴변이 sides에 있는 경우
+  //max < min + x
+  //max - min < x <= max
+  for (let x = max - min + 1; x <= max; x++) {
+    answer.push(x);
+  }
+
+  //가장 긴변이 sides에 없는 경우
+  //max < x < max+min
+  for (let x = max + 1; x < max + min; x++) {
+    answer.push(x);
+  }
+
+  return answer.length;
 }
