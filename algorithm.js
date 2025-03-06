@@ -2302,38 +2302,107 @@
 //소인수분해
 //소인수분해란 어떤 수를 소수들의 곱으로 표현하는 것입니다. 예를 들어 12를 소인수 분해하면 2 * 2 * 3 으로 나타낼 수 있습니다. 따라서 12의 소인수는 2와 3입니다. 자연수 n이 매개변수로 주어질 때 n의 소인수를 오름차순으로 담은 배열을 return하도록 solution 함수를 완성해주세요.
 
-function solution(n) {
-  const answer = new Set();
+// function solution(n) {
+//   const answer = new Set();
 
-  for (let i = 2; i <= n; i++) {
-    while (n % i === 0) {
-      answer.add(i);
-      n /= i;
-    }
-  }
+//   for (let i = 2; i <= n; i++) {
+//     while (n % i === 0) {
+//       answer.add(i);
+//       n /= i;
+//     }
+//   }
 
-  return [...answer];
-}
+//   return [...answer];
+// }
 
 //삼각형의 완성조건
 //선분 세 개로 삼각형을 만들기 위해서는 다음과 같은 조건을 만족해야 합니다. 가장 긴 변의 길이는 다른 두 변의 길이의 합보다 작아야 합니다. 삼각형의 두 변의 길이가 담긴 배열 sides이 매개변수로 주어집니다. 나머지 한 변이 될 수 있는 정수의 개수를 return하도록 solution 함수를 완성해주세요.
 
-function solution(sides) {
-  const max = Math.max(...sides);
-  const min = Math.min(...sides);
-  const answer = [];
-  //가장 긴변이 sides에 있는 경우
-  //max < min + x
-  //max - min < x <= max
-  for (let x = max - min + 1; x <= max; x++) {
-    answer.push(x);
+// function solution(sides) {
+//   const max = Math.max(...sides);
+//   const min = Math.min(...sides);
+//   const answer = [];
+//   //가장 긴변이 sides에 있는 경우
+//   //max < min + x
+//   //max - min < x <= max
+//   for (let x = max - min + 1; x <= max; x++) {
+//     answer.push(x);
+//   }
+
+//   //가장 긴변이 sides에 없는 경우
+//   //max < x < max+min
+//   for (let x = max + 1; x < max + min; x++) {
+//     answer.push(x);
+//   }
+
+//   return answer.length;
+// }
+
+// //다른 사람 풀이
+// //수학 공식인가...
+// function solution(sides) {
+//   return Math.min(...sides) * 2 - 1;
+// }
+
+//2일차
+/**
+ * 다항식 더하기
+ *
+ * 한 개 이상의 항의 합으로 이루어진 식을 다항식이라고 합니다. 다항식을 계산할 때는 동류항끼리 계산해 정리합니다. 덧셈으로 이루어진 다항식 polynomial이 매개변수로 주어질 때, 동류항끼리 더한 결괏값을 문자열로 return 하도록 solution 함수를 완성해보세요. 같은 식이라면 가장 짧은 수식을 return 합니다.
+ */
+
+function solution(polynomial) {
+  const splitedPoly = polynomial.split(" + ");
+  const nArr = splitedPoly.filter((num) => !num.includes("x"));
+  const xArr = splitedPoly.filter((num) => num.includes("x"));
+
+  let numX =
+    xArr.length > 0
+      ? xArr
+          .map((itemX) =>
+            +itemX.replace("x", "") ? +itemX.replace("x", "") : 1
+          )
+          .reduce((acc, cur) => (acc += cur), 0)
+      : "";
+  let numN =
+    nArr.length > 0
+      ? nArr.map((itemN) => +itemN).reduce((acc, cur) => (acc += cur), 0)
+      : "";
+
+  if (numX && numN) return `${numX === 1 ? "" : numX}x + ${numN}`;
+  if (!numX) return String(numN);
+  if (!numN) return `${numX === 1 ? "" : numX}x`;
+}
+
+/**
+ * 다음에 올 숫자
+ *
+ * 등차수열 혹은 등비수열 common이 매개변수로 주어질 때, 마지막 원소 다음으로 올 숫자를 return 하도록 solution 함수를 완성해보세요.
+ */
+
+function solution(common) {
+  //등차수열?
+  if (common[1] - common[0] === common[2] - common[1]) {
+    const gap = common[1] - common[0];
+    return common[common.length - 1] + gap;
   }
 
-  //가장 긴변이 sides에 없는 경우
-  //max < x < max+min
-  for (let x = max + 1; x < max + min; x++) {
-    answer.push(x);
+  //등비수열?
+  if (common[1] / common[0] === common[2] / common[1]) {
+    const gap = common[1] / common[0];
+    return common[common.length - 1] * gap;
   }
+}
 
-  return answer.length;
+/**
+ * 연속된 수의 합
+ *
+ * 연속된 세 개의 정수를 더해 12가 되는 경우는 3, 4, 5입니다. 두 정수 num과 total이 주어집니다. 연속된 수 num개를 더한 값이 total이 될 때, 정수 배열을 오름차순으로 담아 return하도록 solution함수를 완성해보세요.
+ */
+
+function solution(num, total) {
+  const midNum = total / num;
+  const start = Math.ceil(midNum - (num - 1) / 2);
+
+  return Array.from({ length: num }, (_, i) => start + i);
 }
