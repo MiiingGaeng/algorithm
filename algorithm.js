@@ -2344,35 +2344,35 @@
 //   return Math.min(...sides) * 2 - 1;
 // }
 
-//2일차
+//29일차
 /**
  * 다항식 더하기
  *
  * 한 개 이상의 항의 합으로 이루어진 식을 다항식이라고 합니다. 다항식을 계산할 때는 동류항끼리 계산해 정리합니다. 덧셈으로 이루어진 다항식 polynomial이 매개변수로 주어질 때, 동류항끼리 더한 결괏값을 문자열로 return 하도록 solution 함수를 완성해보세요. 같은 식이라면 가장 짧은 수식을 return 합니다.
  */
 
-function solution(polynomial) {
-  const splitedPoly = polynomial.split(" + ");
-  const nArr = splitedPoly.filter((num) => !num.includes("x"));
-  const xArr = splitedPoly.filter((num) => num.includes("x"));
+// function solution(polynomial) {
+//   const splitedPoly = polynomial.split(" + ");
+//   const nArr = splitedPoly.filter((num) => !num.includes("x"));
+//   const xArr = splitedPoly.filter((num) => num.includes("x"));
 
-  let numX =
-    xArr.length > 0
-      ? xArr
-          .map((itemX) =>
-            +itemX.replace("x", "") ? +itemX.replace("x", "") : 1
-          )
-          .reduce((acc, cur) => (acc += cur), 0)
-      : "";
-  let numN =
-    nArr.length > 0
-      ? nArr.map((itemN) => +itemN).reduce((acc, cur) => (acc += cur), 0)
-      : "";
+//   let numX =
+//     xArr.length > 0
+//       ? xArr
+//           .map((itemX) =>
+//             +itemX.replace("x", "") ? +itemX.replace("x", "") : 1
+//           )
+//           .reduce((acc, cur) => (acc += cur), 0)
+//       : "";
+//   let numN =
+//     nArr.length > 0
+//       ? nArr.map((itemN) => +itemN).reduce((acc, cur) => (acc += cur), 0)
+//       : "";
 
-  if (numX && numN) return `${numX === 1 ? "" : numX}x + ${numN}`;
-  if (!numX) return String(numN);
-  if (!numN) return `${numX === 1 ? "" : numX}x`;
-}
+//   if (numX && numN) return `${numX === 1 ? "" : numX}x + ${numN}`;
+//   if (!numX) return String(numN);
+//   if (!numN) return `${numX === 1 ? "" : numX}x`;
+// }
 
 /**
  * 다음에 올 숫자
@@ -2380,19 +2380,19 @@ function solution(polynomial) {
  * 등차수열 혹은 등비수열 common이 매개변수로 주어질 때, 마지막 원소 다음으로 올 숫자를 return 하도록 solution 함수를 완성해보세요.
  */
 
-function solution(common) {
-  //등차수열?
-  if (common[1] - common[0] === common[2] - common[1]) {
-    const gap = common[1] - common[0];
-    return common[common.length - 1] + gap;
-  }
+// function solution(common) {
+//   //등차수열?
+//   if (common[1] - common[0] === common[2] - common[1]) {
+//     const gap = common[1] - common[0];
+//     return common[common.length - 1] + gap;
+//   }
 
-  //등비수열?
-  if (common[1] / common[0] === common[2] / common[1]) {
-    const gap = common[1] / common[0];
-    return common[common.length - 1] * gap;
-  }
-}
+//   //등비수열?
+//   if (common[1] / common[0] === common[2] / common[1]) {
+//     const gap = common[1] / common[0];
+//     return common[common.length - 1] * gap;
+//   }
+// }
 
 /**
  * 연속된 수의 합
@@ -2400,9 +2400,53 @@ function solution(common) {
  * 연속된 세 개의 정수를 더해 12가 되는 경우는 3, 4, 5입니다. 두 정수 num과 total이 주어집니다. 연속된 수 num개를 더한 값이 total이 될 때, 정수 배열을 오름차순으로 담아 return하도록 solution함수를 완성해보세요.
  */
 
-function solution(num, total) {
-  const midNum = total / num;
-  const start = Math.ceil(midNum - (num - 1) / 2);
+// function solution(num, total) {
+//   const midNum = total / num;
+//   const start = Math.ceil(midNum - (num - 1) / 2);
 
-  return Array.from({ length: num }, (_, i) => start + i);
+//   return Array.from({ length: num }, (_, i) => start + i);
+// }
+
+//30일차
+
+/**
+ * 분수의 덧셈
+ *
+ * 첫 번째 분수의 분자와 분모를 뜻하는 numer1, denom1, 두 번째 분수의 분자와 분모를 뜻하는 numer2, denom2가 매개변수로 주어집니다. 두 분수를 더한 값을 기약 분수로 나타냈을 때 분자와 분모를 순서대로 담은 배열을 return 하도록 solution 함수를 완성해보세요.
+ */
+
+function solution(num1, den1, num2, den2) {
+  let answer = [];
+  //공통분모, 새로운 분자 구하기
+  const denoms = den1 * den2;
+  const numers = num1 * den2 + num2 * den1;
+
+  const gcd = (a, b) => (a % b === 0 ? b : gcd(b, a % b));
+  const divisor = gcd(numers, denoms);
+
+  answer[0] = numers / divisor;
+  answer[1] = denoms / divisor;
+
+  return answer;
+}
+
+/**
+ * 문자열 밀기
+ *
+ * 문자열 "hello"에서 각 문자를 오른쪽으로 한 칸씩 밀고 마지막 문자는 맨 앞으로 이동시키면 "ohell"이 됩니다. 이것을 문자열을 민다고 정의한다면 문자열 A와 B가 매개변수로 주어질 때, A를 밀어서 B가 될 수 있다면 밀어야 하는 최소 횟수를 return하고 밀어서 B가 될 수 없으면 -1을 return 하도록 solution 함수를 완성해보세요.
+ */
+
+function solution(A, B) {
+  const arrA = A.split("");
+
+  for (let i = 0; i < arrA.length; i++) {
+    if (A === B) {
+      return i;
+    } else {
+      arrA.unshift(arrA.pop());
+      if (arrA.join("") === B) return i + 1;
+    }
+  }
+
+  return -1;
 }
