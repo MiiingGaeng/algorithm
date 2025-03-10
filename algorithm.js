@@ -2415,20 +2415,20 @@
  * 첫 번째 분수의 분자와 분모를 뜻하는 numer1, denom1, 두 번째 분수의 분자와 분모를 뜻하는 numer2, denom2가 매개변수로 주어집니다. 두 분수를 더한 값을 기약 분수로 나타냈을 때 분자와 분모를 순서대로 담은 배열을 return 하도록 solution 함수를 완성해보세요.
  */
 
-function solution(num1, den1, num2, den2) {
-  let answer = [];
-  //공통분모, 새로운 분자 구하기
-  const denoms = den1 * den2;
-  const numers = num1 * den2 + num2 * den1;
+// function solution(num1, den1, num2, den2) {
+//   let answer = [];
+//   //공통분모, 새로운 분자 구하기
+//   const denoms = den1 * den2;
+//   const numers = num1 * den2 + num2 * den1;
 
-  const gcd = (a, b) => (a % b === 0 ? b : gcd(b, a % b));
-  const divisor = gcd(numers, denoms);
+//   const gcd = (a, b) => (a % b === 0 ? b : gcd(b, a % b));
+//   const divisor = gcd(numers, denoms);
 
-  answer[0] = numers / divisor;
-  answer[1] = denoms / divisor;
+//   answer[0] = numers / divisor;
+//   answer[1] = denoms / divisor;
 
-  return answer;
-}
+//   return answer;
+// }
 
 /**
  * 문자열 밀기
@@ -2436,17 +2436,67 @@ function solution(num1, den1, num2, den2) {
  * 문자열 "hello"에서 각 문자를 오른쪽으로 한 칸씩 밀고 마지막 문자는 맨 앞으로 이동시키면 "ohell"이 됩니다. 이것을 문자열을 민다고 정의한다면 문자열 A와 B가 매개변수로 주어질 때, A를 밀어서 B가 될 수 있다면 밀어야 하는 최소 횟수를 return하고 밀어서 B가 될 수 없으면 -1을 return 하도록 solution 함수를 완성해보세요.
  */
 
-function solution(A, B) {
-  const arrA = A.split("");
+// function solution(A, B) {
+//   const arrA = A.split("");
 
-  for (let i = 0; i < arrA.length; i++) {
-    if (A === B) {
-      return i;
-    } else {
-      arrA.unshift(arrA.pop());
-      if (arrA.join("") === B) return i + 1;
+//   for (let i = 0; i < arrA.length; i++) {
+//     if (A === B) {
+//       return i;
+//     } else {
+//       arrA.unshift(arrA.pop());
+//       if (arrA.join("") === B) return i + 1;
+//     }
+//   }
+
+//   return -1;
+// }
+
+//31일차
+
+/**
+ * 안전지대
+ *
+ * 다음 그림과 같이 지뢰가 있는 지역과 지뢰에 인접한 위, 아래, 좌, 우 대각선 칸을 모두 위험지역으로 분류합니다. 지뢰는 2차원 배열 board에 1로 표시되어 있고 board에는 지뢰가 매설 된 지역 1과, 지뢰가 없는 지역 0만 존재합니다. 지뢰가 매설된 지역의 지도 board가 매개변수로 주어질 때, 안전한 지역의 칸 수를 return하도록 solution 함수를 완성해주세요.
+ */
+
+function solution(board) {
+  const totalBoard = board.length ** 2;
+  let mines = [];
+
+  //보드 순회
+  for (let i = 0; i < board.length; i++) {
+    //열 순회
+    for (let j = 0; j < board.length; j++) {
+      if (board[i][j] === 1) mines.push([i, j]);
     }
   }
 
-  return -1;
+  //델타배열
+  const directions = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1], // 상, 하, 좌, 우
+    [-1, -1],
+    [-1, 1],
+    [1, -1],
+    [1, 1] // 좌상, 우상, 좌하, 우하 (대각선)
+  ];
+
+  for (let [x, y] of mines) {
+    for (let [dx, dy] of directions) {
+      let nx = x + dx;
+      let ny = y + dy;
+
+      if (nx >= 0 && nx < board.length && ny >= 0 && ny < board.length) {
+        if (board[nx][ny] === 0) {
+          board[nx][ny] = -1;
+        }
+      }
+    }
+  }
+
+  //2차원 배열 => 1차원 전환 후 0의 갯수 세기
+  const safePoint = board.flat().filter((point) => point === 0);
+  return safePoint.length;
 }
