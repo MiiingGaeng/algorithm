@@ -2408,7 +2408,6 @@
 // }
 
 //30일차
-
 /**
  * 분수의 덧셈
  *
@@ -2452,51 +2451,69 @@
 // }
 
 //31일차
-
 /**
  * 안전지대
  *
  * 다음 그림과 같이 지뢰가 있는 지역과 지뢰에 인접한 위, 아래, 좌, 우 대각선 칸을 모두 위험지역으로 분류합니다. 지뢰는 2차원 배열 board에 1로 표시되어 있고 board에는 지뢰가 매설 된 지역 1과, 지뢰가 없는 지역 0만 존재합니다. 지뢰가 매설된 지역의 지도 board가 매개변수로 주어질 때, 안전한 지역의 칸 수를 return하도록 solution 함수를 완성해주세요.
  */
 
-function solution(board) {
-  const totalBoard = board.length ** 2;
-  let mines = [];
+// function solution(board) {
+//   const totalBoard = board.length ** 2;
+//   let mines = [];
 
-  //보드 순회
-  for (let i = 0; i < board.length; i++) {
-    //열 순회
-    for (let j = 0; j < board.length; j++) {
-      if (board[i][j] === 1) mines.push([i, j]);
-    }
-  }
+//   //보드 순회
+//   for (let i = 0; i < board.length; i++) {
+//     //열 순회
+//     for (let j = 0; j < board.length; j++) {
+//       if (board[i][j] === 1) mines.push([i, j]);
+//     }
+//   }
 
-  //델타배열
-  const directions = [
-    [-1, 0],
-    [1, 0],
-    [0, -1],
-    [0, 1], // 상, 하, 좌, 우
-    [-1, -1],
-    [-1, 1],
-    [1, -1],
-    [1, 1] // 좌상, 우상, 좌하, 우하 (대각선)
-  ];
+//   //델타배열
+//   const directions = [
+//     [-1, 0],
+//     [1, 0],
+//     [0, -1],
+//     [0, 1], // 상, 하, 좌, 우
+//     [-1, -1],
+//     [-1, 1],
+//     [1, -1],
+//     [1, 1] // 좌상, 우상, 좌하, 우하 (대각선)
+//   ];
 
-  for (let [x, y] of mines) {
-    for (let [dx, dy] of directions) {
-      let nx = x + dx;
-      let ny = y + dy;
+//   for (let [x, y] of mines) {
+//     for (let [dx, dy] of directions) {
+//       let nx = x + dx;
+//       let ny = y + dy;
 
-      if (nx >= 0 && nx < board.length && ny >= 0 && ny < board.length) {
-        if (board[nx][ny] === 0) {
-          board[nx][ny] = -1;
-        }
-      }
-    }
-  }
+//       if (nx >= 0 && nx < board.length && ny >= 0 && ny < board.length) {
+//         if (board[nx][ny] === 0) {
+//           board[nx][ny] = -1;
+//         }
+//       }
+//     }
+//   }
 
-  //2차원 배열 => 1차원 전환 후 0의 갯수 세기
-  const safePoint = board.flat().filter((point) => point === 0);
-  return safePoint.length;
+//   //2차원 배열 => 1차원 전환 후 0의 갯수 세기
+//   const safePoint = board.flat().filter((point) => point === 0);
+//   return safePoint.length;
+// }
+
+//32일차
+/**
+ * 특이한 정렬
+ *
+ * 정수 n을 기준으로 n과 가까운 수부터 정렬하려고 합니다. 이때 n으로부터의 거리가 같다면 더 큰 수를 앞에 오도록 배치합니다. 정수가 담긴 배열 numlist와 정수 n이 주어질 때 numlist의 원소를 n으로부터 가까운 순서대로 정렬한 배열을 return하도록 solution 함수를 완성해주세요.
+ */
+
+function solution(numlist, n) {
+  const compareFn = (a, b, n) => {
+    const gapA = Math.abs(a - n);
+    const gapB = Math.abs(b - n);
+
+    if (gapA === gapB) return b - a;
+    return gapA - gapB;
+  };
+
+  return numlist.sort((a, b) => compareFn(a, b, n));
 }
