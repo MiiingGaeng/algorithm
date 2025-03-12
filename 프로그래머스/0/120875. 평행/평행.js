@@ -1,22 +1,18 @@
 function solution(dots) {
-    let result = 0
-    //1. [0,1]와 [2,3] 비교
-    const lineOneToTwo = Math.abs(dots[1][1] - dots[0][1]) / Math.abs(dots[1][0] - dots[0][0])
-    const lineThreeToFour = Math.abs(dots[3][1] - dots[2][1]) / Math.abs(dots[3][0] - dots[2][0])
-    
-    if(lineOneToTwo === lineThreeToFour) result=1
-    
-    //2. [0,2]과 [1,3] 비교
-    const lineOneToThree = Math.abs(dots[2][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[1][0])
-    const lineTwoToFour = Math.abs(dots[3][1] - dots[1][1]) / Math.abs(dots[3][0] - dots[1][0])
-    
-    if(lineOneToThree === lineTwoToFour) result=1
-    
-    //3. [0,3]와 [1,2] 비교
-    const lineOneToFour = Math.abs(dots[3][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[0][0])
-    const lineTwoToThree = Math.abs(dots[2][1] - dots[1][1]) / Math.abs(dots[2][0] - dots[1][0])
-    
-    if(lineOneToFour === lineTwoToThree) result=1
-    
-    return result
+  const calculateSlope = ([x1, y1], [x2, y2]) =>
+    Math.abs(y2 - y1) / Math.abs(x2 - x1);
+
+  const pairs = [
+    [dots[0], dots[1], dots[2], dots[3]],
+    [dots[0], dots[2], dots[1], dots[3]],
+    [dots[0], dots[3], dots[1], dots[2]]
+  ];
+
+  for (let pair of pairs) {
+    if (calculateSlope(pair[0], pair[1]) === calculateSlope(pair[2], pair[3])) {
+      return 1;
+    }
+  }
+
+  return 0;
 }
