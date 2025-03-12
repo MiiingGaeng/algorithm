@@ -2506,14 +2506,90 @@
  * 정수 n을 기준으로 n과 가까운 수부터 정렬하려고 합니다. 이때 n으로부터의 거리가 같다면 더 큰 수를 앞에 오도록 배치합니다. 정수가 담긴 배열 numlist와 정수 n이 주어질 때 numlist의 원소를 n으로부터 가까운 순서대로 정렬한 배열을 return하도록 solution 함수를 완성해주세요.
  */
 
-function solution(numlist, n) {
-  const compareFn = (a, b, n) => {
-    const gapA = Math.abs(a - n);
-    const gapB = Math.abs(b - n);
+// function solution(numlist, n) {
+//   const compareFn = (a, b, n) => {
+//     const gapA = Math.abs(a - n);
+//     const gapB = Math.abs(b - n);
 
-    if (gapA === gapB) return b - a;
-    return gapA - gapB;
-  };
+//     if (gapA === gapB) return b - a;
+//     return gapA - gapB;
+//   };
 
-  return numlist.sort((a, b) => compareFn(a, b, n));
+//   return numlist.sort((a, b) => compareFn(a, b, n));
+// }
+
+//33일차
+/**
+ * 평행
+ * 
+ * 점 네 개의 좌표를 담은 이차원 배열  dots가 다음과 같이 매개변수로 주어집니다.
+[[x1, y1], [x2, y2], [x3, y3], [x4, y4]]
+주어진 네 개의 점을 두 개씩 이었을 때, 두 직선이 평행이 되는 경우가 있으면 1을 없으면 0을 return 하도록 solution 함수를 완성해보세요.
+ */
+
+function solution(dots) {
+  let result = 0;
+  //1. [0,1]와 [2,3] 비교
+  const lineOneToTwo =
+    Math.abs(dots[1][1] - dots[0][1]) / Math.abs(dots[1][0] - dots[0][0]);
+  const lineThreeToFour =
+    Math.abs(dots[3][1] - dots[2][1]) / Math.abs(dots[3][0] - dots[2][0]);
+
+  if (lineOneToTwo === lineThreeToFour) result = 1;
+
+  //2. [0,2]과 [1,3] 비교
+  const lineOneToThree =
+    Math.abs(dots[2][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[1][0]);
+  const lineTwoToFour =
+    Math.abs(dots[3][1] - dots[1][1]) / Math.abs(dots[3][0] - dots[1][0]);
+
+  if (lineOneToThree === lineTwoToFour) result = 1;
+
+  //3. [0,3]와 [1,2] 비교
+  const lineOneToFour =
+    Math.abs(dots[3][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[0][0]);
+  const lineTwoToThree =
+    Math.abs(dots[2][1] - dots[1][1]) / Math.abs(dots[2][0] - dots[1][0]);
+
+  if (lineOneToFour === lineTwoToThree) result = 1;
+
+  return result;
+}
+
+//다른 사람 풀이
+//함수로 따로 분리하면 훨씬 가독성 좋은 코드로 만들 수 있다.
+function solution(dots) {
+  if (calculateSlope(dots[0], dots[1]) === calculateSlope(dots[2], dots[3]))
+    return 1;
+  if (calculateSlope(dots[0], dots[2]) === calculateSlope(dots[1], dots[3]))
+    return 1;
+  if (calculateSlope(dots[0], dots[3]) === calculateSlope(dots[1], dots[2]))
+    return 1;
+  return 0;
+}
+
+function calculateSlope(arr1, arr2) {
+  return (arr2[1] - arr1[1]) / (arr2[0] - arr1[0]);
+}
+
+//리팩토링 해보기
+//첫 시도는 forEach => forEach는 내부return이 함수를 강제종료할 수 없다!
+//for of문으로 수정
+function solution2(dots) {
+  const calculateSlope = ([x1, y1], [x2, y2]) =>
+    Math.abs(y2 - y1) / Math.abs(x2 - x1);
+
+  const pairs = [
+    [dots[0], dots[1], dots[2], dots[3]],
+    [dots[0], dots[2], dots[1], dots[3]],
+    [dots[0], dots[3], dots[1], dots[2]]
+  ];
+
+  for (let pair of pairs) {
+    if (calculateSlope(pair[0], pair[1]) === calculateSlope(pair[2], pair[3])) {
+      return 1;
+    }
+  }
+
+  return 0;
 }
