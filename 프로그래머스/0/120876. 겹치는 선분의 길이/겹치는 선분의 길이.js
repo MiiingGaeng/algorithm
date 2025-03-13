@@ -1,9 +1,9 @@
 function solution(lines) {
-    let points = Array(201).fill(0); // -100 ~ 100까지 총 201칸 만들기
+    let points = Array(201).fill(0);
 
     // 각 선분이 지나가는 구간을 기록
     for (let [start, end] of lines) {
-        for (let i = start; i < end; i++) { // 끝점 `end`는 포함 안 함!
+        for (let i = start; i < end; i++) {
             points[i + 100]++; // 음수 인덱스를 피하기 위해 +100
         }
     }
