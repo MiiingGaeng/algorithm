@@ -2527,69 +2527,113 @@
 주어진 네 개의 점을 두 개씩 이었을 때, 두 직선이 평행이 되는 경우가 있으면 1을 없으면 0을 return 하도록 solution 함수를 완성해보세요.
  */
 
-function solution(dots) {
-  let result = 0;
-  //1. [0,1]와 [2,3] 비교
-  const lineOneToTwo =
-    Math.abs(dots[1][1] - dots[0][1]) / Math.abs(dots[1][0] - dots[0][0]);
-  const lineThreeToFour =
-    Math.abs(dots[3][1] - dots[2][1]) / Math.abs(dots[3][0] - dots[2][0]);
+// function solution(dots) {
+//   let result = 0;
+//   //1. [0,1]와 [2,3] 비교
+//   const lineOneToTwo =
+//     Math.abs(dots[1][1] - dots[0][1]) / Math.abs(dots[1][0] - dots[0][0]);
+//   const lineThreeToFour =
+//     Math.abs(dots[3][1] - dots[2][1]) / Math.abs(dots[3][0] - dots[2][0]);
 
-  if (lineOneToTwo === lineThreeToFour) result = 1;
+//   if (lineOneToTwo === lineThreeToFour) result = 1;
 
-  //2. [0,2]과 [1,3] 비교
-  const lineOneToThree =
-    Math.abs(dots[2][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[1][0]);
-  const lineTwoToFour =
-    Math.abs(dots[3][1] - dots[1][1]) / Math.abs(dots[3][0] - dots[1][0]);
+//   //2. [0,2]과 [1,3] 비교
+//   const lineOneToThree =
+//     Math.abs(dots[2][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[1][0]);
+//   const lineTwoToFour =
+//     Math.abs(dots[3][1] - dots[1][1]) / Math.abs(dots[3][0] - dots[1][0]);
 
-  if (lineOneToThree === lineTwoToFour) result = 1;
+//   if (lineOneToThree === lineTwoToFour) result = 1;
 
-  //3. [0,3]와 [1,2] 비교
-  const lineOneToFour =
-    Math.abs(dots[3][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[0][0]);
-  const lineTwoToThree =
-    Math.abs(dots[2][1] - dots[1][1]) / Math.abs(dots[2][0] - dots[1][0]);
+//   //3. [0,3]와 [1,2] 비교
+//   const lineOneToFour =
+//     Math.abs(dots[3][1] - dots[0][1]) / Math.abs(dots[3][0] - dots[0][0]);
+//   const lineTwoToThree =
+//     Math.abs(dots[2][1] - dots[1][1]) / Math.abs(dots[2][0] - dots[1][0]);
 
-  if (lineOneToFour === lineTwoToThree) result = 1;
+//   if (lineOneToFour === lineTwoToThree) result = 1;
 
-  return result;
-}
+//   return result;
+// }
 
 //다른 사람 풀이
 //함수로 따로 분리하면 훨씬 가독성 좋은 코드로 만들 수 있다.
-function solution(dots) {
-  if (calculateSlope(dots[0], dots[1]) === calculateSlope(dots[2], dots[3]))
-    return 1;
-  if (calculateSlope(dots[0], dots[2]) === calculateSlope(dots[1], dots[3]))
-    return 1;
-  if (calculateSlope(dots[0], dots[3]) === calculateSlope(dots[1], dots[2]))
-    return 1;
-  return 0;
-}
+// function solution(dots) {
+//   if (calculateSlope(dots[0], dots[1]) === calculateSlope(dots[2], dots[3]))
+//     return 1;
+//   if (calculateSlope(dots[0], dots[2]) === calculateSlope(dots[1], dots[3]))
+//     return 1;
+//   if (calculateSlope(dots[0], dots[3]) === calculateSlope(dots[1], dots[2]))
+//     return 1;
+//   return 0;
+// }
 
-function calculateSlope(arr1, arr2) {
-  return (arr2[1] - arr1[1]) / (arr2[0] - arr1[0]);
-}
+// function calculateSlope(arr1, arr2) {
+//   return (arr2[1] - arr1[1]) / (arr2[0] - arr1[0]);
+// }
 
 //리팩토링 해보기
 //첫 시도는 forEach => forEach는 내부return이 함수를 강제종료할 수 없다!
 //for of문으로 수정
-function solution2(dots) {
-  const calculateSlope = ([x1, y1], [x2, y2]) =>
-    Math.abs(y2 - y1) / Math.abs(x2 - x1);
+// function solution2(dots) {
+//   const calculateSlope = ([x1, y1], [x2, y2]) =>
+//     Math.abs(y2 - y1) / Math.abs(x2 - x1);
 
-  const pairs = [
-    [dots[0], dots[1], dots[2], dots[3]],
-    [dots[0], dots[2], dots[1], dots[3]],
-    [dots[0], dots[3], dots[1], dots[2]]
-  ];
+//   const pairs = [
+//     [dots[0], dots[1], dots[2], dots[3]],
+//     [dots[0], dots[2], dots[1], dots[3]],
+//     [dots[0], dots[3], dots[1], dots[2]]
+//   ];
 
-  for (let pair of pairs) {
-    if (calculateSlope(pair[0], pair[1]) === calculateSlope(pair[2], pair[3])) {
-      return 1;
+//   for (let pair of pairs) {
+//     if (calculateSlope(pair[0], pair[1]) === calculateSlope(pair[2], pair[3])) {
+//       return 1;
+//     }
+//   }
+
+//   return 0;
+// }
+
+//33일차
+/**
+ * 겹치는 선분의 길이
+ *
+ * 선분 3개가 평행하게 놓여 있습니다. 세 선분의 시작과 끝 좌표가 [[start, end], [start, end], [start, end]] 형태로 들어있는 2차원 배열 lines가 매개변수로 주어질 때, 두 개 이상의 선분이 겹치는 부분의 길이를 return 하도록 solution 함수를 완성해보세요.
+ */
+
+//문제해결 실패
+function solution(lines) {
+  lines.sort((a, b) => a[0] - b[0]);
+
+  //(0,1) 겹치는 구간 확인
+  let abLength = 0;
+  let dotsAb = [];
+  if (lines[0][1] > lines[1][0]) {
+    const start = Math.max(lines[0][0], lines[1][0]);
+    const end = Math.min(lines[0][1], lines[1][1]);
+    abLength = end - start;
+    dotsAb = [start, end];
+  }
+
+  //(1,2) 겹치는 구간 확인
+  let bcLength = 0;
+  let dotsBc = [];
+  if (lines[1][1] > lines[2][0]) {
+    const start = Math.max(lines[1][0], lines[2][0]);
+    const end = Math.min(lines[1][1], lines[2][1]);
+    bcLength = end - start;
+    dotsBc = [start, end];
+  }
+
+  //중복으로 겹치는 구간 확인
+  let overlap = 0;
+  if (dotsAb.length > 0 && dotsBc.length > 0) {
+    const max = Math.max(dotsAb[0], dotsBc[0]);
+    const min = Math.min(dotsAb[1], dotsBc[1]);
+    if (min > max) {
+      overlap = min - max;
     }
   }
 
-  return 0;
+  return abLength + bcLength - overlap;
 }
