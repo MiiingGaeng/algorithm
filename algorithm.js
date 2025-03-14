@@ -2594,7 +2594,7 @@
 //   return 0;
 // }
 
-//33일차
+//34일차
 /**
  * 겹치는 선분의 길이
  *
@@ -2602,53 +2602,84 @@
  */
 
 //문제해결 실패
-function solution(lines) {
-  lines.sort((a, b) => a[0] - b[0]);
+// function solution(lines) {
+//   lines.sort((a, b) => a[0] - b[0]);
 
-  //(0,1) 겹치는 구간 확인
-  let abLength = 0;
-  let dotsAb = [];
-  if (lines[0][1] > lines[1][0]) {
-    const start = Math.max(lines[0][0], lines[1][0]);
-    const end = Math.min(lines[0][1], lines[1][1]);
-    abLength = end - start;
-    dotsAb = [start, end];
-  }
+//   //(0,1) 겹치는 구간 확인
+//   let abLength = 0;
+//   let dotsAb = [];
+//   if (lines[0][1] > lines[1][0]) {
+//     const start = Math.max(lines[0][0], lines[1][0]);
+//     const end = Math.min(lines[0][1], lines[1][1]);
+//     abLength = end - start;
+//     dotsAb = [start, end];
+//   }
 
-  //(1,2) 겹치는 구간 확인
-  let bcLength = 0;
-  let dotsBc = [];
-  if (lines[1][1] > lines[2][0]) {
-    const start = Math.max(lines[1][0], lines[2][0]);
-    const end = Math.min(lines[1][1], lines[2][1]);
-    bcLength = end - start;
-    dotsBc = [start, end];
-  }
+//   //(1,2) 겹치는 구간 확인
+//   let bcLength = 0;
+//   let dotsBc = [];
+//   if (lines[1][1] > lines[2][0]) {
+//     const start = Math.max(lines[1][0], lines[2][0]);
+//     const end = Math.min(lines[1][1], lines[2][1]);
+//     bcLength = end - start;
+//     dotsBc = [start, end];
+//   }
 
-  //중복으로 겹치는 구간 확인
-  let overlap = 0;
-  if (dotsAb.length > 0 && dotsBc.length > 0) {
-    const max = Math.max(dotsAb[0], dotsBc[0]);
-    const min = Math.min(dotsAb[1], dotsBc[1]);
-    if (min > max) {
-      overlap = min - max;
-    }
-  }
+//   //중복으로 겹치는 구간 확인
+//   let overlap = 0;
+//   if (dotsAb.length > 0 && dotsBc.length > 0) {
+//     const max = Math.max(dotsAb[0], dotsBc[0]);
+//     const min = Math.min(dotsAb[1], dotsBc[1]);
+//     if (min > max) {
+//       overlap = min - max;
+//     }
+//   }
 
-  return abLength + bcLength - overlap;
-}
+//   return abLength + bcLength - overlap;
+// }
 
 //다른 로직으로 구현
-function solution(lines) {
-  let points = Array(200).fill(0);
+// function solution(lines) {
+//   let points = Array(200).fill(0);
 
-  // 각 선분이 지나가는 구간을 기록
-  for (let [start, end] of lines) {
-    for (let i = start; i < end; i++) {
-      points[i + 100]++; // 음수 인덱스를 피하기 위해 +100
-    }
-  }
+//   // 각 선분이 지나가는 구간을 기록
+//   for (let [start, end] of lines) {
+//     for (let i = start; i < end; i++) {
+//       points[i + 100]++; // 음수 인덱스를 피하기 위해 +100
+//     }
+//   }
 
-  // 2개 이상 겹치는 부분의 길이를 세기
-  return points.filter((count) => count >= 2).length;
+//   // 2개 이상 겹치는 부분의 길이를 세기
+//   return points.filter((count) => count >= 2).length;
+// }
+
+//35일차
+/**
+ * 옹알이(1)
+ *
+ * 머쓱이는 태어난 지 6개월 된 조카를 돌보고 있습니다. 조카는 아직 "aya", "ye", "woo", "ma" 네 가지 발음을 최대 한 번씩 사용해 조합한(이어 붙인) 발음밖에 하지 못합니다. 문자열 배열 babbling이 매개변수로 주어질 때, 머쓱이의 조카가 발음할 수 있는 단어의 개수를 return하도록 solution 함수를 완성해주세요.
+ */
+
+function solution(babbling) {
+  const nephewWord = ["aya", "ye", "woo", "ma"];
+
+  const result = babbling
+    .map((string) => {
+      return nephewWord.reduce((acc, word) => acc.replace(word, " "), string);
+    })
+    .filter((string) => !string.trim()).length;
+
+  return result;
+}
+
+//다른 사람 풀이: 정규식 활용, RegExp.test() 활용
+function solution(babbling) {
+  var answer = 0;
+  const regex = /^(aya|ye|woo|ma)+$/;
+
+  babbling.forEach((word) => {
+    if (regex.test(word)) answer++;
+  });
+
+  return answer;
 }
