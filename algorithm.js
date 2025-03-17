@@ -2660,26 +2660,174 @@
  * 머쓱이는 태어난 지 6개월 된 조카를 돌보고 있습니다. 조카는 아직 "aya", "ye", "woo", "ma" 네 가지 발음을 최대 한 번씩 사용해 조합한(이어 붙인) 발음밖에 하지 못합니다. 문자열 배열 babbling이 매개변수로 주어질 때, 머쓱이의 조카가 발음할 수 있는 단어의 개수를 return하도록 solution 함수를 완성해주세요.
  */
 
-function solution(babbling) {
-  const nephewWord = ["aya", "ye", "woo", "ma"];
+// function solution(babbling) {
+//   const nephewWord = ["aya", "ye", "woo", "ma"];
 
-  const result = babbling
-    .map((string) => {
-      return nephewWord.reduce((acc, word) => acc.replace(word, " "), string);
-    })
-    .filter((string) => !string.trim()).length;
+//   const result = babbling
+//     .map((string) => {
+//       return nephewWord.reduce((acc, word) => acc.replace(word, " "), string);
+//     })
+//     .filter((string) => !string.trim()).length;
 
-  return result;
+//   return result;
+// }
+
+// //다른 사람 풀이: 정규식 활용, RegExp.test() 활용
+// function solution(babbling) {
+//   var answer = 0;
+//   const regex = /^(aya|ye|woo|ma)+$/;
+
+//   babbling.forEach((word) => {
+//     if (regex.test(word)) answer++;
+//   });
+
+//   return answer;
+// }
+
+//36일차
+/**
+ * 기사 단원의 무기
+ * 
+ * 숫자나라 기사단의 각 기사에게는 1번부터 number까지 번호가 지정되어 있습니다. 기사들은 무기점에서 무기를 구매하려고 합니다.
+각 기사는 자신의 기사 번호의 약수 개수에 해당하는 공격력을 가진 무기를 구매하려 합니다. 단, 이웃나라와의 협약에 의해 공격력의 제한수치를 정하고, 제한수치보다 큰 공격력을 가진 무기를 구매해야 하는 기사는 협약기관에서 정한 공격력을 가지는 무기를 구매해야 합니다.
+
+예를 들어, 15번으로 지정된 기사단원은 15의 약수가 1, 3, 5, 15로 4개 이므로, 공격력이 4인 무기를 구매합니다. 만약, 이웃나라와의 협약으로 정해진 공격력의 제한수치가 3이고 제한수치를 초과한 기사가 사용할 무기의 공격력이 2라면, 15번으로 지정된 기사단원은 무기점에서 공격력이 2인 무기를 구매합니다. 무기를 만들 때, 무기의 공격력 1당 1kg의 철이 필요합니다. 그래서 무기점에서 무기를 모두 만들기 위해 필요한 철의 무게를 미리 계산하려 합니다.
+
+기사단원의 수를 나타내는 정수 number와 이웃나라와 협약으로 정해진 공격력의 제한수치를 나타내는 정수 limit와 제한수치를 초과한 기사가 사용할 무기의 공격력을 나타내는 정수 power가 주어졌을 때, 무기점의 주인이 무기를 모두 만들기 위해 필요한 철의 무게를 return 하는 solution 함수를 완성하시오.
+ */
+
+//시간초과
+function solution(number, limit, power) {
+  const soldiersPower = [];
+  for (let i = 1; i <= number; i++) {
+    const power = [];
+    for (let j = 1; j <= i; j++) {
+      if (i % j === 0) power.push(j);
+    }
+
+    soldiersPower.push(power.length);
+  }
+
+  return soldiersPower.reduce((acc, cur) => {
+    return cur > limit ? (acc += power) : (acc += cur);
+  }, 0);
 }
 
-//다른 사람 풀이: 정규식 활용, RegExp.test() 활용
-function solution(babbling) {
-  var answer = 0;
-  const regex = /^(aya|ye|woo|ma)+$/;
+//약수과 제곱근의 관계를 활용한 풀이 방법
+function solution(number, limit, power) {
+  const getPower = (n) => {
+    let count = 0;
+    for (let i = 1; i ** 2 <= n; i++) {
+      if (n % i === 0) {
+        count += i * i === n ? 1 : 2;
+      }
+    }
+    return count;
+  };
 
-  babbling.forEach((word) => {
-    if (regex.test(word)) answer++;
+  let totalPower = 0;
+
+  for (let i = 1; i <= number; i++) {
+    let soldierPower = getPower(i);
+    totalPower += soldierPower > limit ? power : soldierPower;
+  }
+
+  return totalPower;
+}
+
+/**
+ * 문자열 출력하기
+ *
+ * 문자열 str이 주어질 때, str을 출력하는 코드를 작성해 보세요.
+ */
+
+//Node.js에서 작동하는 코드
+const readline = require("readline");
+const rl1 = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input1 = [];
+
+rl1
+  .on("line", function (line) {
+    input1 = [line];
+  })
+  .on("close", function () {
+    str = input1[0];
+    console.log(str);
   });
 
-  return answer;
-}
+/**
+ * a와 b 출력하기
+ *
+ * 정수 a와 b가 주어집니다. 각 수를 입력받아 입출력 예와 같은 형식으로 출력하는 코드를 작성해 보세요.
+ */
+
+const readline = require("readline");
+const rl2 = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input2 = [];
+
+rl2
+  .on("line", function (line) {
+    input2 = line.split(" ");
+  })
+  .on("close", function () {
+    console.log(`a = ${input2[0]}
+b = ${input2[1]}`);
+  });
+
+/**
+ * 문자열 반복해서 출력하기
+ * 
+ * 문자열 str과 정수 n이 주어집니다.
+str이 n번 반복된 문자열을 만들어 출력하는 코드를 작성해 보세요.
+ */
+
+const readline = require("readline");
+const rl3 = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input3 = [];
+
+rl3
+  .on("line", function (line) {
+    input3 = line.split(" ");
+  })
+  .on("close", function () {
+    str = input3[0];
+    n = Number(input3[1]);
+    console.log(str.repeat(n));
+  });
+
+/**
+ * 대소문자 바꿔서 출력하기
+ *
+ * 영어 알파벳으로 이루어진 문자열 str이 주어집니다. 각 알파벳을 대문자는 소문자로 소문자는 대문자로 변환해서 출력하는 코드를 작성해 보세요.
+ */
+
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input = [];
+
+rl.on("line", function (line) {
+  input = [line];
+}).on("close", function () {
+  str = input[0];
+  result = str
+    .split("")
+    .map((s) => (/[A-Z]/.test(s) ? s.toLowerCase() : s.toUpperCase()))
+    .join("");
+  console.log(result);
+});
