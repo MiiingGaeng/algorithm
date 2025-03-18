@@ -2697,43 +2697,43 @@
  */
 
 //시간초과
-function solution(number, limit, power) {
-  const soldiersPower = [];
-  for (let i = 1; i <= number; i++) {
-    const power = [];
-    for (let j = 1; j <= i; j++) {
-      if (i % j === 0) power.push(j);
-    }
+// function solution(number, limit, power) {
+//   const soldiersPower = [];
+//   for (let i = 1; i <= number; i++) {
+//     const power = [];
+//     for (let j = 1; j <= i; j++) {
+//       if (i % j === 0) power.push(j);
+//     }
 
-    soldiersPower.push(power.length);
-  }
+//     soldiersPower.push(power.length);
+//   }
 
-  return soldiersPower.reduce((acc, cur) => {
-    return cur > limit ? (acc += power) : (acc += cur);
-  }, 0);
-}
+//   return soldiersPower.reduce((acc, cur) => {
+//     return cur > limit ? (acc += power) : (acc += cur);
+//   }, 0);
+// }
 
 //약수과 제곱근의 관계를 활용한 풀이 방법
-function solution(number, limit, power) {
-  const getPower = (n) => {
-    let count = 0;
-    for (let i = 1; i ** 2 <= n; i++) {
-      if (n % i === 0) {
-        count += i * i === n ? 1 : 2;
-      }
-    }
-    return count;
-  };
+// function solution(number, limit, power) {
+//   const getPower = (n) => {
+//     let count = 0;
+//     for (let i = 1; i ** 2 <= n; i++) {
+//       if (n % i === 0) {
+//         count += i * i === n ? 1 : 2;
+//       }
+//     }
+//     return count;
+//   };
 
-  let totalPower = 0;
+//   let totalPower = 0;
 
-  for (let i = 1; i <= number; i++) {
-    let soldierPower = getPower(i);
-    totalPower += soldierPower > limit ? power : soldierPower;
-  }
+//   for (let i = 1; i <= number; i++) {
+//     let soldierPower = getPower(i);
+//     totalPower += soldierPower > limit ? power : soldierPower;
+//   }
 
-  return totalPower;
-}
+//   return totalPower;
+// }
 
 /**
  * 문자열 출력하기
@@ -2742,22 +2742,22 @@ function solution(number, limit, power) {
  */
 
 //Node.js에서 작동하는 코드
-const readline = require("readline");
-const rl1 = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// const readline = require("readline");
+// const rl1 = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
-let input1 = [];
+// let input1 = [];
 
-rl1
-  .on("line", function (line) {
-    input1 = [line];
-  })
-  .on("close", function () {
-    str = input1[0];
-    console.log(str);
-  });
+// rl1
+//   .on("line", function (line) {
+//     input1 = [line];
+//   })
+//   .on("close", function () {
+//     str = input1[0];
+//     console.log(str);
+//   });
 
 /**
  * a와 b 출력하기
@@ -2765,22 +2765,22 @@ rl1
  * 정수 a와 b가 주어집니다. 각 수를 입력받아 입출력 예와 같은 형식으로 출력하는 코드를 작성해 보세요.
  */
 
-const readline = require("readline");
-const rl2 = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// const readline = require("readline");
+// const rl2 = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
-let input2 = [];
+// let input2 = [];
 
-rl2
-  .on("line", function (line) {
-    input2 = line.split(" ");
-  })
-  .on("close", function () {
-    console.log(`a = ${input2[0]}
-b = ${input2[1]}`);
-  });
+// rl2
+//   .on("line", function (line) {
+//     input2 = line.split(" ");
+//   })
+//   .on("close", function () {
+//     console.log(`a = ${input2[0]}
+// b = ${input2[1]}`);
+//   });
 
 /**
  * 문자열 반복해서 출력하기
@@ -2789,23 +2789,23 @@ b = ${input2[1]}`);
 str이 n번 반복된 문자열을 만들어 출력하는 코드를 작성해 보세요.
  */
 
-const readline = require("readline");
-const rl3 = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// const readline = require("readline");
+// const rl3 = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
-let input3 = [];
+// let input3 = [];
 
-rl3
-  .on("line", function (line) {
-    input3 = line.split(" ");
-  })
-  .on("close", function () {
-    str = input3[0];
-    n = Number(input3[1]);
-    console.log(str.repeat(n));
-  });
+// rl3
+//   .on("line", function (line) {
+//     input3 = line.split(" ");
+//   })
+//   .on("close", function () {
+//     str = input3[0];
+//     n = Number(input3[1]);
+//     console.log(str.repeat(n));
+//   });
 
 /**
  * 대소문자 바꿔서 출력하기
@@ -2813,21 +2813,108 @@ rl3
  * 영어 알파벳으로 이루어진 문자열 str이 주어집니다. 각 알파벳을 대문자는 소문자로 소문자는 대문자로 변환해서 출력하는 코드를 작성해 보세요.
  */
 
-const readline = require("readline");
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// const readline = require("readline");
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
-let input = [];
+// let input = [];
 
-rl.on("line", function (line) {
-  input = [line];
-}).on("close", function () {
-  str = input[0];
-  result = str
-    .split("")
-    .map((s) => (/[A-Z]/.test(s) ? s.toLowerCase() : s.toUpperCase()))
-    .join("");
-  console.log(result);
-});
+// rl.on("line", function (line) {
+//   input = [line];
+// }).on("close", function () {
+//   str = input[0];
+//   result = str
+//     .split("")
+//     .map((s) => (/[A-Z]/.test(s) ? s.toLowerCase() : s.toUpperCase()))
+//     .join("");
+//   console.log(result);
+// });
+
+//37일차
+/**
+ * 로또의 최고 순위와 최저 순위
+ *
+ * 로또를 구매한 민우는 당첨 번호 발표일을 학수고대하고 있었습니다. 하지만, 민우의 동생이 로또에 낙서를 하여, 일부 번호를 알아볼 수 없게 되었습니다. 당첨 번호 발표 후, 민우는 자신이 구매했던 로또로 당첨이 가능했던 최고 순위와 최저 순위를 알아보고 싶어 졌습니다.
+ * 민우가 구매한 로또 번호를 담은 배열 lottos, 당첨 번호를 담은 배열 win_nums가 매개변수로 주어집니다. 이때, 당첨 가능한 최고 순위와 최저 순위를 차례대로 배열에 담아서 return 하도록 solution 함수를 완성해주세요.
+ */
+
+function solution(lottos, winNums) {
+  let best = 0;
+  let worst = 0;
+
+  let count = 0;
+  for (let i = 0; i < lottos.length; i++) {
+    for (let j = 0; j < winNums.length; j++) {
+      if (lottos[i] === winNums[j]) {
+        count++;
+      }
+    }
+  }
+
+  //0을 제외한 숫자 먼저 처리 = 최저순위
+  switch (count) {
+    case 0:
+      worst = 6;
+      break;
+    case 1:
+      worst = 6;
+      break;
+    case 2:
+      worst = 5;
+      break;
+    case 3:
+      worst = 4;
+      break;
+    case 4:
+      worst = 3;
+      break;
+    case 5:
+      worst = 2;
+      break;
+    case 6:
+      worst = 1;
+      break;
+  }
+
+  //0을 포함한 등수 처리 = 최고 순위
+  count += lottos.filter((num) => num === 0).length;
+  switch (count) {
+    case 0:
+      best = 6;
+      break;
+    case 1:
+      best = 6;
+      break;
+    case 2:
+      best = 5;
+      break;
+    case 3:
+      best = 4;
+      break;
+    case 4:
+      best = 3;
+      break;
+    case 5:
+      best = 2;
+      break;
+    case 6:
+      best = 1;
+      break;
+  }
+
+  return [best, worst];
+}
+
+//다른 사람의 풀이
+function solution(lottos, win_nums) {
+  const rank = [6, 6, 5, 4, 3, 2, 1];
+
+  let minCount = lottos.filter((v) => win_nums.includes(v)).length;
+  let zeroCount = lottos.filter((v) => !v).length;
+
+  const maxCount = minCount + zeroCount;
+
+  return [rank[maxCount], rank[minCount]];
+}
