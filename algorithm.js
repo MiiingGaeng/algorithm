@@ -2840,6 +2840,7 @@ str이 n번 반복된 문자열을 만들어 출력하는 코드를 작성해 �
  * 민우가 구매한 로또 번호를 담은 배열 lottos, 당첨 번호를 담은 배열 win_nums가 매개변수로 주어집니다. 이때, 당첨 가능한 최고 순위와 최저 순위를 차례대로 배열에 담아서 return 하도록 solution 함수를 완성해주세요.
  */
 
+//switch 문을 꼭 두번씩이나 써야하나라는 생각이 들었던 풀이...
 function solution(lottos, winNums) {
   let best = 0;
   let worst = 0;
@@ -2907,7 +2908,7 @@ function solution(lottos, winNums) {
   return [best, worst];
 }
 
-//다른 사람의 풀이
+//다른 사람의 풀이 : 이렇게 간단한데 난 왜 굳이 switch를 두번씩이나 풀었는가...
 function solution(lottos, win_nums) {
   const rank = [6, 6, 5, 4, 3, 2, 1];
 
