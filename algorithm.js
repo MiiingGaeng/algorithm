@@ -2841,81 +2841,269 @@ str이 n번 반복된 문자열을 만들어 출력하는 코드를 작성해 �
  */
 
 //switch 문을 꼭 두번씩이나 써야하나라는 생각이 들었던 풀이...
-function solution(lottos, winNums) {
-  let best = 0;
-  let worst = 0;
+// function solution(lottos, winNums) {
+//   let best = 0;
+//   let worst = 0;
 
-  let count = 0;
-  for (let i = 0; i < lottos.length; i++) {
-    for (let j = 0; j < winNums.length; j++) {
-      if (lottos[i] === winNums[j]) {
-        count++;
-      }
-    }
-  }
+//   let count = 0;
+//   for (let i = 0; i < lottos.length; i++) {
+//     for (let j = 0; j < winNums.length; j++) {
+//       if (lottos[i] === winNums[j]) {
+//         count++;
+//       }
+//     }
+//   }
 
-  //0을 제외한 숫자 먼저 처리 = 최저순위
-  switch (count) {
-    case 0:
-      worst = 6;
-      break;
-    case 1:
-      worst = 6;
-      break;
-    case 2:
-      worst = 5;
-      break;
-    case 3:
-      worst = 4;
-      break;
-    case 4:
-      worst = 3;
-      break;
-    case 5:
-      worst = 2;
-      break;
-    case 6:
-      worst = 1;
-      break;
-  }
+//   //0을 제외한 숫자 먼저 처리 = 최저순위
+//   switch (count) {
+//     case 0:
+//       worst = 6;
+//       break;
+//     case 1:
+//       worst = 6;
+//       break;
+//     case 2:
+//       worst = 5;
+//       break;
+//     case 3:
+//       worst = 4;
+//       break;
+//     case 4:
+//       worst = 3;
+//       break;
+//     case 5:
+//       worst = 2;
+//       break;
+//     case 6:
+//       worst = 1;
+//       break;
+//   }
 
-  //0을 포함한 등수 처리 = 최고 순위
-  count += lottos.filter((num) => num === 0).length;
-  switch (count) {
-    case 0:
-      best = 6;
-      break;
-    case 1:
-      best = 6;
-      break;
-    case 2:
-      best = 5;
-      break;
-    case 3:
-      best = 4;
-      break;
-    case 4:
-      best = 3;
-      break;
-    case 5:
-      best = 2;
-      break;
-    case 6:
-      best = 1;
-      break;
-  }
+//   //0을 포함한 등수 처리 = 최고 순위
+//   count += lottos.filter((num) => num === 0).length;
+//   switch (count) {
+//     case 0:
+//       best = 6;
+//       break;
+//     case 1:
+//       best = 6;
+//       break;
+//     case 2:
+//       best = 5;
+//       break;
+//     case 3:
+//       best = 4;
+//       break;
+//     case 4:
+//       best = 3;
+//       break;
+//     case 5:
+//       best = 2;
+//       break;
+//     case 6:
+//       best = 1;
+//       break;
+//   }
 
-  return [best, worst];
-}
+//   return [best, worst];
+// }
 
 //다른 사람의 풀이 : 이렇게 간단한데 난 왜 굳이 switch를 두번씩이나 풀었는가...
-function solution(lottos, win_nums) {
-  const rank = [6, 6, 5, 4, 3, 2, 1];
+// function solution(lottos, win_nums) {
+//   const rank = [6, 6, 5, 4, 3, 2, 1];
 
-  let minCount = lottos.filter((v) => win_nums.includes(v)).length;
-  let zeroCount = lottos.filter((v) => !v).length;
+//   let minCount = lottos.filter((v) => win_nums.includes(v)).length;
+//   let zeroCount = lottos.filter((v) => !v).length;
 
-  const maxCount = minCount + zeroCount;
+//   const maxCount = minCount + zeroCount;
 
-  return [rank[maxCount], rank[minCount]];
+//   return [rank[maxCount], rank[minCount]];
+// }
+
+//38일차
+/**
+ * 옹알이(2)
+ *
+ * 머쓱이는 태어난 지 11개월 된 조카를 돌보고 있습니다. 조카는 아직 "aya", "ye", "woo", "ma" 네 가지 발음과 네 가지 발음을 조합해서 만들 수 있는 발음밖에 하지 못하고 연속해서 같은 발음을 하는 것을 어려워합니다. 문자열 배열 babbling이 매개변수로 주어질 때, 머쓱이의 조카가 발음할 수 있는 단어의 개수를 return하도록 solution 함수를 완성해주세요.
+ */
+
+function solution(babbling) {
+  const nephewWord = ["aya", "ye", "woo", "ma"];
+
+  const result = babbling
+    .map((str) => {
+      if (nephewWord.some((word) => str.includes(word + word))) return str;
+
+      while (nephewWord.some((word) => str.includes(word))) {
+        for (let word of nephewWord) {
+          str = str.replace(word, " ");
+        }
+      }
+
+      return str;
+    })
+    .filter((str) => !str.trim()).length;
+
+  return result;
+}
+
+//다른 사람 풀이 : 정규식 사용
+function solution(babbling) {
+  const regexp1 = /(aya|ye|woo|ma)\1+/;
+  const regexp2 = /^(aya|ye|woo|ma)+$/;
+
+  return babbling.reduce(
+    (ans, word) => (!regexp1.test(word) && regexp2.test(word) ? ++ans : ans),
+    0
+  );
+}
+
+//다른 사람 풀이 : 직관적 풀이
+function solution(babbling) {
+  const babblables = ["aya", "ye", "woo", "ma"];
+
+  return babbling.reduce((possible, babbl) => {
+    for (let i = 0; i < babblables.length; i += 1) {
+      if (babbl.includes(babblables[i].repeat(2))) return possible;
+    }
+
+    for (let i = 0; i < babblables.length; i += 1) {
+      babbl = babbl.split(babblables[i]).join(" ").trim();
+    }
+
+    if (babbl) return possible;
+
+    return (possible += 1);
+  }, 0);
+}
+
+/**
+ * 특수문자 출력하기
+ */
+const readline1 = require("readline");
+const rl1 = readline1.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl1.on("close", function () {
+  console.log(`!@#$%^&*(\\'"<>?:;`);
+});
+
+/**
+ * 덧셈식 출력하기
+ * 
+ * 두 정수 a, b가 주어질 때 다음과 같은 형태의 계산식을 출력하는 코드를 작성해 보세요.
+a + b = c
+ */
+const readline2 = require("readline");
+const rl2 = readline2.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input = [];
+
+rl2
+  .on("line", function (line) {
+    input = line.split(" ");
+  })
+  .on("close", function () {
+    console.log(
+      `${Number(input[0])} + ${Number(input[1])} = ${
+        Number(input[0]) + Number(input[1])
+      }`
+    );
+  });
+
+/**
+   * 문자열 붙여서 출력하기
+   * 
+   * 두 개의 문자열 str1, str2가 공백으로 구분되어 입력으로 주어집니다.
+입출력 예와 같이 str1과 str2을 이어서 출력하는 코드를 작성해 보세요.
+   */
+const readline3 = require("readline");
+const rl3 = readline3.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input3 = [];
+
+rl3
+  .on("line", function (line) {
+    input3 = line.split(" ");
+  })
+  .on("close", function () {
+    str1 = input3[0];
+    str2 = input3[1];
+    console.log(str1 + str2);
+  });
+
+/**
+ * 문자열 돌리기
+ * 
+ * 문자열 str이 주어집니다.
+문자열을 시계방향으로 90도 돌려서 아래 입출력 예와 같이 출력하는 코드를 작성해 보세요.
+ */
+const readline4 = require("readline");
+const rl4 = readline4.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input4 = [];
+
+rl4
+  .on("line", function (line) {
+    input4 = [line];
+  })
+  .on("close", function () {
+    str = input4[0];
+    str.split("").forEach((char) => {
+      console.log(char);
+    });
+  });
+
+/**
+ * 홀짝 구분하기
+ *
+ * 자연수 n이 입력으로 주어졌을 때 만약 n이 짝수이면 "n is even"을, 홀수이면 "n is odd"를 출력하는 코드를 작성해 보세요.
+ */
+const readline5 = require("readline");
+const rl5 = readline5.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input5 = [];
+
+rl5
+  .on("line", function (line) {
+    input5 = line.split(" ");
+  })
+  .on("close", function () {
+    n = Number(input5[0]);
+    n % 2 === 0 ? console.log(`${n} is even`) : console.log(`${n} is odd`);
+  });
+
+/**
+ * 문자열 겹쳐쓰기
+ *
+ * 문자열 my_string, overwrite_string과 정수 s가 주어집니다. 문자열 my_string의 인덱스 s부터 overwrite_string의 길이만큼을 문자열 overwrite_string으로 바꾼 문자열을 return 하는 solution 함수를 작성해 주세요.
+ */
+//해결 못한 시도 : replace의 경우 처음 등장하는 문자열을 반환하기 때문에 중복된 문자열의 경우 잘못된 부분을 치환할 수 있다.
+function solution(my_string, overwrite_string, s) {
+  const length = overwrite_string.length;
+  const sliced = my_string.substring(s, s + length);
+  return my_string.replace(sliced, overwrite_string);
+}
+
+//해결
+function solution(my_string, overwrite_string, s) {
+  return (
+    my_string.slice(0, s) +
+    overwrite_string +
+    my_string.slice(s + overwrite_string.length)
+  );
 }
