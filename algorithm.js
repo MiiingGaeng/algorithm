@@ -3109,25 +3109,45 @@ a + b = c
 // }
 
 //39일차
-function solution(X, Y) {
-  const arrX = [...X];
-  const arrY = [...Y];
-  let result = "";
+// function solution(X, Y) {
+//   const arrX = [...X];
+//   const arrY = [...Y];
+//   let result = "";
 
-  for (let i = 0; i <= 9; i++) {
-    let countX = arrX.filter((num) => parseInt(num) === i).length;
-    let countY = arrY.filter((num) => parseInt(num) === i).length;
+//   for (let i = 0; i <= 9; i++) {
+//     let countX = arrX.filter((num) => parseInt(num) === i).length;
+//     let countY = arrY.filter((num) => parseInt(num) === i).length;
 
-    if (countX && countY) {
-      const min = Math.min(countX, countY);
-      result += String(i).repeat(min);
-    }
+//     if (countX && countY) {
+//       const min = Math.min(countX, countY);
+//       result += String(i).repeat(min);
+//     }
+//   }
+
+//   if (!result) return "-1";
+//   if (result.split("").every((num) => num === "0")) return "0";
+//   return result
+//     .split("")
+//     .sort((a, b) => parseInt(b) - parseInt(a))
+//     .join("");
+// }
+
+//40일차
+/**
+ * 문자열 섞기
+ *
+ * 길이가 같은 두 문자열 str1과 str2가 주어집니다. 두 문자열의 각 문자가 앞에서부터 서로 번갈아가면서 한 번씩 등장하는 문자열을 만들어 return 하는 solution 함수를 완성해 주세요.
+ */
+
+function solution(str1, str2) {
+  let result = [];
+
+  const arr1 = str1.split("");
+  const arr2 = str2.split("");
+
+  for (let i = 0; i < arr1.length; i++) {
+    result.push(arr1[i], arr2[i]);
   }
 
-  if (!result) return "-1";
-  if (result.split("").every((num) => num === "0")) return "0";
-  return result
-    .split("")
-    .sort((a, b) => parseInt(b) - parseInt(a))
-    .join("");
+  return result.join("");
 }
